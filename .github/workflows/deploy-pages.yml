@@ -1,0 +1,61 @@
+name: Build And Publish Pages Branch
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages-branch
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build static site
+        shell: bash
+        env:
+          GH_TOKEN_VALUE: ${{ secrets.MY_ACCESS_TOKEN }}
+        run: |
+          mkdir -p dist
+          cp index.html dist/index.html
+          cp suggestions.json dist/suggestions.json
+          cp goals.json dist/goals.json
+          printf '' > dist/.nojekyll
+          sed -i "s|__GH_TOKEN__|${GH_TOKEN_VALUE}|g" dist/index.html
+
+      - name: Publish to gh-pages branch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin gh-pages; then
+            git fetch origin gh-pages
+            git worktree add gh-pages-worktree origin/gh-pages
+            cd gh-pages-worktree
+            find . -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -rf {} +
+          else
+            git worktree add --detach gh-pages-worktree
+            cd gh-pages-worktree
+            git checkout --orphan gh-pages
+            find . -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -rf {} +
+          fi
+          cp -r ../dist/. .
+          git add --all
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+            exit 0
+          fi
+          git commit -m "Publish GitHub Pages"
+          git push --force origin HEAD:gh-pages

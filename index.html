@@ -241,35 +241,23 @@ body.fellowship{background:#1a1208;}
 .fellowship .sug-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.15em;color:#8a6e2a;text-transform:uppercase;margin-bottom:8px;display:block;}
 .fellowship .sug-select{width:100%;font-family:'Cinzel',serif;font-size:12px;padding:9px 12px;border-radius:4px;border:0.5px solid rgba(201,168,76,0.25);background:#3a2c12;color:#d4c49e;margin-bottom:12px;}
 .fellowship .sug-select:focus{outline:none;border-color:#8a6e2a;}
+.fellowship .sug-diff-row{display:flex;gap:8px;margin-bottom:12px;}
+.fellowship .sug-diff-btn{flex:1;padding:8px 6px;border-radius:4px;border:0.5px solid rgba(201,168,76,0.25);background:#3a2c12;cursor:pointer;text-align:center;font-family:'Cinzel',serif;font-size:10px;color:#b8a98a;transition:all 0.2s;}
+.fellowship .sug-diff-btn:hover{border-color:#8a6e2a;}
+.fellowship .sug-diff-btn.sel-easy{border-color:#5DCAA5;color:#5DCAA5;background:#04342C;}
+.fellowship .sug-diff-btn.sel-medium{border-color:#c9a84c;color:#c9a84c;background:#2a1a00;}
+.fellowship .sug-diff-btn.sel-hard{border-color:#F09595;color:#F09595;background:#2a0808;}
 .fellowship .sug-textarea{width:100%;font-family:'Crimson Text',serif;font-size:15px;padding:12px 14px;border-radius:4px;border:0.5px solid rgba(201,168,76,0.25);background:#3a2c12;color:#d4c49e;font-style:italic;line-height:1.6;resize:vertical;min-height:90px;margin-bottom:12px;}
 .fellowship .sug-textarea::placeholder{color:#7a6a4a;}
 .fellowship .sug-textarea:focus{outline:none;border-color:#8a6e2a;}
 .fellowship .sug-note{font-family:'Crimson Text',serif;font-size:13px;color:#7a6a4a;font-style:italic;margin-bottom:14px;line-height:1.6;}
 .fellowship .sug-btn{padding:9px 20px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.12em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.5);background:transparent;color:#8a6e2a;cursor:pointer;}
 .fellowship .sug-btn:hover{border-color:#c9a84c;color:#c9a84c;}
-.fellowship .copy-box{background:#231a0a;border:0.5px solid rgba(201,168,76,0.2);border-radius:4px;padding:14px;font-family:'Crimson Text',serif;font-size:14px;color:#d4c49e;line-height:1.7;white-space:pre-wrap;margin:12px 0;font-style:italic;}
-.fellowship .copy-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
-.fellowship .copy-actions button{padding:7px 16px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.1em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.5);background:transparent;color:#8a6e2a;cursor:pointer;}
-.fellowship .copy-actions button:hover{border-color:#c9a84c;color:#c9a84c;}
-.fellowship .copy-confirm{font-size:12px;color:#5DCAA5;font-style:italic;display:none;font-family:'Crimson Text',serif;}
-
-.fellowship .modal-vp{min-height:360px;display:none;align-items:center;justify-content:center;margin-bottom:1.5rem;background:rgba(0,0,0,0.7);border-radius:6px;}
-.fellowship .modal-vp.open{display:flex;}
-.fellowship .modal{background:#2a1f0e;border:0.5px solid rgba(201,168,76,0.5);border-radius:4px;padding:1.5rem;width:100%;max-width:420px;}
-.fellowship .modal-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.15em;color:#c9a84c;margin-bottom:1.25rem;}
-.fellowship .share-tabs{display:flex;gap:6px;margin-bottom:1.25rem;}
-.fellowship .share-tab{flex:1;padding:7px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.1em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.25);background:transparent;color:#7a6a4a;cursor:pointer;text-align:center;}
-.fellowship .share-tab.active{border-color:#8a6e2a;color:#c9a84c;}
-.fellowship .tc-content{background:#3a2c12;border-radius:3px;border:0.5px solid rgba(201,168,76,0.2);padding:14px;font-family:'Crimson Text',serif;font-size:14px;color:#d4c49e;line-height:1.7;margin-bottom:12px;white-space:pre-wrap;font-style:italic;}
-.fellowship .vc-card{background:#231a0a;border:0.5px solid rgba(201,168,76,0.25);border-radius:4px;padding:18px 20px;margin-bottom:12px;}
-.fellowship .vc-eyebrow{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;color:#8a6e2a;text-transform:uppercase;margin-bottom:8px;}
-.fellowship .vc-goal{font-family:'Crimson Text',serif;font-size:16px;color:#f0e6c8;line-height:1.75;font-style:italic;margin-bottom:10px;}
-.fellowship .vc-footer{display:flex;justify-content:space-between;}
-.fellowship .vc-date{font-size:11px;color:#7a6a4a;font-family:'Cinzel',serif;}
-.fellowship .vc-brand{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:#5a4a2a;}
-.fellowship .modal-actions{display:flex;gap:8px;flex-wrap:wrap;}
-.fellowship .modal-actions button{padding:7px 14px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.08em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.25);background:transparent;color:#b8a98a;cursor:pointer;}
-.fellowship .modal-actions button:hover{border-color:#8a6e2a;color:#c9a84c;}
+.fellowship .sug-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.fellowship .sug-status{font-family:'Crimson Text',serif;font-size:13px;margin-top:12px;font-style:italic;display:none;}
+.fellowship .sug-status.ok{color:#5DCAA5;}
+.fellowship .sug-status.err{color:#F09595;}
+.fellowship .sug-status.sending{color:#c9a84c;}
 
 /* ============================================================
    THEME: GLASS
@@ -365,35 +353,23 @@ body.glass{background:linear-gradient(160deg,#dde8ff 0%,#ede4ff 50%,#fde0ec 100%
 .glass .sug-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.12em;color:rgba(99,102,241,0.6);text-transform:uppercase;margin-bottom:8px;display:block;}
 .glass .sug-select{width:100%;font-family:'Inter',sans-serif;font-size:13px;padding:9px 12px;border-radius:10px;border:0.5px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.6);color:#1e1b4b;margin-bottom:12px;}
 .glass .sug-select:focus{outline:none;border-color:rgba(99,102,241,0.4);}
+.glass .sug-diff-row{display:flex;gap:8px;margin-bottom:12px;}
+.glass .sug-diff-btn{flex:1;padding:8px 6px;border-radius:10px;border:0.5px solid rgba(255,255,255,0.6);background:rgba(255,255,255,0.4);cursor:pointer;text-align:center;font-family:'Inter',sans-serif;font-size:11px;color:rgba(67,56,202,0.6);transition:all 0.2s;}
+.glass .sug-diff-btn:hover{background:rgba(255,255,255,0.7);}
+.glass .sug-diff-btn.sel-easy{border-color:rgba(16,185,129,0.5);color:#059669;background:rgba(209,250,229,0.6);}
+.glass .sug-diff-btn.sel-medium{border-color:rgba(99,102,241,0.5);color:#4338ca;background:rgba(224,231,255,0.7);}
+.glass .sug-diff-btn.sel-hard{border-color:rgba(239,68,68,0.4);color:#dc2626;background:rgba(254,226,226,0.6);}
 .glass .sug-textarea{width:100%;font-family:'Inter',sans-serif;font-size:14px;padding:12px 14px;border-radius:10px;border:0.5px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.6);color:#1e1b4b;line-height:1.6;resize:vertical;min-height:90px;margin-bottom:12px;}
 .glass .sug-textarea::placeholder{color:rgba(67,56,202,0.3);}
 .glass .sug-textarea:focus{outline:none;border-color:rgba(99,102,241,0.4);}
 .glass .sug-note{font-family:'Inter',sans-serif;font-size:12px;color:rgba(67,56,202,0.5);margin-bottom:14px;line-height:1.6;}
 .glass .sug-btn{padding:9px 20px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;border-radius:20px;border:0.5px solid rgba(255,255,255,0.8);background:rgba(255,255,255,0.55);color:#4338ca;cursor:pointer;}
 .glass .sug-btn:hover{background:rgba(255,255,255,0.8);}
-.glass .copy-box{background:rgba(255,255,255,0.5);border:0.5px solid rgba(255,255,255,0.7);border-radius:12px;padding:14px;font-family:'Inter',sans-serif;font-size:13px;color:#1e1b4b;line-height:1.7;white-space:pre-wrap;margin:12px 0;}
-.glass .copy-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
-.glass .copy-actions button{padding:7px 16px;font-family:'Inter',sans-serif;font-size:12px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.8);background:rgba(255,255,255,0.5);color:#4338ca;cursor:pointer;}
-.glass .copy-actions button:hover{background:rgba(255,255,255,0.8);}
-.glass .copy-confirm{font-size:12px;color:#059669;display:none;font-family:'Inter',sans-serif;}
-
-.glass .modal-vp{min-height:360px;display:none;align-items:center;justify-content:center;margin-bottom:1.5rem;background:rgba(100,100,200,0.15);border-radius:20px;backdrop-filter:blur(4px);}
-.glass .modal-vp.open{display:flex;}
-.glass .modal{background:rgba(255,255,255,0.7);border:0.5px solid rgba(255,255,255,0.9);border-radius:20px;padding:1.5rem;width:100%;max-width:420px;backdrop-filter:blur(16px);}
-.glass .modal-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:#1e1b4b;margin-bottom:1.25rem;}
-.glass .share-tabs{display:flex;gap:6px;margin-bottom:1.25rem;}
-.glass .share-tab{flex:1;padding:7px;font-family:'Inter',sans-serif;font-size:11px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.7);background:transparent;color:rgba(67,56,202,0.5);cursor:pointer;text-align:center;}
-.glass .share-tab.active{background:rgba(255,255,255,0.7);color:#1e1b4b;font-weight:500;}
-.glass .tc-content{background:rgba(255,255,255,0.5);border-radius:12px;border:0.5px solid rgba(255,255,255,0.7);padding:14px;font-family:'Inter',sans-serif;font-size:13px;color:#1e1b4b;line-height:1.7;margin-bottom:12px;white-space:pre-wrap;}
-.glass .vc-card{background:rgba(255,255,255,0.55);border:0.5px solid rgba(255,255,255,0.8);border-radius:16px;padding:18px 20px;margin-bottom:12px;}
-.glass .vc-eyebrow{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.15em;color:#6366f1;text-transform:uppercase;margin-bottom:8px;}
-.glass .vc-goal{font-family:'Inter',sans-serif;font-size:15px;color:#1e1b4b;line-height:1.7;margin-bottom:10px;}
-.glass .vc-footer{display:flex;justify-content:space-between;}
-.glass .vc-date{font-size:11px;color:rgba(67,56,202,0.4);font-family:'Inter',sans-serif;}
-.glass .vc-brand{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.1em;color:rgba(99,102,241,0.3);}
-.glass .modal-actions{display:flex;gap:8px;flex-wrap:wrap;}
-.glass .modal-actions button{padding:7px 14px;font-family:'Inter',sans-serif;font-size:11px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.5);color:#4338ca;cursor:pointer;}
-.glass .modal-actions button:hover{background:rgba(255,255,255,0.8);}
+.glass .sug-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.glass .sug-status{font-family:'Inter',sans-serif;font-size:12px;margin-top:12px;display:none;}
+.glass .sug-status.ok{color:#059669;}
+.glass .sug-status.err{color:#dc2626;}
+.glass .sug-status.sending{color:#4338ca;}
 
 /* ============================================================
    THEME: BOOK CLUB
@@ -493,17 +469,75 @@ body.book{background:#f7f4ef;}
 .book .sug-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.12em;color:#b5977a;text-transform:uppercase;margin-bottom:8px;display:block;}
 .book .sug-select{width:100%;font-family:'Lora',serif;font-size:13px;padding:9px 12px;border-radius:4px;border:0.5px solid #e0d8cc;background:#f7f4ef;color:#2c2416;margin-bottom:12px;}
 .book .sug-select:focus{outline:none;border-color:#b5977a;}
+.book .sug-diff-row{display:flex;gap:8px;margin-bottom:12px;}
+.book .sug-diff-btn{flex:1;padding:8px 6px;border-radius:4px;border:0.5px solid #e0d8cc;background:#fffdf9;cursor:pointer;text-align:center;font-family:'Lora',serif;font-size:11px;color:#7c6f5a;transition:all 0.2s;}
+.book .sug-diff-btn:hover{border-color:#c5b89a;}
+.book .sug-diff-btn.sel-easy{border-color:#7CAE8E;color:#4E8A68;background:#EBF5EF;}
+.book .sug-diff-btn.sel-medium{border-color:#b5977a;color:#8A6040;background:#F9F0E7;}
+.book .sug-diff-btn.sel-hard{border-color:#B57A7A;color:#8A3E3E;background:#F9EDED;}
 .book .sug-textarea{width:100%;font-family:'Lora',serif;font-size:14px;padding:12px 14px;border-radius:4px;border:0.5px solid #e0d8cc;background:#f7f4ef;color:#2c2416;line-height:1.65;resize:vertical;min-height:90px;margin-bottom:12px;}
 .book .sug-textarea::placeholder{color:#9a8870;font-style:italic;}
 .book .sug-textarea:focus{outline:none;border-color:#b5977a;}
 .book .sug-note{font-family:'Lora',serif;font-size:13px;color:#9a8870;font-style:italic;margin-bottom:14px;line-height:1.6;}
 .book .sug-btn{padding:9px 20px;font-family:'Lora',serif;font-size:13px;border-radius:3px;border:0.5px solid #c5b89a;background:#fffdf9;color:#7c6f5a;cursor:pointer;}
 .book .sug-btn:hover{border-color:#b5977a;color:#2c2416;background:#f7f0e8;}
-.book .copy-box{background:#f7f4ef;border:0.5px solid #e0d8cc;border-radius:4px;padding:14px;font-family:'Lora',serif;font-size:13px;color:#2c2416;line-height:1.7;white-space:pre-wrap;margin:12px 0;}
-.book .copy-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
-.book .copy-actions button{padding:7px 16px;font-family:'Inter',sans-serif;font-size:11px;border-radius:3px;border:0.5px solid #c5b89a;background:#fffdf9;color:#7c6f5a;cursor:pointer;}
-.book .copy-actions button:hover{border-color:#b5977a;color:#2c2416;}
-.book .copy-confirm{font-size:12px;color:#4E8A68;display:none;font-family:'Lora',serif;font-style:italic;}
+.book .sug-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.book .sug-status{font-family:'Lora',serif;font-size:13px;font-style:italic;margin-top:12px;display:none;}
+.book .sug-status.ok{color:#4E8A68;}
+.book .sug-status.err{color:#B57A7A;}
+.book .sug-status.sending{color:#b5977a;}
+
+/* Shared modal styles (used by all themes) */
+.rules-modal{border:none;border-radius:12px;width:min(92vw,640px);padding:0;background:transparent;}
+.rules-modal::backdrop{background:rgba(0,0,0,0.72);}
+.rules-card{background:#16120c;border:1px solid rgba(201,168,76,0.35);border-radius:12px;padding:1.5rem;color:#e8dcc1;}
+.rules-title{font-family:'Cinzel',serif;font-size:20px;color:#c9a84c;margin-bottom:0.5rem;}
+.rules-sub{font-family:'Crimson Text',serif;font-size:15px;color:#b8a98a;font-style:italic;margin-bottom:1rem;line-height:1.6;}
+.rules-list{padding-left:1.2rem;display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1.25rem;}
+.rules-list li{font-family:'Inter',sans-serif;font-size:14px;line-height:1.65;color:#f1e6cc;}
+.rules-actions{display:flex;justify-content:flex-end;gap:0.75rem;flex-wrap:wrap;}
+.rules-btn{padding:10px 16px;border-radius:6px;border:1px solid rgba(201,168,76,0.4);background:#241a0b;color:#e8dcc1;cursor:pointer;font-family:'Inter',sans-serif;}
+.rules-btn.primary{background:#3a2c12;color:#f5e8ca;border-color:#c9a84c;}
+
+.music-fab{position:fixed;right:1rem;bottom:1rem;width:56px;height:56px;border-radius:50%;border:1px solid rgba(201,168,76,0.5);background:#2a1f0e;color:#f0e6c8;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,0.35);z-index:1200;animation:floatingIcon 3s ease-in-out infinite;}
+.music-fab.playing{background:#3a2c12;border-color:#c9a84c;}
+@keyframes floatingIcon{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+
+.fellowship .modal-vp{min-height:360px;display:none;align-items:center;justify-content:center;margin-bottom:1.5rem;background:rgba(0,0,0,0.7);border-radius:6px;}
+.fellowship .modal-vp.open{display:flex;}
+.fellowship .modal{background:#2a1f0e;border:0.5px solid rgba(201,168,76,0.5);border-radius:4px;padding:1.5rem;width:100%;max-width:420px;}
+.fellowship .modal-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.15em;color:#c9a84c;margin-bottom:1.25rem;}
+.fellowship .share-tabs{display:flex;gap:6px;margin-bottom:1.25rem;}
+.fellowship .share-tab{flex:1;padding:7px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.1em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.25);background:transparent;color:#7a6a4a;cursor:pointer;text-align:center;}
+.fellowship .share-tab.active{border-color:#8a6e2a;color:#c9a84c;}
+.fellowship .tc-content{background:#3a2c12;border-radius:3px;border:0.5px solid rgba(201,168,76,0.2);padding:14px;font-family:'Crimson Text',serif;font-size:14px;color:#d4c49e;line-height:1.7;margin-bottom:12px;white-space:pre-wrap;font-style:italic;}
+.fellowship .vc-card{background:#231a0a;border:0.5px solid rgba(201,168,76,0.25);border-radius:4px;padding:18px 20px;margin-bottom:12px;}
+.fellowship .vc-eyebrow{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;color:#8a6e2a;text-transform:uppercase;margin-bottom:8px;}
+.fellowship .vc-goal{font-family:'Crimson Text',serif;font-size:16px;color:#f0e6c8;line-height:1.75;font-style:italic;margin-bottom:10px;}
+.fellowship .vc-footer{display:flex;justify-content:space-between;}
+.fellowship .vc-date{font-size:11px;color:#7a6a4a;font-family:'Cinzel',serif;}
+.fellowship .vc-brand{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:#5a4a2a;}
+.fellowship .modal-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.fellowship .modal-actions button{padding:7px 14px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.08em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.25);background:transparent;color:#b8a98a;cursor:pointer;}
+.fellowship .modal-actions button:hover{border-color:#8a6e2a;color:#c9a84c;}
+
+.glass .modal-vp{min-height:360px;display:none;align-items:center;justify-content:center;margin-bottom:1.5rem;background:rgba(100,100,200,0.15);border-radius:20px;backdrop-filter:blur(4px);}
+.glass .modal-vp.open{display:flex;}
+.glass .modal{background:rgba(255,255,255,0.7);border:0.5px solid rgba(255,255,255,0.9);border-radius:20px;padding:1.5rem;width:100%;max-width:420px;backdrop-filter:blur(16px);}
+.glass .modal-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:#1e1b4b;margin-bottom:1.25rem;}
+.glass .share-tabs{display:flex;gap:6px;margin-bottom:1.25rem;}
+.glass .share-tab{flex:1;padding:7px;font-family:'Inter',sans-serif;font-size:11px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.7);background:transparent;color:rgba(67,56,202,0.5);cursor:pointer;text-align:center;}
+.glass .share-tab.active{background:rgba(255,255,255,0.7);color:#1e1b4b;font-weight:500;}
+.glass .tc-content{background:rgba(255,255,255,0.5);border-radius:12px;border:0.5px solid rgba(255,255,255,0.7);padding:14px;font-family:'Inter',sans-serif;font-size:13px;color:#1e1b4b;line-height:1.7;margin-bottom:12px;white-space:pre-wrap;}
+.glass .vc-card{background:rgba(255,255,255,0.55);border:0.5px solid rgba(255,255,255,0.8);border-radius:16px;padding:18px 20px;margin-bottom:12px;}
+.glass .vc-eyebrow{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.15em;color:#6366f1;text-transform:uppercase;margin-bottom:8px;}
+.glass .vc-goal{font-family:'Inter',sans-serif;font-size:15px;color:#1e1b4b;line-height:1.7;margin-bottom:10px;}
+.glass .vc-footer{display:flex;justify-content:space-between;}
+.glass .vc-date{font-size:11px;color:rgba(67,56,202,0.4);font-family:'Inter',sans-serif;}
+.glass .vc-brand{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.1em;color:rgba(99,102,241,0.3);}
+.glass .modal-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.glass .modal-actions button{padding:7px 14px;font-family:'Inter',sans-serif;font-size:11px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.5);color:#4338ca;cursor:pointer;}
+.glass .modal-actions button:hover{background:rgba(255,255,255,0.8);}
 
 .book .modal-vp{min-height:360px;display:none;align-items:center;justify-content:center;margin-bottom:1.5rem;background:rgba(180,160,130,0.15);border-radius:6px;}
 .book .modal-vp.open{display:flex;}
@@ -577,6 +611,7 @@ body.book{background:#f7f4ef;}
 
   </div>
 </div>
+
 <dialog class="rules-modal" id="rulesModal">
   <div class="rules-card">
     <h2 class="rules-title">Before You Begin</h2>
@@ -588,11 +623,12 @@ body.book{background:#f7f4ef;}
     </div>
   </div>
 </dialog>
+
 <button class="music-fab" id="musicBtn" onclick="toggleMusic()" aria-label="Toggle background music">🎵</button>
 <audio id="bgMusic" preload="none"></audio>
 
 <!-- ============================================================
-     GOAL APP (shared HTML, themed by body class)
+     GOAL APP
      ============================================================ -->
 <div id="goalApp">
   <div class="app-inner">
@@ -649,8 +685,8 @@ body.book{background:#f7f4ef;}
       <div class="modal">
         <p class="modal-title" id="shareTitle"></p>
         <div class="share-tabs">
-          <button class="share-tab active" id="stab-text" onclick="switchShareTab('text')" id="stabText"></button>
-          <button class="share-tab" id="stab-visual" onclick="switchShareTab('visual')" id="stabVisual"></button>
+          <button class="share-tab active" id="stab-text" onclick="switchShareTab('text')"></button>
+          <button class="share-tab" id="stab-visual" onclick="switchShareTab('visual')"></button>
         </div>
         <div id="shareText">
           <div class="tc-content" id="tcContent"></div>
@@ -697,24 +733,25 @@ body.book{background:#f7f4ef;}
       <div id="histList"></div>
     </div>
 
+    <!-- Suggest tab: now submits directly to GitHub -->
     <div class="panel" id="panel-suggest">
-      <div class="suggest-form" id="suggestIdle">
+      <div class="suggest-form">
         <span class="sug-label" id="sugRealmLabel"></span>
         <select class="sug-select" id="sugRealm"></select>
+
+        <span class="sug-label" id="sugDiffLabel"></span>
+        <div class="sug-diff-row">
+          <button class="sug-diff-btn" id="sdiff-easy"   onclick="selectSugDiff('easy')"></button>
+          <button class="sug-diff-btn" id="sdiff-medium" onclick="selectSugDiff('medium')"></button>
+          <button class="sug-diff-btn" id="sdiff-hard"   onclick="selectSugDiff('hard')"></button>
+        </div>
+
         <span class="sug-label" id="sugQuestLabel"></span>
         <textarea class="sug-textarea" id="sugText" placeholder="Write a goal that begins with a verb and can be completed within a week..."></textarea>
+
         <p class="sug-note" id="sugNote"></p>
-        <button class="sug-btn" onclick="prepareSuggestion()" id="btnPrepareSug"></button>
-      </div>
-      <div style="display:none;" id="suggestReady">
-        <p style="margin-bottom:10px;font-size:11px;opacity:0.6;" id="sugReadyLabel"></p>
-        <div class="copy-box" id="copyBox"></div>
-        <div class="copy-actions">
-          <button onclick="copySuggestion()" id="btnCopySug"></button>
-          <button onclick="openRaven()" id="btnMail"></button>
-          <button onclick="resetSuggest()" id="btnReset"></button>
-          <span class="copy-confirm" id="copyConfirm"></span>
-        </div>
+        <button class="sug-btn" id="btnSubmitSug" onclick="submitSuggestion()"></button>
+        <p class="sug-status" id="sugStatus"></p>
       </div>
     </div>
 
@@ -722,21 +759,44 @@ body.book{background:#f7f4ef;}
 </div>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────────
-const APPROVED_URL = "PLACEHOLDER_APPROVED_URL";
-const KEEPER_EMAIL = "PLACEHOLDER_KEEPER_EMAIL";
+// ============================================================
+// GITHUB CONFIG — fill these in before deploying
+// ============================================================
+const GH_OWNER        = "nitinr2510";
+const GH_REPO         = "LifeHasBeenDullIWantToFillInSomeLight";
+// Path inside the repo where suggestions.json lives, e.g. "data/suggestions.json"
+const GH_SUGGESTIONS_PATH = "suggestions.json";
+// Path inside the repo where goals.json lives, e.g. "data/goals.json"
+const GH_GOALS_PATH   = "goals.json";
+// Branch to read/write on
+const GH_BRANCH       = "main";
+// Personal Access Token with Contents: Read & Write scope on this repo ONLY
+// HOW TO CREATE: GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens
+// Permissions needed: Contents (Read and Write), on this single repository
+// ⚠️  This token is visible in your source — only use it on a private repo,
+//     OR create a dedicated bot account with access to this repo only.
+// Replaced by the GitHub Actions deploy workflow from secrets.MY_ACCESS_TOKEN.
+// WARNING: the injected token is visible in the final page source.
+const GH_TOKEN        = "__GH_TOKEN__";
 
-// ── THEME COPY ───────────────────────────────────────────────
+// Raw content base URL for reading (no token needed on public repos)
+const GH_RAW_BASE = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}`;
+// GitHub API base for writing
+const GH_API_BASE = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents`;
+
+// ============================================================
+// THEME COPY
+// ============================================================
 const THEMES = {
   fellowship: {
-    bodyClass: "fellowship",
-    hRune: "✦ &nbsp; ✦ &nbsp; ✦",
-    hTitle: "The Book of Intentions",
-    hSub: "What realm calls to you this day?<br>One quest shall be inscribed upon the scroll.",
-    secRealm: "Choose your realm",
-    secTrial: "Choose your trial",
-    dEasy:"Hobbit", dEasySub:"Gentle, attainable",
-    dMedium:"Ranger", dMediumSub:"A true endeavour",
+    bodyClass:"fellowship",
+    hRune:"✦ &nbsp; ✦ &nbsp; ✦",
+    hTitle:"The Book of Intentions",
+    hSub:"What realm calls to you this day?<br>One quest shall be inscribed upon the scroll.",
+    secRealm:"Choose your realm",
+    secTrial:"Choose your trial",
+    dEasy:"Hobbit",    dEasySub:"Gentle, attainable",
+    dMedium:"Ranger",  dMediumSub:"A true endeavour",
     dHard:"Ring-bearer", dHardSub:"Bold & costly",
     diffLabels:{easy:"Hobbit",medium:"Ranger",hard:"Ring-bearer"},
     genBtn:"✦ &nbsp; Receive Your Quest &nbsp; ✦",
@@ -744,132 +804,220 @@ const THEMES = {
     btnSave:"Bind to Tome", btnNew:"New Quest", btnShare:"Share Scroll", btnPlan:"Plan the Journey ↗",
     shareTitle:"✦ &nbsp; Share This Scroll",
     stabText:"Plain Text", stabVisual:"Scroll Card",
-    btnCopyText:"Copy Text", btnCopyVisual:"Copy as Text",
-    btnCloseShare:"Close",
+    btnCopyText:"Copy Text", btnCopyVisual:"Copy as Text", btnCloseShare:"Close",
     tabSaved:"The Tome", tabHistory:"Chronicles", tabSuggest:"Suggest a Quest",
-    sugRealmLabel:"Realm",
-    sugQuestLabel:"Your quest",
-    sugNote:"Your suggestion will be reviewed by a keeper of the scrolls before it joins the approved tomes. Copy the text below and send it by raven (email).",
-    btnPrepareSug:"Prepare Suggestion",
-    sugReadyLabel:"Copy this and send to the keeper",
-    btnCopySug:"Copy to Clipboard", btnMail:"Open in Mail ↗", btnReset:"Start Over",
-    copyConfirmText:"Copied to clipboard.",
+    sugRealmLabel:"Realm", sugDiffLabel:"Difficulty", sugQuestLabel:"Your quest",
+    sugDiffEasy:"Hobbit", sugDiffMedium:"Ranger", sugDiffHard:"Ring-bearer",
+    sugNote:"Your suggestion will be reviewed by a keeper of the scrolls before it joins the approved tomes.",
+    btnSubmitSug:"Submit Suggestion",
+    sugSending:"Inscribing your suggestion...",
+    sugOk:"Your quest has been received. The keeper shall review it.",
+    sugErr:"The raven could not deliver the scroll. Please try again.",
     vcBrand:"The Book of Intentions",
     emptySaved:"Your bound quests shall rest here, within the tome.",
     emptyHistory:"All scrolls you summon shall be recorded in the chronicles.",
     savedCountSuffix:" bound quests",
     histCountSuffix:" quests chronicled",
-    btnBindHistory:"Bind to Tome",
-    btnPlanHistory:"Plan Journey ↗",
-    btnRelease:"Release",
+    btnBindHistory:"Bind to Tome", btnPlanHistory:"Plan Journey ↗", btnRelease:"Release",
     noGoalsMsg:"No quests found for this realm and trial. More scrolls are being inscribed.",
   },
   glass: {
-    bodyClass: "glass",
-    hRune: "· · ·",
-    hTitle: "Intentions",
-    hSub: "Choose a space. One intention will find you.",
-    secRealm: "Choose a space",
-    secTrial: "Choose your depth",
-    dEasy:"Easy", dEasySub:"Gentle, low friction",
+    bodyClass:"glass",
+    hRune:"· · ·",
+    hTitle:"Intentions",
+    hSub:"Choose a space. One intention will find you.",
+    secRealm:"Choose a space",
+    secTrial:"Choose your depth",
+    dEasy:"Easy",   dEasySub:"Gentle, low friction",
     dMedium:"Medium", dMediumSub:"A real stretch",
-    dHard:"Hard", dHardSub:"Bold, uncomfortable",
+    dHard:"Hard",   dHardSub:"Bold, uncomfortable",
     diffLabels:{easy:"Easy",medium:"Medium",hard:"Hard"},
     genBtn:"Receive your intention",
     questLabel:"Your intention for today",
     btnSave:"Save", btnNew:"New intention", btnShare:"Share card", btnPlan:"Break into steps ↗",
     shareTitle:"Share this intention",
     stabText:"Plain Text", stabVisual:"Visual Card",
-    btnCopyText:"Copy Text", btnCopyVisual:"Copy as Text",
-    btnCloseShare:"Close",
+    btnCopyText:"Copy Text", btnCopyVisual:"Copy as Text", btnCloseShare:"Close",
     tabSaved:"Saved", tabHistory:"History", tabSuggest:"Suggest",
-    sugRealmLabel:"Space",
-    sugQuestLabel:"Your intention",
-    sugNote:"Your suggestion will be reviewed before it joins the approved list. Copy the text and email it to us.",
-    btnPrepareSug:"Prepare suggestion",
-    sugReadyLabel:"Copy this and send to the moderator",
-    btnCopySug:"Copy", btnMail:"Open Mail ↗", btnReset:"Start over",
-    copyConfirmText:"Copied.",
+    sugRealmLabel:"Space", sugDiffLabel:"Depth", sugQuestLabel:"Your intention",
+    sugDiffEasy:"Easy", sugDiffMedium:"Medium", sugDiffHard:"Hard",
+    sugNote:"Your suggestion will be reviewed before it joins the approved list.",
+    btnSubmitSug:"Submit suggestion",
+    sugSending:"Sending...",
+    sugOk:"Your suggestion was received. Thanks!",
+    sugErr:"Something went wrong. Please try again.",
     vcBrand:"intentions",
     emptySaved:"Your saved intentions will rest here",
     emptyHistory:"Every intention you generate will be recorded here",
     savedCountSuffix:" saved",
     histCountSuffix:" generated",
-    btnBindHistory:"Save",
-    btnPlanHistory:"Break into steps ↗",
-    btnRelease:"Remove",
+    btnBindHistory:"Save", btnPlanHistory:"Break into steps ↗", btnRelease:"Remove",
     noGoalsMsg:"No intentions found for this space and depth. More are coming.",
   },
   book: {
-    bodyClass: "book",
-    hRune: "· · ·",
-    hTitle: "A Book of Intentions",
-    hSub: "What calls to you today?<br>One intention will be written.",
-    secRealm: "Choose a chapter",
-    secTrial: "Choose your commitment",
-    dEasy:"Light", dEasySub:"Gentle, one sitting",
+    bodyClass:"book",
+    hRune:"· · ·",
+    hTitle:"A Book of Intentions",
+    hSub:"What calls to you today?<br>One intention will be written.",
+    secRealm:"Choose a chapter",
+    secTrial:"Choose your commitment",
+    dEasy:"Light",  dEasySub:"Gentle, one sitting",
     dMedium:"Steady", dMediumSub:"A few days of effort",
-    dHard:"Deep", dHardSub:"Full week, full self",
+    dHard:"Deep",   dHardSub:"Full week, full self",
     diffLabels:{easy:"Light",medium:"Steady",hard:"Deep"},
     genBtn:"Open to a page",
     questLabel:"Your intention for this week",
     btnSave:"Add to reading list", btnNew:"Another page", btnShare:"Share", btnPlan:"Plan daily steps ↗",
     shareTitle:"Share this intention",
     stabText:"Plain Text", stabVisual:"Card",
-    btnCopyText:"Copy", btnCopyVisual:"Copy as text",
-    btnCloseShare:"Close",
+    btnCopyText:"Copy", btnCopyVisual:"Copy as text", btnCloseShare:"Close",
     tabSaved:"Reading List", tabHistory:"All Entries", tabSuggest:"Suggest",
-    sugRealmLabel:"Chapter",
-    sugQuestLabel:"Your intention",
-    sugNote:"Your suggestion will be reviewed by an editor before it joins the approved list. Copy the note below and send it to us.",
-    btnPrepareSug:"Prepare note",
-    sugReadyLabel:"Copy and send to the editor",
-    btnCopySug:"Copy", btnMail:"Open Mail ↗", btnReset:"Start over",
-    copyConfirmText:"Copied.",
+    sugRealmLabel:"Chapter", sugDiffLabel:"Commitment", sugQuestLabel:"Your intention",
+    sugDiffEasy:"Light", sugDiffMedium:"Steady", sugDiffHard:"Deep",
+    sugNote:"Your suggestion will be reviewed by an editor before it joins the approved list.",
+    btnSubmitSug:"Submit note",
+    sugSending:"Sending...",
+    sugOk:"Your intention was received. The editor will review it.",
+    sugErr:"Something went wrong. Please try again.",
     vcBrand:"A Book of Intentions",
     emptySaved:"Your reading list is empty. Add intentions you want to return to.",
     emptyHistory:"Every intention you open will be recorded here.",
     savedCountSuffix:" in reading list",
     histCountSuffix:" entries",
-    btnBindHistory:"Add to reading list",
-    btnPlanHistory:"Plan steps ↗",
-    btnRelease:"Remove",
+    btnBindHistory:"Add to reading list", btnPlanHistory:"Plan steps ↗", btnRelease:"Remove",
     noGoalsMsg:"No intentions found for this chapter and commitment. More are being written.",
   }
 };
 
-// ── STATE ────────────────────────────────────────────────────
+// ============================================================
+// STATE
+// ============================================================
 let currentTheme = null;
 let topics = [], goalsDB = {};
 let selTopic = null, selDiff = null, curGoal = null;
+let selSugDiff = null;
 let saved = [], history = [];
 let pendingTheme = null;
 let musicPlaying = false;
+
 const RULES = [
   "This app gives guidance, not pressure — choose goals that are realistic for you.",
   "Honor your selected intention for today before generating another one.",
   "Track your progress honestly in Saved and History to build consistency."
 ];
 
-// ── FALLBACK DATA ────────────────────────────────────────────
+// ============================================================
+// FALLBACK DATA (used if goals.json fetch fails)
+// ============================================================
 const FALLBACK_TOPICS = [
-  {id:"career",name_fellowship:"The Forge",name_glass:"Career & Productivity",name_book:"Work & Purpose",icon:"◈",desc_fellowship:"Work, focus, craft",desc_glass:"Focus, growth, craft",desc_book:"Vocation, calling"},
-  {id:"health",name_fellowship:"The Body's Path",name_glass:"Health & Fitness",name_book:"Body & Vitality",icon:"◎",desc_fellowship:"Strength, vitality",desc_glass:"Body, energy, habits",desc_book:"Strength, rest, care"},
-  {id:"relationships",name_fellowship:"Fellowship",name_glass:"Relationships",name_book:"People & Love",icon:"◉",desc_fellowship:"Bonds, kinship, love",desc_glass:"Connection, kindness",desc_book:"Bonds, presence"},
-  {id:"creativity",name_fellowship:"The Artisan",name_glass:"Creativity",name_book:"Making & Art",icon:"◇",desc_fellowship:"Making, imagining",desc_glass:"Art, play, expression",desc_book:"Creation, expression"},
-  {id:"mindfulness",name_fellowship:"The Still Wood",name_glass:"Mindfulness",name_book:"Inner Life",icon:"○",desc_fellowship:"Peace, presence",desc_glass:"Calm, clarity",desc_book:"Stillness, reflection"},
-  {id:"finance",name_fellowship:"The Treasury",name_glass:"Finance & Money",name_book:"Resources",icon:"◆",desc_fellowship:"Wealth, stewardship",desc_glass:"Wealth, security",desc_book:"Stewardship, sufficiency"},
+  {id:"career",      name_fellowship:"The Forge",      name_glass:"Career & Productivity", name_book:"Work & Purpose",  icon:"◈", desc_fellowship:"Work, focus, craft",   desc_glass:"Focus, growth, craft",   desc_book:"Vocation, calling"},
+  {id:"health",      name_fellowship:"The Body's Path",name_glass:"Health & Fitness",      name_book:"Body & Vitality", icon:"◎", desc_fellowship:"Strength, vitality",   desc_glass:"Body, energy, habits",   desc_book:"Strength, rest, care"},
+  {id:"relationships",name_fellowship:"Fellowship",    name_glass:"Relationships",          name_book:"People & Love",   icon:"◉", desc_fellowship:"Bonds, kinship, love", desc_glass:"Connection, kindness",   desc_book:"Bonds, presence"},
+  {id:"creativity",  name_fellowship:"The Artisan",    name_glass:"Creativity",             name_book:"Making & Art",    icon:"◇", desc_fellowship:"Making, imagining",    desc_glass:"Art, play, expression",  desc_book:"Creation, expression"},
+  {id:"mindfulness", name_fellowship:"The Still Wood", name_glass:"Mindfulness",            name_book:"Inner Life",      icon:"○", desc_fellowship:"Peace, presence",      desc_glass:"Calm, clarity",          desc_book:"Stillness, reflection"},
+  {id:"finance",     name_fellowship:"The Treasury",   name_glass:"Finance & Money",        name_book:"Resources",       icon:"◆", desc_fellowship:"Wealth, stewardship",  desc_glass:"Wealth, security",       desc_book:"Stewardship, sufficiency"},
 ];
 const FALLBACK_GOALS = {
-  career:{easy:["Write down every task weighing on your mind and pick just one to finish today.","Spend 30 minutes clearing your inbox down to only what needs a reply.","Block one hour this week with no meetings and use it only for deep work."],medium:["Draft the proposal or document you have been postponing for more than a week.","Have the direct conversation with a colleague you have been avoiding.","Map out your next 30 days and identify where your time is being lost."],hard:["Dedicate five focused hours this week to the single project that matters most to your long-term path.","Reach out to three people in your field you admire and start a real conversation.","Audit every recurring commitment you have and eliminate at least one that no longer serves you."]},
-  health:{easy:["Drink eight glasses of water today without exception.","Take a 20-minute walk outside before the day ends.","Sleep before midnight tonight and rise without hitting snooze."],medium:["Complete four workouts this week, each at least 30 minutes long.","Cook every meal you eat for the next five days from whole ingredients.","Cut out one food or drink that you know is harming you, for the entire week."],hard:["Train every morning this week before 7 AM, without negotiation.","Run or walk a total of 30 kilometres across this week.","Go one full week without alcohol, refined sugar, and processed food simultaneously."]},
-  relationships:{easy:["Send a message to someone you have not spoken to in over a month.","Call a family member you love and simply listen to them for 20 minutes.","Write a note of genuine appreciation to someone who has helped you recently."],medium:["Plan and follow through on a meaningful evening with someone important to you.","Have an honest conversation about something you have been keeping to yourself.","Apologise sincerely to someone you have wronged, without justification."],hard:["Initiate the difficult conversation in a relationship that has been quietly suffering.","Spend an entire day fully present with the people you love — no phone, no distraction.","Commit to one act of service for someone who cannot repay you, this week."]},
-  creativity:{easy:["Spend 30 minutes making something with no purpose other than the joy of making.","Write three pages in longhand about anything at all, without editing.","Sketch or doodle for 20 minutes before you open any screen today."],medium:["Complete one creative piece — a chapter, a painting, a song — start to finish this week.","Set aside two hours each day for creative work and protect them like appointments.","Share something you have made with at least one other person, however unfinished it feels."],hard:["Commit to one hour of creative practice every single morning this week before anything else.","Finish and publish or share a complete creative work by the end of this week.","Start the project you have been imagining for months and produce something tangible by Sunday."]},
-  mindfulness:{easy:["Sit in silence for ten minutes today with no phone, no music, no input.","Before bed, write three things that were genuinely good about today.","Eat one meal today slowly, without a screen, noticing every bite."],medium:["Meditate for 20 minutes each morning this week, before looking at your phone.","Keep a journal entry every night this week reflecting on what you felt, not just what you did.","Spend one full afternoon this week in nature with no agenda and no device."],hard:["Begin each day this week in silence for 30 minutes before speaking to anyone.","Observe a full digital sabbath — one day this week with no screens at all.","Write down every anxious thought the moment it arises each day this week, then consciously let it go."]},
-  finance:{easy:["Write down every purchase you made in the last seven days and total them honestly.","Cancel one subscription you have not used in the last month.","Transfer a small amount — even symbolic — into your savings account today."],medium:["Build a complete budget for next month and identify where you will cut 10% of spending.","Research and open a savings or investment account you have been putting off.","Negotiate one bill, subscription, or rate that you have been paying without questioning."],hard:["Track every single penny you spend this week and sit with what it reveals about your values.","Set a concrete financial goal with a deadline and build a week-by-week plan to reach it.","Have the honest money conversation with your partner, family, or yourself that you have been avoiding."]}
+  career:{
+    easy:["Write down every task weighing on your mind and pick just one to finish today.","Spend 30 minutes clearing your inbox down to only what needs a reply.","Block one hour this week with no meetings and use it only for deep work."],
+    medium:["Draft the proposal or document you have been postponing for more than a week.","Have the direct conversation with a colleague you have been avoiding.","Map out your next 30 days and identify where your time is being lost."],
+    hard:["Dedicate five focused hours this week to the single project that matters most to your long-term path.","Reach out to three people in your field you admire and start a real conversation.","Audit every recurring commitment you have and eliminate at least one that no longer serves you."]
+  },
+  health:{
+    easy:["Drink eight glasses of water today without exception.","Take a 20-minute walk outside before the day ends.","Sleep before midnight tonight and rise without hitting snooze."],
+    medium:["Complete four workouts this week, each at least 30 minutes long.","Cook every meal you eat for the next five days from whole ingredients.","Cut out one food or drink that you know is harming you, for the entire week."],
+    hard:["Train every morning this week before 7 AM, without negotiation.","Run or walk a total of 30 kilometres across this week.","Go one full week without alcohol, refined sugar, and processed food simultaneously."]
+  },
+  relationships:{
+    easy:["Send a message to someone you have not spoken to in over a month.","Call a family member you love and simply listen to them for 20 minutes.","Write a note of genuine appreciation to someone who has helped you recently."],
+    medium:["Plan and follow through on a meaningful evening with someone important to you.","Have an honest conversation about something you have been keeping to yourself.","Apologise sincerely to someone you have wronged, without justification."],
+    hard:["Initiate the difficult conversation in a relationship that has been quietly suffering.","Spend an entire day fully present with the people you love — no phone, no distraction.","Commit to one act of service for someone who cannot repay you, this week."]
+  },
+  creativity:{
+    easy:["Spend 30 minutes making something with no purpose other than the joy of making.","Write three pages in longhand about anything at all, without editing.","Sketch or doodle for 20 minutes before you open any screen today."],
+    medium:["Complete one creative piece — a chapter, a painting, a song — start to finish this week.","Set aside two hours each day for creative work and protect them like appointments.","Share something you have made with at least one other person, however unfinished it feels."],
+    hard:["Commit to one hour of creative practice every single morning this week before anything else.","Finish and publish or share a complete creative work by the end of this week.","Start the project you have been imagining for months and produce something tangible by Sunday."]
+  },
+  mindfulness:{
+    easy:["Sit in silence for ten minutes today with no phone, no music, no input.","Before bed, write three things that were genuinely good about today.","Eat one meal today slowly, without a screen, noticing every bite."],
+    medium:["Meditate for 20 minutes each morning this week, before looking at your phone.","Keep a journal entry every night this week reflecting on what you felt, not just what you did.","Spend one full afternoon this week in nature with no agenda and no device."],
+    hard:["Begin each day this week in silence for 30 minutes before speaking to anyone.","Observe a full digital sabbath — one day this week with no screens at all.","Write down every anxious thought the moment it arises each day this week, then consciously let it go."]
+  },
+  finance:{
+    easy:["Write down every purchase you made in the last seven days and total them honestly.","Cancel one subscription you have not used in the last month.","Transfer a small amount — even symbolic — into your savings account today."],
+    medium:["Build a complete budget for next month and identify where you will cut 10% of spending.","Research and open a savings or investment account you have been putting off.","Negotiate one bill, subscription, or rate that you have been paying without questioning."],
+    hard:["Track every single penny you spend this week and sit with what it reveals about your values.","Set a concrete financial goal with a deadline and build a week-by-week plan to reach it.","Have the honest money conversation with your partner, family, or yourself that you have been avoiding."]
+  }
 };
 
-// ── THEME SELECTION ──────────────────────────────────────────
+// ============================================================
+// GITHUB API HELPERS
+// ============================================================
+
+/**
+ * Fetch goals.json from the repo via raw URL (no auth needed on public repos).
+ * Falls back gracefully if the file is missing or malformed.
+ */
+async function fetchGoalsFromGitHub() {
+  const url = `${GH_RAW_BASE}/${GH_GOALS_PATH}?cb=${Date.now()}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return await res.json();
+}
+
+/**
+ * Read suggestions.json from GitHub via the Contents API.
+ * Returns { content: parsedObject, sha: "..." } so we can update in place.
+ * The SHA is required by GitHub when you want to update an existing file —
+ * think of it like a version stamp that prevents accidental overwrites.
+ */
+async function readSuggestionsFile() {
+  const url = `${GH_API_BASE}/${GH_SUGGESTIONS_PATH}?ref=${GH_BRANCH}`;
+  const res = await fetch(url, {
+    headers: {
+      "Authorization": `Bearer ${GH_TOKEN}`,
+      "Accept": "application/vnd.github+json"
+    }
+  });
+  if (!res.ok) throw new Error(`Read failed: HTTP ${res.status}`);
+  const data = await res.json();
+  // GitHub returns file content as Base64 — decode it to get the raw JSON string
+  const decoded = atob(data.content.replace(/\n/g, ""));
+  return { content: JSON.parse(decoded), sha: data.sha };
+}
+
+/**
+ * Write an updated suggestions object back to GitHub.
+ * Requires the SHA from readSuggestionsFile so GitHub knows we're
+ * updating the latest version and not overwriting someone else's change.
+ */
+async function writeSuggestionsFile(updatedContent, sha) {
+  const url = `${GH_API_BASE}/${GH_SUGGESTIONS_PATH}`;
+  // GitHub expects the new file content encoded as Base64
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(updatedContent, null, 2))));
+  const res = await fetch(url, {
+    method: "PUT",
+    headers: {
+      "Authorization": `Bearer ${GH_TOKEN}`,
+      "Accept": "application/vnd.github+json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      message: `Add suggestion: ${new Date().toISOString()}`,
+      content: encoded,
+      sha: sha,
+      branch: GH_BRANCH
+    })
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || `Write failed: HTTP ${res.status}`);
+  }
+}
+
+// ============================================================
+// THEME SELECTION
+// ============================================================
 function chooseTheme(t) {
   currentTheme = t;
   const T = THEMES[t];
@@ -877,43 +1025,43 @@ function chooseTheme(t) {
   document.getElementById("themePicker").style.display = "none";
   document.getElementById("goalApp").style.display = "block";
 
-  // Apply copy
-  document.getElementById("hRune").innerHTML = T.hRune;
-  document.getElementById("hTitle").textContent = T.hTitle;
-  document.getElementById("hSub").innerHTML = T.hSub;
-  document.getElementById("secRealm").textContent = T.secRealm;
-  document.getElementById("secTrial").textContent = T.secTrial;
-  document.getElementById("dEasy").textContent = T.dEasy;
-  document.getElementById("dEasySub").textContent = T.dEasySub;
-  document.getElementById("dMedium").textContent = T.dMedium;
-  document.getElementById("dMediumSub").textContent = T.dMediumSub;
-  document.getElementById("dHard").textContent = T.dHard;
-  document.getElementById("dHardSub").textContent = T.dHardSub;
-  document.getElementById("genBtn").innerHTML = T.genBtn;
-  document.getElementById("questLabel").textContent = T.questLabel;
-  document.getElementById("btnSave").textContent = T.btnSave;
-  document.getElementById("btnNew").textContent = T.btnNew;
-  document.getElementById("btnShare").textContent = T.btnShare;
-  document.getElementById("btnPlan").textContent = T.btnPlan;
-  document.getElementById("shareTitle").innerHTML = T.shareTitle;
-  document.getElementById("stab-text").textContent = T.stabText;
-  document.getElementById("stab-visual").textContent = T.stabVisual;
-  document.getElementById("btnCopyText").textContent = T.btnCopyText;
-  document.getElementById("btnCopyVisual").textContent = T.btnCopyVisual;
+  // Apply all copy strings
+  document.getElementById("hRune").innerHTML          = T.hRune;
+  document.getElementById("hTitle").textContent       = T.hTitle;
+  document.getElementById("hSub").innerHTML           = T.hSub;
+  document.getElementById("secRealm").textContent     = T.secRealm;
+  document.getElementById("secTrial").textContent     = T.secTrial;
+  document.getElementById("dEasy").textContent        = T.dEasy;
+  document.getElementById("dEasySub").textContent     = T.dEasySub;
+  document.getElementById("dMedium").textContent      = T.dMedium;
+  document.getElementById("dMediumSub").textContent   = T.dMediumSub;
+  document.getElementById("dHard").textContent        = T.dHard;
+  document.getElementById("dHardSub").textContent     = T.dHardSub;
+  document.getElementById("genBtn").innerHTML         = T.genBtn;
+  document.getElementById("questLabel").textContent   = T.questLabel;
+  document.getElementById("btnSave").textContent      = T.btnSave;
+  document.getElementById("btnNew").textContent       = T.btnNew;
+  document.getElementById("btnShare").textContent     = T.btnShare;
+  document.getElementById("btnPlan").textContent      = T.btnPlan;
+  document.getElementById("shareTitle").innerHTML     = T.shareTitle;
+  document.getElementById("stab-text").textContent    = T.stabText;
+  document.getElementById("stab-visual").textContent  = T.stabVisual;
+  document.getElementById("btnCopyText").textContent  = T.btnCopyText;
+  document.getElementById("btnCopyVisual").textContent= T.btnCopyVisual;
   document.getElementById("btnCloseShare1").textContent = T.btnCloseShare;
   document.getElementById("btnCloseShare2").textContent = T.btnCloseShare;
-  document.getElementById("tab-saved").textContent = T.tabSaved;
-  document.getElementById("tab-history").textContent = T.tabHistory;
-  document.getElementById("tab-suggest").textContent = T.tabSuggest;
+  document.getElementById("tab-saved").textContent    = T.tabSaved;
+  document.getElementById("tab-history").textContent  = T.tabHistory;
+  document.getElementById("tab-suggest").textContent  = T.tabSuggest;
   document.getElementById("sugRealmLabel").textContent = T.sugRealmLabel;
+  document.getElementById("sugDiffLabel").textContent  = T.sugDiffLabel;
   document.getElementById("sugQuestLabel").textContent = T.sugQuestLabel;
-  document.getElementById("sugNote").textContent = T.sugNote;
-  document.getElementById("btnPrepareSug").textContent = T.btnPrepareSug;
-  document.getElementById("sugReadyLabel").textContent = T.sugReadyLabel;
-  document.getElementById("btnCopySug").textContent = T.btnCopySug;
-  document.getElementById("btnMail").textContent = T.btnMail;
-  document.getElementById("btnReset").textContent = T.btnReset;
-  document.getElementById("vcBrand").textContent = T.vcBrand;
+  document.getElementById("sugNote").textContent       = T.sugNote;
+  document.getElementById("btnSubmitSug").textContent  = T.btnSubmitSug;
+  document.getElementById("sdiff-easy").textContent    = T.sugDiffEasy;
+  document.getElementById("sdiff-medium").textContent  = T.sugDiffMedium;
+  document.getElementById("sdiff-hard").textContent    = T.sugDiffHard;
+  document.getElementById("vcBrand").textContent       = T.vcBrand;
 
   loadGoals().then(() => {
     buildTopicGrid();
@@ -925,103 +1073,83 @@ function chooseTheme(t) {
 function openRules(theme) {
   pendingTheme = theme;
   const modal = document.getElementById("rulesModal");
-  const list = document.getElementById("rulesList");
-  list.innerHTML = RULES.map(rule => `<li>${rule}</li>`).join("");
-  if (typeof modal.showModal === "function") {
-    modal.showModal();
-  } else {
-    modal.setAttribute("open", "open");
-  }
+  const list  = document.getElementById("rulesList");
+  list.innerHTML = RULES.map(r => `<li>${r}</li>`).join("");
+  if (typeof modal.showModal === "function") modal.showModal();
+  else modal.setAttribute("open","open");
 }
-
 function closeRules() {
-  const modal = document.getElementById("rulesModal");
   pendingTheme = null;
-  if (typeof modal.close === "function") {
-    modal.close();
-  } else {
-    modal.removeAttribute("open");
-  }
+  const modal = document.getElementById("rulesModal");
+  if (typeof modal.close === "function") modal.close();
+  else modal.removeAttribute("open");
 }
-
 function acceptRules() {
-  const nextTheme = pendingTheme;
+  const next = pendingTheme;
   closeRules();
-  if (nextTheme) chooseTheme(nextTheme);
+  if (next) chooseTheme(next);
 }
 
 function toggleMusic() {
   const audio = document.getElementById("bgMusic");
-  const btn = document.getElementById("musicBtn");
-  if (!audio.getAttribute("src")) {
-    alert("Add your music file path to #bgMusic src in the HTML first.");
-    return;
-  }
-  if (musicPlaying) {
-    stopMusic();
-  } else {
-    startMusic();
-  }
+  const btn   = document.getElementById("musicBtn");
+  if (!audio.getAttribute("src")) { alert("Add your music file path to #bgMusic src first."); return; }
+  if (musicPlaying) { audio.pause(); audio.currentTime = 0; musicPlaying = false; }
+  else { audio.play().then(() => { musicPlaying = true; }).catch(() => {}); }
   btn.classList.toggle("playing", musicPlaying);
 }
 
-function startMusic() {
-  const audio = document.getElementById("bgMusic");
-  audio.play().then(() => {
-    musicPlaying = true;
-    document.getElementById("musicBtn").setAttribute("aria-label", "Stop background music");
-  }).catch(() => {
-    musicPlaying = false;
-  });
-}
-
-function stopMusic() {
-  const audio = document.getElementById("bgMusic");
-  audio.pause();
-  audio.currentTime = 0;
-  musicPlaying = false;
-  document.getElementById("musicBtn").setAttribute("aria-label", "Start background music");
-}
-
 function backToThemes() {
-  selTopic = null; selDiff = null; curGoal = null;
+  selTopic = null; selDiff = null; curGoal = null; selSugDiff = null;
   document.getElementById("scrollWrap").classList.remove("visible");
   document.getElementById("modalVp").classList.remove("open");
   document.querySelectorAll(".diff-btn").forEach(b => b.className = "diff-btn");
   document.getElementById("genBtn").disabled = true;
   document.body.className = "";
-  document.getElementById("goalApp").style.display = "none";
+  document.getElementById("goalApp").style.display  = "none";
   document.getElementById("themePicker").style.display = "flex";
   switchTab("saved");
 }
 
-// ── DATA LOADING ─────────────────────────────────────────────
+// ============================================================
+// DATA LOADING — goals.json from GitHub
+// ============================================================
 async function loadGoals() {
-  if (APPROVED_URL === "PLACEHOLDER_APPROVED_URL") { useFallback(); return; }
   try {
-    const r = await fetch(APPROVED_URL + "?cb=" + Date.now());
-    if (!r.ok) throw new Error();
-    const data = await r.json();
-    topics = data.realms || [];
-    goalsDB = data.goals || {};
-  } catch(e) {
+    const data = await fetchGoalsFromGitHub();
+    // goals.json structure: { realms: [...], goals: {...} }
+    if (data.realms && data.goals) {
+      // Map realm names to the current theme
+      topics  = data.realms.map(r => ({
+        id:   r.id,
+        icon: r.icon,
+        name: r[`name_${currentTheme}`] || r.name_fellowship,
+        desc: r[`desc_${currentTheme}`] || r.desc_fellowship,
+      }));
+      goalsDB = data.goals;
+    } else {
+      throw new Error("Unexpected goals.json shape");
+    }
+  } catch (e) {
+    console.warn("goals.json fetch failed, using fallback:", e.message);
     useFallback();
-    showNotice("Could not reach the repository. Using built-in goals.", "warn");
+    showNotice("Using built-in goals (could not reach GitHub).", "warn");
   }
 }
 
 function useFallback() {
-  const T = THEMES[currentTheme];
   topics = FALLBACK_TOPICS.map(t => ({
-    id: t.id,
-    name: t["name_"+currentTheme] || t.name_fellowship,
+    id:   t.id,
     icon: t.icon,
-    desc: t["desc_"+currentTheme] || t.desc_fellowship,
+    name: t[`name_${currentTheme}`] || t.name_fellowship,
+    desc: t[`desc_${currentTheme}`] || t.desc_fellowship,
   }));
   goalsDB = FALLBACK_GOALS;
 }
 
-// ── TOPIC GRID ───────────────────────────────────────────────
+// ============================================================
+// TOPIC GRID & SUGGEST SELECT
+// ============================================================
 function buildTopicGrid() {
   const g = document.getElementById("topicsGrid");
   g.innerHTML = "";
@@ -1039,11 +1167,13 @@ function buildSuggestSelect() {
   s.innerHTML = topics.map(t => `<option value="${t.id}">${t.name}</option>`).join("");
 }
 
-// ── INTERACTIONS ─────────────────────────────────────────────
+// ============================================================
+// INTERACTIONS — generate
+// ============================================================
 function showNotice(msg, type) {
   const n = document.getElementById("notice");
   n.textContent = msg;
-  n.className = "notice" + (type ? " " + type : "");
+  n.className   = "notice" + (type ? " " + type : "");
   n.style.display = msg ? "block" : "none";
 }
 
@@ -1070,19 +1200,15 @@ function generate() {
   showNotice("","");
   const pool = goalsDB[selTopic.id]?.[selDiff];
   if (!pool || pool.length === 0) {
-    showNotice(THEMES[currentTheme].noGoalsMsg, "warn");
-    return;
+    showNotice(THEMES[currentTheme].noGoalsMsg, "warn"); return;
   }
-  const text = pool[Math.floor(Math.random() * pool.length)];
+  const text  = pool[Math.floor(Math.random() * pool.length)];
   const today = new Date().toLocaleDateString("en-GB");
-  const T = THEMES[currentTheme];
+  const T     = THEMES[currentTheme];
   curGoal = {
-    topic: selTopic.name,
-    topicId: selTopic.id,
-    difficulty: selDiff,
-    diffLabel: T.diffLabels[selDiff],
-    text, date: today, ts: Date.now(),
-    theme: currentTheme
+    topic: selTopic.name, topicId: selTopic.id,
+    difficulty: selDiff,  diffLabel: T.diffLabels[selDiff],
+    text, date: today, ts: Date.now(), theme: currentTheme
   };
   renderScroll(curGoal);
   addToHistory(curGoal);
@@ -1101,18 +1227,20 @@ function renderScroll(g) {
 
 function planJourney() {
   const text = document.getElementById("sGoal").innerText;
-  if(window.sendPrompt) window.sendPrompt("Help me break this goal into small daily steps: " + text);
+  if (window.sendPrompt) window.sendPrompt("Help me break this goal into small daily steps: " + text);
 }
 
-// ── STORAGE ───────────────────────────────────────────────────
-async function addToHistory(g) {
+// ============================================================
+// LOCAL STORAGE — saved & history
+// ============================================================
+function addToHistory(g) {
   history.unshift(g);
   if (history.length > 200) history = history.slice(0, 200);
-  try { await localStorage.setItem("intentions_history", JSON.stringify(history)); } catch(e){}
+  try { localStorage.setItem("intentions_history", JSON.stringify(history)); } catch(e){}
   renderHistory();
 }
 
-async function saveGoal() {
+function saveGoal() {
   if (!curGoal || saved.find(g => g.ts === curGoal.ts)) return;
   saved.unshift({...curGoal});
   try { localStorage.setItem("intentions_saved", JSON.stringify(saved)); } catch(e){}
@@ -1120,36 +1248,36 @@ async function saveGoal() {
 }
 
 function loadLocal() {
-  try { const r = localStorage.getItem("intentions_saved"); if(r) saved = JSON.parse(r); } catch(e){}
-  try { const r = localStorage.getItem("intentions_history"); if(r) history = JSON.parse(r); } catch(e){}
+  try { const r = localStorage.getItem("intentions_saved");   if (r) saved   = JSON.parse(r); } catch(e){}
+  try { const r = localStorage.getItem("intentions_history"); if (r) history = JSON.parse(r); } catch(e){}
   renderSaved(); renderHistory();
 }
 
-async function clearSaved() {
+function clearSaved() {
   saved = [];
   try { localStorage.removeItem("intentions_saved"); } catch(e){}
   renderSaved();
 }
 
-async function clearHistory() {
+function clearHistory() {
   history = [];
   try { localStorage.removeItem("intentions_history"); } catch(e){}
   renderHistory();
 }
 
-async function deleteSaved(ts) {
+function deleteSaved(ts) {
   saved = saved.filter(g => g.ts !== ts);
   try { localStorage.setItem("intentions_saved", JSON.stringify(saved)); } catch(e){}
   renderSaved();
 }
 
-async function deleteHistory(ts) {
+function deleteHistory(ts) {
   history = history.filter(g => g.ts !== ts);
   try { localStorage.setItem("intentions_history", JSON.stringify(history)); } catch(e){}
   renderHistory();
 }
 
-async function bindFromHistory(ts) {
+function bindFromHistory(ts) {
   const g = history.find(x => x.ts === ts);
   if (!g || saved.find(x => x.ts === ts)) return;
   saved.unshift({...g});
@@ -1157,11 +1285,14 @@ async function bindFromHistory(ts) {
   renderSaved(); switchTab("saved");
 }
 
-// ── RENDER LISTS ─────────────────────────────────────────────
+// ============================================================
+// RENDER LISTS
+// ============================================================
 function itemHTML(g, type) {
-  const T = THEMES[currentTheme];
+  const T   = THEMES[currentTheme];
   const del = type === "saved" ? `deleteSaved(${g.ts})` : `deleteHistory(${g.ts})`;
-  const bind = type === "history" ? `<button onclick="bindFromHistory(${g.ts})">${T.btnBindHistory}</button>` : "";
+  const bind = type === "history"
+    ? `<button onclick="bindFromHistory(${g.ts})">${T.btnBindHistory}</button>` : "";
   return `<div class="hitem">
     <div class="htop"><div class="hbadges">${badgeHTML(g)}</div><span class="hdate">${g.date}</span></div>
     <div class="htext">${g.text}</div>
@@ -1178,7 +1309,7 @@ function renderSaved() {
   if (!T) return;
   document.getElementById("savedCount").textContent = saved.length + T.savedCountSuffix;
   document.getElementById("savedList").innerHTML = saved.length
-    ? saved.map(g => itemHTML(g, "saved")).join("")
+    ? saved.map(g => itemHTML(g,"saved")).join("")
     : `<div class="empty">${T.emptySaved}</div>`;
 }
 
@@ -1187,7 +1318,7 @@ function renderHistory() {
   if (!T) return;
   document.getElementById("histCount").textContent = history.length + T.histCountSuffix;
   document.getElementById("histList").innerHTML = history.length
-    ? history.map(g => itemHTML(g, "history")).join("")
+    ? history.map(g => itemHTML(g,"history")).join("")
     : `<div class="empty">${T.emptyHistory}</div>`;
 }
 
@@ -1198,47 +1329,88 @@ function switchTab(t) {
   });
 }
 
-// ── SUGGESTIONS ──────────────────────────────────────────────
-function prepareSuggestion() {
-  const realm = document.getElementById("sugRealm").value;
-  const text = document.getElementById("sugText").value.trim();
-  if (!text) { alert("Please write an intention first."); return; }
-  const realmName = topics.find(t => t.id === realm)?.name || realm;
-  const formatted = `INTENTION SUGGESTION\n\nTheme: ${THEMES[currentTheme].hTitle}\nSpace: ${realmName}\nIntention: ${text}\nSubmitted: ${new Date().toLocaleDateString("en-GB")}`;
-  document.getElementById("copyBox").textContent = formatted;
-  document.getElementById("suggestIdle").style.display = "none";
-  document.getElementById("suggestReady").style.display = "block";
+// ============================================================
+// SUGGESTIONS — write directly to GitHub
+// ============================================================
+
+function selectSugDiff(d) {
+  selSugDiff = d;
+  ["easy","medium","hard"].forEach(x => {
+    const btn = document.getElementById("sdiff-" + x);
+    btn.className = "sug-diff-btn" + (x === d ? " sel-" + x : "");
+  });
 }
 
-function copySuggestion() {
-  navigator.clipboard.writeText(document.getElementById("copyBox").textContent).catch(()=>{});
-  const c = document.getElementById("copyConfirm");
-  c.textContent = THEMES[currentTheme].copyConfirmText;
-  c.style.display = "inline";
-  setTimeout(() => c.style.display = "none", 2500);
+function setSugStatus(msg, type) {
+  const el = document.getElementById("sugStatus");
+  el.textContent = msg;
+  el.className   = "sug-status" + (type ? " " + type : "");
+  el.style.display = msg ? "block" : "none";
 }
 
-function openRaven() {
-  const body = encodeURIComponent(document.getElementById("copyBox").textContent);
-  const email = KEEPER_EMAIL === "PLACEHOLDER_KEEPER_EMAIL" ? "" : KEEPER_EMAIL;
-  window.open(`mailto:${email}?subject=Intention%20Suggestion&body=${body}`);
+async function submitSuggestion() {
+  const T        = THEMES[currentTheme];
+  const realmId  = document.getElementById("sugRealm").value;
+  const text     = document.getElementById("sugText").value.trim();
+  const diff     = selSugDiff;
+
+  if (!text)  { setSugStatus("Please write your intention first.", "err"); return; }
+  if (!diff)  { setSugStatus("Please choose a difficulty level.", "err"); return; }
+
+  const realmLabel = topics.find(t => t.id === realmId)?.name || realmId;
+
+  // Build the new suggestion entry
+  const newEntry = {
+    id:            `sug_${Date.now()}`,
+    submitted_at:  new Date().toISOString(),
+    theme:         currentTheme,
+    topic_id:      realmId,
+    topic_label:   realmLabel,
+    difficulty:    diff,
+    text:          text,
+    status:        "pending",
+    reviewer_notes: ""
+  };
+
+  const btn = document.getElementById("btnSubmitSug");
+  btn.disabled = true;
+  setSugStatus(T.sugSending, "sending");
+
+  try {
+    // 1. Read the current file to get its SHA and existing suggestions
+    const { content: current, sha } = await readSuggestionsFile();
+
+    // 2. Append our new entry
+    current.suggestions.push(newEntry);
+
+    // 3. Write the updated file back
+    await writeSuggestionsFile(current, sha);
+
+    setSugStatus(T.sugOk, "ok");
+    document.getElementById("sugText").value = "";
+    selSugDiff = null;
+    ["easy","medium","hard"].forEach(x => {
+      document.getElementById("sdiff-"+x).className = "sug-diff-btn";
+    });
+  } catch (err) {
+    console.error("Suggestion write failed:", err);
+    setSugStatus(T.sugErr, "err");
+  } finally {
+    btn.disabled = false;
+  }
 }
 
-function resetSuggest() {
-  document.getElementById("sugText").value = "";
-  document.getElementById("suggestIdle").style.display = "block";
-  document.getElementById("suggestReady").style.display = "none";
-  document.getElementById("copyConfirm").style.display = "none";
-}
-
-// ── SHARE ─────────────────────────────────────────────────────
+// ============================================================
+// SHARE MODAL
+// ============================================================
 function openShare() {
   if (!curGoal) return;
   const T = THEMES[currentTheme];
-  document.getElementById("tcContent").textContent = `${curGoal.diffLabel.toUpperCase()} — ${curGoal.topic}\n\n${curGoal.text}\n\n— ${T.hTitle}`;
+  document.getElementById("tcContent").textContent =
+    `${curGoal.diffLabel.toUpperCase()} — ${curGoal.topic}\n\n${curGoal.text}\n\n— ${T.hTitle}`;
   document.getElementById("vcEyebrow").textContent = `${curGoal.diffLabel} · ${curGoal.topic}`;
-  document.getElementById("vcGoal").textContent = curGoal.text;
-  document.getElementById("vcDate").textContent = curGoal.date;
+  document.getElementById("vcGoal").textContent    = curGoal.text;
+  document.getElementById("vcDate").textContent    = curGoal.date;
   document.getElementById("modalVp").classList.add("open");
   switchShareTab("text");
 }
@@ -1248,7 +1420,7 @@ function closeShare() { document.getElementById("modalVp").classList.remove("ope
 function switchShareTab(t) {
   document.getElementById("stab-text").classList.toggle("active", t === "text");
   document.getElementById("stab-visual").classList.toggle("active", t === "visual");
-  document.getElementById("shareText").style.display = t === "text" ? "block" : "none";
+  document.getElementById("shareText").style.display   = t === "text"   ? "block" : "none";
   document.getElementById("shareVisual").style.display = t === "visual" ? "block" : "none";
 }
 
@@ -1257,7 +1429,9 @@ function copyShareText() {
 }
 
 function copyVisual() {
-  navigator.clipboard.writeText(`${curGoal.diffLabel.toUpperCase()} — ${curGoal.topic}\n\n${curGoal.text}`).catch(()=>{});
+  navigator.clipboard.writeText(
+    `${curGoal.diffLabel.toUpperCase()} — ${curGoal.topic}\n\n${curGoal.text}`
+  ).catch(()=>{});
 }
 </script>
 </body>

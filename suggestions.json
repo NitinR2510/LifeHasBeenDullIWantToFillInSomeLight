@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "User-submitted goal suggestions awaiting keeper review. Each entry records who suggested it, from which theme and topic, and its current review status.",
+    "statuses": ["pending", "approved", "rejected"],
+    "note": "Approved entries should be manually moved into goals.json under the matching topic_id and difficulty."
+  },
+
+  "suggestions": [
+    {
+      "id": "sug_example_001",
+      "submitted_at": "2025-01-01T00:00:00Z",
+      "theme": "fellowship",
+      "topic_id": "career",
+      "topic_label": "The Forge",
+      "difficulty": "medium",
+      "text": "This is a placeholder example entry — replace or delete before going live.",
+      "status": "pending",
+      "reviewer_notes": ""
+    }
+  ]
+}
