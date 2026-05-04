@@ -200,6 +200,9 @@ body.fellowship{background:#1a1208;}
 .fellowship .b-medium{border-color:rgba(201,168,76,0.5);color:#c9a84c;}
 .fellowship .b-hard{border-color:rgba(240,149,149,0.4);color:#F09595;}
 .fellowship .s-goal{font-family:'Crimson Text',serif;font-size:19px;color:#f0e6c8;line-height:1.8;font-style:italic;margin-bottom:1.5rem;}
+.fellowship .s-quote{margin:-0.2rem 0 1.4rem;padding:0.85rem 1rem;border-left:2px solid rgba(201,168,76,0.45);background:rgba(201,168,76,0.05);}
+.fellowship .s-quote-text{font-family:'Crimson Text',serif;font-size:14px;line-height:1.6;color:#d9c89f;font-style:italic;}
+.fellowship .s-quote-author{display:block;margin-top:0.35rem;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.08em;color:#9b8150;}
 .fellowship .s-seal{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;}
 .fellowship .seal{width:22px;height:22px;border-radius:50%;border:1px solid #8a6e2a;display:flex;align-items:center;justify-content:center;}
 .fellowship .seal-dot{width:7px;height:7px;border-radius:50%;background:#8a6e2a;}
@@ -328,6 +331,9 @@ body.glass{background:linear-gradient(160deg,#dde8ff 0%,#ede4ff 50%,#fde0ec 100%
 .glass .b-medium{border-color:rgba(99,102,241,0.3);color:#4338ca;background:rgba(224,231,255,0.5);}
 .glass .b-hard{border-color:rgba(239,68,68,0.3);color:#dc2626;background:rgba(254,226,226,0.5);}
 .glass .s-goal{font-family:'Inter',sans-serif;font-size:17px;color:#1e1b4b;line-height:1.75;font-weight:400;margin-bottom:1.5rem;}
+.glass .s-quote{margin:-0.2rem 0 1.4rem;padding:0.9rem 1rem;border-left:2px solid rgba(99,102,241,0.35);background:rgba(255,255,255,0.5);border-radius:8px;}
+.glass .s-quote-text{font-family:'Inter',sans-serif;font-size:13px;line-height:1.65;color:#312e81;font-style:italic;}
+.glass .s-quote-author{display:block;margin-top:0.35rem;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:#4f46e5;}
 .glass .s-seal{display:none;}
 .glass .scroll-cap-bot{display:none;}
 .glass .s-actions{display:flex;gap:8px;flex-wrap:wrap;}
@@ -452,6 +458,9 @@ body.book{background:#f7f4ef;}
 .book .b-medium{border-color:#D4B899;color:#8A6040;}
 .book .b-hard{border-color:#D4A0A0;color:#8A3E3E;}
 .book .s-goal{font-family:'Lora',serif;font-size:18px;color:#2c2416;line-height:1.85;margin-bottom:1.5rem;}
+.book .s-quote{margin:-0.2rem 0 1.4rem;padding:0.85rem 1rem;border-left:2px solid #c5b89a;background:#fffdf9;border-radius:3px;}
+.book .s-quote-text{font-family:'Lora',serif;font-size:14px;line-height:1.7;color:#4f4331;font-style:italic;}
+.book .s-quote-author{display:block;margin-top:0.35rem;font-family:'Inter',sans-serif;font-size:11px;color:#8f7c5f;}
 .book .s-seal{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;}
 .book .seal{display:none;}
 .book .seal-dot{display:none;}
@@ -634,6 +643,10 @@ body.book{background:#f7f4ef;}
         </div>
         <div class="s-badges" id="sBadges"></div>
         <div class="s-goal" id="sGoal"></div>
+        <div class="s-quote" id="sQuote" style="display:none;">
+          <div class="s-quote-text" id="sQuoteText"></div>
+          <span class="s-quote-author" id="sQuoteAuthor"></span>
+        </div>
         <div class="s-seal"><div class="seal"><div class="seal-dot"></div></div><div class="seal-line"></div></div>
         <div class="s-actions">
           <button class="act-save" onclick="saveGoal()" id="btnSave"></button>
@@ -725,6 +738,7 @@ body.book{background:#f7f4ef;}
 // ── CONFIG ──────────────────────────────────────────────────
 const APPROVED_URL = "PLACEHOLDER_APPROVED_URL";
 const KEEPER_EMAIL = "PLACEHOLDER_KEEPER_EMAIL";
+const QUOTE_API_URL = "https://api.quotable.io/random?tags=wisdom|philosophy";
 
 // ── THEME COPY ───────────────────────────────────────────────
 const THEMES = {
@@ -1065,7 +1079,7 @@ function checkReady() {
   document.getElementById("genBtn").disabled = !(selTopic && selDiff);
 }
 
-function generate() {
+async function generate() {
   if (!selTopic || !selDiff) return;
   showNotice("","");
   const pool = goalsDB[selTopic.id]?.[selDiff];
@@ -1085,9 +1099,28 @@ function generate() {
     theme: currentTheme
   };
   renderScroll(curGoal);
+  await renderQuote();
   addToHistory(curGoal);
   document.getElementById("scrollWrap").classList.add("visible");
   document.getElementById("modalVp").classList.remove("open");
+}
+
+async function renderQuote() {
+  const quoteWrap = document.getElementById("sQuote");
+  const quoteText = document.getElementById("sQuoteText");
+  const quoteAuthor = document.getElementById("sQuoteAuthor");
+  quoteWrap.style.display = "none";
+  try {
+    const res = await fetch(QUOTE_API_URL, { cache: "no-store" });
+    if (!res.ok) throw new Error("Quote API failed");
+    const data = await res.json();
+    if (!data?.content) return;
+    quoteText.textContent = `“${data.content}”`;
+    quoteAuthor.textContent = data.author ? `— ${data.author}` : "— Unknown";
+    quoteWrap.style.display = "block";
+  } catch (e) {
+    quoteWrap.style.display = "none";
+  }
 }
 
 function badgeHTML(g) {
