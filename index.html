@@ -79,6 +79,62 @@ html,body{min-height:100%;font-size:16px;}
 .tc-book .tc-btn{margin-top:14px;display:inline-block;padding:7px 18px;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;border-radius:4px;border:0.5px solid #c5b89a;color:#7c6f5a;cursor:pointer;background:#fffdf9;}
 .tc-book .tc-btn:hover{background:#f0ebe1;}
 
+.rules-modal{
+  border:none;
+  border-radius:12px;
+  width:min(92vw,640px);
+  padding:0;
+  background:transparent;
+}
+.rules-modal::backdrop{background:rgba(0,0,0,0.72);}
+.rules-card{
+  background:#16120c;
+  border:1px solid rgba(201,168,76,0.35);
+  border-radius:12px;
+  padding:1.5rem;
+  color:#e8dcc1;
+}
+.rules-title{font-family:'Cinzel',serif;font-size:20px;color:#c9a84c;margin-bottom:0.5rem;}
+.rules-sub{font-family:'Crimson Text',serif;font-size:15px;color:#b8a98a;font-style:italic;margin-bottom:1rem;line-height:1.6;}
+.rules-list{padding-left:1.2rem;display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1.25rem;}
+.rules-list li{font-family:'Inter',sans-serif;font-size:14px;line-height:1.65;color:#f1e6cc;}
+.rules-actions{display:flex;justify-content:flex-end;gap:0.75rem;flex-wrap:wrap;}
+.rules-btn{
+  padding:10px 16px;
+  border-radius:6px;
+  border:1px solid rgba(201,168,76,0.4);
+  background:#241a0b;
+  color:#e8dcc1;
+  cursor:pointer;
+  font-family:'Inter',sans-serif;
+}
+.rules-btn.primary{background:#3a2c12;color:#f5e8ca;border-color:#c9a84c;}
+
+.music-fab{
+  position:fixed;
+  right:1rem;
+  bottom:1rem;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  border:1px solid rgba(201,168,76,0.5);
+  background:#2a1f0e;
+  color:#f0e6c8;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  cursor:pointer;
+  box-shadow:0 10px 24px rgba(0,0,0,0.35);
+  z-index:1200;
+  animation:floatingIcon 3s ease-in-out infinite;
+}
+.music-fab.playing{background:#3a2c12;border-color:#c9a84c;}
+@keyframes floatingIcon{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+}
+
 /* ============================================================
    SHARED APP SHELL
    ============================================================ */
@@ -479,7 +535,7 @@ body.book{background:#f7f4ef;}
   <p class="tp-sub">Choose the world you wish to inhabit</p>
   <div class="tp-cards">
 
-    <div class="tc-fellowship" onclick="chooseTheme('fellowship')">
+    <div class="tc-fellowship" onclick="openRules('fellowship')">
       <div class="tc-inner">
         <p class="tc-num">Theme I</p>
         <p class="tc-name">The Fellowship of the Ring</p>
@@ -493,7 +549,7 @@ body.book{background:#f7f4ef;}
       </div>
     </div>
 
-    <div class="tc-glass" onclick="chooseTheme('glass')">
+    <div class="tc-glass" onclick="openRules('glass')">
       <div class="tc-inner">
         <p class="tc-num">Theme II</p>
         <p class="tc-name">Translucent Surface</p>
@@ -506,7 +562,7 @@ body.book{background:#f7f4ef;}
       </div>
     </div>
 
-    <div class="tc-book" onclick="chooseTheme('book')">
+    <div class="tc-book" onclick="openRules('book')">
       <div class="tc-inner">
         <p class="tc-num">Theme III</p>
         <p class="tc-name">Meditative &amp; Book Club</p>
@@ -521,6 +577,19 @@ body.book{background:#f7f4ef;}
 
   </div>
 </div>
+<dialog class="rules-modal" id="rulesModal">
+  <div class="rules-card">
+    <h2 class="rules-title">Before You Begin</h2>
+    <p class="rules-sub">Please read these rules before entering your chosen world.</p>
+    <ol class="rules-list" id="rulesList"></ol>
+    <div class="rules-actions">
+      <button class="rules-btn" onclick="closeRules()">Cancel</button>
+      <button class="rules-btn primary" onclick="acceptRules()">I Understand</button>
+    </div>
+  </div>
+</dialog>
+<button class="music-fab" id="musicBtn" onclick="toggleMusic()" aria-label="Toggle background music">🎵</button>
+<audio id="bgMusic" preload="none"></audio>
 
 <!-- ============================================================
      GOAL APP (shared HTML, themed by body class)
@@ -774,6 +843,13 @@ let currentTheme = null;
 let topics = [], goalsDB = {};
 let selTopic = null, selDiff = null, curGoal = null;
 let saved = [], history = [];
+let pendingTheme = null;
+let musicPlaying = false;
+const RULES = [
+  "This app gives guidance, not pressure — choose goals that are realistic for you.",
+  "Honor your selected intention for today before generating another one.",
+  "Track your progress honestly in Saved and History to build consistency."
+];
 
 // ── FALLBACK DATA ────────────────────────────────────────────
 const FALLBACK_TOPICS = [
@@ -844,6 +920,67 @@ function chooseTheme(t) {
     buildSuggestSelect();
   });
   loadLocal();
+}
+
+function openRules(theme) {
+  pendingTheme = theme;
+  const modal = document.getElementById("rulesModal");
+  const list = document.getElementById("rulesList");
+  list.innerHTML = RULES.map(rule => `<li>${rule}</li>`).join("");
+  if (typeof modal.showModal === "function") {
+    modal.showModal();
+  } else {
+    modal.setAttribute("open", "open");
+  }
+}
+
+function closeRules() {
+  const modal = document.getElementById("rulesModal");
+  pendingTheme = null;
+  if (typeof modal.close === "function") {
+    modal.close();
+  } else {
+    modal.removeAttribute("open");
+  }
+}
+
+function acceptRules() {
+  const nextTheme = pendingTheme;
+  closeRules();
+  if (nextTheme) chooseTheme(nextTheme);
+}
+
+function toggleMusic() {
+  const audio = document.getElementById("bgMusic");
+  const btn = document.getElementById("musicBtn");
+  if (!audio.getAttribute("src")) {
+    alert("Add your music file path to #bgMusic src in the HTML first.");
+    return;
+  }
+  if (musicPlaying) {
+    stopMusic();
+  } else {
+    startMusic();
+  }
+  btn.classList.toggle("playing", musicPlaying);
+}
+
+function startMusic() {
+  const audio = document.getElementById("bgMusic");
+  audio.play().then(() => {
+    musicPlaying = true;
+    document.getElementById("musicBtn").setAttribute("aria-label", "Stop background music");
+  }).catch(() => {
+    musicPlaying = false;
+  });
+}
+
+function stopMusic() {
+  const audio = document.getElementById("bgMusic");
+  audio.pause();
+  audio.currentTime = 0;
+  musicPlaying = false;
+  document.getElementById("musicBtn").setAttribute("aria-label", "Start background music");
 }
 
 function backToThemes() {
