@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Book of Intentions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Crimson+Text:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{min-height:100%;font-size:16px;}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+
+/* ============================================================
+   THEME PICKER SCREEN
+   ============================================================ */
+#themePicker{
+  min-height:100vh;
+  background:#0f0d09;
+  display:flex;flex-direction:column;align-items:center;
+  padding:3rem 1.5rem 4rem;
+}
+.tp-rune{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.3em;color:#5a4a2a;margin-bottom:1rem;}
+.tp-title{font-family:'Cinzel',serif;font-size:22px;font-weight:600;color:#c9a84c;margin-bottom:8px;text-align:center;}
+.tp-sub{font-family:'Crimson Text',serif;font-size:15px;color:#7a6a4a;font-style:italic;margin-bottom:2.5rem;text-align:center;}
+.tp-cards{display:flex;flex-direction:column;gap:1.25rem;width:100%;max-width:560px;}
+
+/* Card 1 — Fellowship */
+.tc-fellowship{
+  border-radius:8px;overflow:hidden;cursor:pointer;
+  background:#1a1208;border:0.5px solid rgba(201,168,76,0.2);
+  transition:transform 0.18s,border-color 0.18s;
+}
+.tc-fellowship:hover{transform:translateY(-2px);border-color:rgba(201,168,76,0.5);}
+.tc-fellowship .tc-inner{padding:1.5rem;}
+.tc-fellowship .tc-num{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;color:#5a4a2a;text-transform:uppercase;margin-bottom:6px;}
+.tc-fellowship .tc-name{font-family:'Cinzel',serif;font-size:17px;color:#c9a84c;margin-bottom:6px;}
+.tc-fellowship .tc-desc{font-family:'Crimson Text',serif;font-size:14px;color:#7a6a4a;font-style:italic;line-height:1.6;margin-bottom:1rem;}
+.scroll-mini{background:#231a0a;border:0.5px solid rgba(201,168,76,0.2);border-radius:3px;padding:12px 16px;}
+.scroll-mini-cap{height:8px;background:#3a2c12;border-radius:2px 2px 0 0;margin:-12px -16px 10px;border-bottom:0.5px solid rgba(201,168,76,0.15);}
+.scroll-mini-text{font-family:'Crimson Text',serif;font-size:13px;color:#d4c49e;font-style:italic;line-height:1.7;}
+.scroll-mini-cap-bot{height:8px;background:#3a2c12;border-radius:0 0 2px 2px;margin:10px -16px -12px;border-top:0.5px solid rgba(201,168,76,0.15);}
+.tc-fellowship .tc-btn{margin-top:14px;display:inline-block;padding:7px 18px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:0.5px solid rgba(201,168,76,0.4);color:#8a6e2a;cursor:pointer;background:transparent;}
+.tc-fellowship .tc-btn:hover{border-color:#c9a84c;color:#c9a84c;}
+
+/* Card 2 — Glass */
+.tc-glass{
+  border-radius:16px;overflow:hidden;cursor:pointer;
+  background:linear-gradient(135deg,#e8f0fe,#f3e8ff,#fce4ec);
+  border:0.5px solid rgba(255,255,255,0.6);
+  transition:transform 0.18s,box-shadow 0.18s;
+  box-shadow:0 2px 16px rgba(99,102,241,0.06);
+}
+.tc-glass:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(99,102,241,0.12);}
+.tc-glass .tc-inner{padding:1.5rem;}
+.tc-glass .tc-num{font-size:9px;letter-spacing:0.2em;color:#6366f1;text-transform:uppercase;font-weight:500;font-family:'Inter',sans-serif;margin-bottom:6px;}
+.tc-glass .tc-name{font-family:'Inter',sans-serif;font-size:17px;font-weight:500;color:#1e1b4b;margin-bottom:6px;}
+.tc-glass .tc-desc{font-family:'Inter',sans-serif;font-size:13px;color:#4338ca;line-height:1.6;margin-bottom:1rem;}
+.glass-mini{background:rgba(255,255,255,0.5);border:0.5px solid rgba(255,255,255,0.8);border-radius:14px;padding:14px 16px;box-shadow:0 2px 12px rgba(99,102,241,0.07);}
+.glass-mini-tag{font-size:10px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:rgba(99,102,241,0.65);margin-bottom:7px;font-family:'Inter',sans-serif;}
+.glass-mini-text{font-family:'Inter',sans-serif;font-size:13px;color:#1e1b4b;line-height:1.65;}
+.tc-glass .tc-btn{margin-top:14px;display:inline-block;padding:7px 18px;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;border-radius:20px;border:0.5px solid rgba(67,56,202,0.35);color:#4338ca;cursor:pointer;background:rgba(255,255,255,0.5);}
+.tc-glass .tc-btn:hover{background:rgba(255,255,255,0.8);}
+
+/* Card 3 — Book Club */
+.tc-book{
+  border-radius:6px;overflow:hidden;cursor:pointer;
+  background:#f7f4ef;border:0.5px solid #ddd5c4;
+  transition:transform 0.18s,box-shadow 0.18s;
+}
+.tc-book:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(100,80,50,0.1);}
+.tc-book .tc-inner{padding:1.5rem;}
+.tc-book .tc-num{font-size:9px;letter-spacing:0.2em;color:#b5977a;text-transform:uppercase;font-weight:500;font-family:'Inter',sans-serif;margin-bottom:6px;}
+.tc-book .tc-name{font-family:'Lora',serif;font-size:17px;color:#2c2416;margin-bottom:6px;}
+.tc-book .tc-desc{font-family:'Lora',serif;font-size:13px;color:#7c6f5a;font-style:italic;line-height:1.6;margin-bottom:1rem;}
+.book-mini{background:#fffdf9;border:0.5px solid #e0d8cc;border-radius:4px;padding:12px 16px;border-left:3px solid #b5977a;}
+.book-mini-ch{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#b5977a;margin-bottom:8px;font-family:'Inter',sans-serif;font-weight:500;}
+.book-mini-text{font-family:'Lora',serif;font-size:13px;color:#2c2416;line-height:1.75;}
+.tc-book .tc-btn{margin-top:14px;display:inline-block;padding:7px 18px;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;border-radius:4px;border:0.5px solid #c5b89a;color:#7c6f5a;cursor:pointer;background:#fffdf9;}
+.tc-book .tc-btn:hover{background:#f0ebe1;}
+
+/* ============================================================
+   SHARED APP SHELL
+   ============================================================ */
+#goalApp{display:none;min-height:100vh;}
+
+/* ============================================================
+   THEME: FELLOWSHIP
+   ============================================================ */
+body.fellowship{background:#1a1208;}
+.fellowship #goalApp{background:#1a1208;color:#d4c49e;}
+.fellowship .app-inner{max-width:680px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+
+.fellowship .header{text-align:center;padding:2rem 1rem 1.5rem;}
+.fellowship .h-rune{font-size:11px;letter-spacing:0.3em;color:#5a4a2a;margin-bottom:12px;}
+.fellowship .h-title{font-family:'Cinzel',serif;font-size:26px;font-weight:600;color:#c9a84c;line-height:1.2;margin-bottom:8px;}
+.fellowship .h-sub{font-family:'Crimson Text',serif;font-size:15px;color:#b8a98a;font-style:italic;line-height:1.6;}
+.fellowship .h-rule{display:flex;align-items:center;gap:12px;margin:16px auto;max-width:340px;}
+.fellowship .h-line{flex:1;height:0.5px;background:rgba(201,168,76,0.2);}
+.fellowship .h-gem{width:6px;height:6px;border-radius:50%;background:#8a6e2a;}
+.fellowship .theme-switch{display:block;text-align:center;font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:#5a4a2a;text-transform:uppercase;cursor:pointer;margin-top:8px;background:none;border:none;}
+.fellowship .theme-switch:hover{color:#8a6e2a;}
+
+.fellowship .sec-title{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.2em;color:#8a6e2a;text-transform:uppercase;margin-bottom:12px;text-align:center;}
+.fellowship .topics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:8px;margin-bottom:1.5rem;}
+.fellowship .topic-btn{padding:12px 10px;border-radius:4px;border:0.5px solid rgba(201,168,76,0.25);background:#2a1f0e;cursor:pointer;text-align:left;transition:all 0.2s;}
+.fellowship .topic-btn:hover{border-color:#8a6e2a;background:#3a2c12;}
+.fellowship .topic-btn.selected{border:1px solid #c9a84c;background:#3a2c12;}
+.fellowship .t-icon{font-size:14px;margin-bottom:4px;display:block;color:#c9a84c;}
+.fellowship .t-name{font-family:'Cinzel',serif;font-size:11px;color:#f0e6c8;display:block;letter-spacing:0.05em;}
+.fellowship .t-desc{font-size:12px;color:#7a6a4a;margin-top:2px;display:block;font-style:italic;font-family:'Crimson Text',serif;}
+
+.fellowship .diff-row{display:flex;gap:8px;margin-bottom:1.5rem;}
+.fellowship .diff-btn{flex:1;padding:10px 6px;border-radius:4px;border:0.5px solid rgba(201,168,76,0.25);background:#2a1f0e;cursor:pointer;text-align:center;transition:all 0.2s;}
+.fellowship .diff-btn:hover{border-color:#8a6e2a;}
+.fellowship .diff-btn.sel-easy{border:1px solid #5DCAA5;background:#04342C;}
+.fellowship .diff-btn.sel-medium{border:1px solid #c9a84c;background:#2a1a00;}
+.fellowship .diff-btn.sel-hard{border:1px solid #F09595;background:#2a0808;}
+.fellowship .d-name{font-family:'Cinzel',serif;font-size:11px;display:block;letter-spacing:0.08em;margin-bottom:2px;color:#b8a98a;}
+.fellowship .diff-btn.sel-easy .d-name{color:#5DCAA5;}
+.fellowship .diff-btn.sel-medium .d-name{color:#c9a84c;}
+.fellowship .diff-btn.sel-hard .d-name{color:#F09595;}
+.fellowship .d-sub{font-size:11px;font-style:italic;color:#7a6a4a;display:block;font-family:'Crimson Text',serif;}
+
+.fellowship .gen-btn{width:100%;padding:14px;font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;border-radius:4px;border:1px solid rgba(201,168,76,0.5);background:transparent;color:#8a6e2a;cursor:pointer;transition:all 0.2s;margin-bottom:1.5rem;}
+.fellowship .gen-btn:hover{border-color:#c9a84c;color:#c9a84c;background:rgba(201,168,76,0.05);}
+.fellowship .gen-btn:disabled{opacity:0.3;cursor:not-allowed;}
+.fellowship .notice{text-align:center;padding:10px;font-size:13px;font-style:italic;border-radius:4px;margin-bottom:1.5rem;display:none;font-family:'Crimson Text',serif;}
+.fellowship .notice.warn{color:#c9a84c;background:rgba(201,168,76,0.08);border:0.5px solid rgba(201,168,76,0.25);}
+
+.fellowship .scroll-wrap{display:none;margin-bottom:2rem;}
+.fellowship .scroll-wrap.visible{display:block;}
+.fellowship .scroll-cap{height:18px;background:#3a2c12;border-radius:3px 3px 0 0;border:0.5px solid rgba(201,168,76,0.25);border-bottom:none;display:flex;align-items:center;justify-content:center;}
+.fellowship .scroll-rod{width:40px;height:6px;border-radius:3px;background:#8a6e2a;}
+.fellowship .scroll-body{background:#231a0a;border-left:0.5px solid rgba(201,168,76,0.25);border-right:0.5px solid rgba(201,168,76,0.25);padding:1.75rem 2rem;}
+.fellowship .s-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.fellowship .s-eline{flex:1;height:0.5px;background:rgba(201,168,76,0.2);}
+.fellowship .s-egem{width:5px;height:5px;border-radius:50%;background:#8a6e2a;}
+.fellowship .s-elabel{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;color:#8a6e2a;text-transform:uppercase;}
+.fellowship .s-badges{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;}
+.fellowship .sbadge{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.12em;padding:3px 10px;border-radius:2px;border:0.5px solid;}
+.fellowship .b-topic{border-color:rgba(201,168,76,0.25);color:#8a6e2a;}
+.fellowship .b-easy{border-color:rgba(93,202,165,0.4);color:#5DCAA5;}
+.fellowship .b-medium{border-color:rgba(201,168,76,0.5);color:#c9a84c;}
+.fellowship .b-hard{border-color:rgba(240,149,149,0.4);color:#F09595;}
+.fellowship .s-goal{font-family:'Crimson Text',serif;font-size:19px;color:#f0e6c8;line-height:1.8;font-style:italic;margin-bottom:1.5rem;}
+.fellowship .s-seal{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;}
+.fellowship .seal{width:22px;height:22px;border-radius:50%;border:1px solid #8a6e2a;display:flex;align-items:center;justify-content:center;}
+.fellowship .seal-dot{width:7px;height:7px;border-radius:50%;background:#8a6e2a;}
+.fellowship .seal-line{flex:1;height:0.5px;background:rgba(201,168,76,0.2);}
+.fellowship .s-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.fellowship .s-actions button{padding:7px 14px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.1em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.25);background:transparent;color:#b8a98a;cursor:pointer;}
+.fellowship .s-actions button:hover{border-color:#8a6e2a;color:#c9a84c;}
+.fellowship .act-save{color:#5DCAA5!important;border-color:rgba(93,202,165,0.35)!important;}
+.fellowship .scroll-cap-bot{height:18px;background:#3a2c12;border-radius:0 0 3px 3px;border:0.5px solid rgba(201,168,76,0.25);border-top:none;display:flex;align-items:center;justify-content:center;}
+
+.fellowship .divider{display:flex;align-items:center;gap:12px;margin:1.5rem 0;}
+.fellowship .div-line{flex:1;height:0.5px;background:rgba(201,168,76,0.15);}
+.fellowship .div-gem{width:5px;height:5px;border-radius:50%;background:#5a4a2a;}
+
+.fellowship .tabs{display:flex;gap:6px;margin-bottom:1.25rem;flex-wrap:wrap;}
+.fellowship .tab{padding:7px 16px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:0.5px solid transparent;background:transparent;color:#7a6a4a;cursor:pointer;}
+.fellowship .tab:hover{color:#b8a98a;}
+.fellowship .tab.active{border-color:rgba(201,168,76,0.5);color:#c9a84c;}
+.fellowship .panel{display:none;}
+.fellowship .panel.active{display:block;}
+
+.fellowship .hcontrols{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.fellowship .hcount{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.1em;color:#7a6a4a;}
+.fellowship .clear-btn{font-family:'Cinzel',serif;font-size:10px;color:#5a4a2a;background:none;border:none;cursor:pointer;}
+.fellowship .clear-btn:hover{color:#F09595;}
+.fellowship .hitem{border:0.5px solid rgba(201,168,76,0.2);border-radius:3px;background:#2a1f0e;padding:14px 16px;margin-bottom:8px;}
+.fellowship .htop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.fellowship .hbadges{display:flex;gap:6px;flex-wrap:wrap;}
+.fellowship .hdate{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.08em;color:#7a6a4a;white-space:nowrap;}
+.fellowship .htext{font-family:'Crimson Text',serif;font-size:15px;color:#d4c49e;line-height:1.6;font-style:italic;}
+.fellowship .hactions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.fellowship .hactions button{padding:5px 12px;font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.08em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.2);background:transparent;color:#7a6a4a;cursor:pointer;}
+.fellowship .hactions button:hover{color:#c9a84c;border-color:#8a6e2a;}
+.fellowship .del-btn{color:#c05050!important;}
+.fellowship .del-btn:hover{color:#F09595!important;}
+.fellowship .empty{font-family:'Crimson Text',serif;font-size:14px;color:#7a6a4a;font-style:italic;text-align:center;padding:2rem 0;border:0.5px dashed #5a4a2a;border-radius:3px;}
+
+.fellowship .suggest-form{background:#2a1f0e;border:0.5px solid rgba(201,168,76,0.2);border-radius:4px;padding:1.5rem;}
+.fellowship .sug-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.15em;color:#8a6e2a;text-transform:uppercase;margin-bottom:8px;display:block;}
+.fellowship .sug-select{width:100%;font-family:'Cinzel',serif;font-size:12px;padding:9px 12px;border-radius:4px;border:0.5px solid rgba(201,168,76,0.25);background:#3a2c12;color:#d4c49e;margin-bottom:12px;}
+.fellowship .sug-select:focus{outline:none;border-color:#8a6e2a;}
+.fellowship .sug-textarea{width:100%;font-family:'Crimson Text',serif;font-size:15px;padding:12px 14px;border-radius:4px;border:0.5px solid rgba(201,168,76,0.25);background:#3a2c12;color:#d4c49e;font-style:italic;line-height:1.6;resize:vertical;min-height:90px;margin-bottom:12px;}
+.fellowship .sug-textarea::placeholder{color:#7a6a4a;}
+.fellowship .sug-textarea:focus{outline:none;border-color:#8a6e2a;}
+.fellowship .sug-note{font-family:'Crimson Text',serif;font-size:13px;color:#7a6a4a;font-style:italic;margin-bottom:14px;line-height:1.6;}
+.fellowship .sug-btn{padding:9px 20px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.12em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.5);background:transparent;color:#8a6e2a;cursor:pointer;}
+.fellowship .sug-btn:hover{border-color:#c9a84c;color:#c9a84c;}
+.fellowship .copy-box{background:#231a0a;border:0.5px solid rgba(201,168,76,0.2);border-radius:4px;padding:14px;font-family:'Crimson Text',serif;font-size:14px;color:#d4c49e;line-height:1.7;white-space:pre-wrap;margin:12px 0;font-style:italic;}
+.fellowship .copy-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.fellowship .copy-actions button{padding:7px 16px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.1em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.5);background:transparent;color:#8a6e2a;cursor:pointer;}
+.fellowship .copy-actions button:hover{border-color:#c9a84c;color:#c9a84c;}
+.fellowship .copy-confirm{font-size:12px;color:#5DCAA5;font-style:italic;display:none;font-family:'Crimson Text',serif;}
+
+.fellowship .modal-vp{min-height:360px;display:none;align-items:center;justify-content:center;margin-bottom:1.5rem;background:rgba(0,0,0,0.7);border-radius:6px;}
+.fellowship .modal-vp.open{display:flex;}
+.fellowship .modal{background:#2a1f0e;border:0.5px solid rgba(201,168,76,0.5);border-radius:4px;padding:1.5rem;width:100%;max-width:420px;}
+.fellowship .modal-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.15em;color:#c9a84c;margin-bottom:1.25rem;}
+.fellowship .share-tabs{display:flex;gap:6px;margin-bottom:1.25rem;}
+.fellowship .share-tab{flex:1;padding:7px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.1em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.25);background:transparent;color:#7a6a4a;cursor:pointer;text-align:center;}
+.fellowship .share-tab.active{border-color:#8a6e2a;color:#c9a84c;}
+.fellowship .tc-content{background:#3a2c12;border-radius:3px;border:0.5px solid rgba(201,168,76,0.2);padding:14px;font-family:'Crimson Text',serif;font-size:14px;color:#d4c49e;line-height:1.7;margin-bottom:12px;white-space:pre-wrap;font-style:italic;}
+.fellowship .vc-card{background:#231a0a;border:0.5px solid rgba(201,168,76,0.25);border-radius:4px;padding:18px 20px;margin-bottom:12px;}
+.fellowship .vc-eyebrow{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;color:#8a6e2a;text-transform:uppercase;margin-bottom:8px;}
+.fellowship .vc-goal{font-family:'Crimson Text',serif;font-size:16px;color:#f0e6c8;line-height:1.75;font-style:italic;margin-bottom:10px;}
+.fellowship .vc-footer{display:flex;justify-content:space-between;}
+.fellowship .vc-date{font-size:11px;color:#7a6a4a;font-family:'Cinzel',serif;}
+.fellowship .vc-brand{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.15em;color:#5a4a2a;}
+.fellowship .modal-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.fellowship .modal-actions button{padding:7px 14px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.08em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.25);background:transparent;color:#b8a98a;cursor:pointer;}
+.fellowship .modal-actions button:hover{border-color:#8a6e2a;color:#c9a84c;}
+
+/* ============================================================
+   THEME: GLASS
+   ============================================================ */
+body.glass{background:linear-gradient(160deg,#dde8ff 0%,#ede4ff 50%,#fde0ec 100%);min-height:100vh;}
+.glass #goalApp{background:transparent;color:#1e1b4b;}
+.glass .app-inner{max-width:680px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+
+.glass .header{text-align:center;padding:2rem 1rem 1.5rem;}
+.glass .h-rune{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:0.25em;color:rgba(99,102,241,0.4);margin-bottom:12px;text-transform:uppercase;}
+.glass .h-title{font-family:'Inter',sans-serif;font-size:24px;font-weight:500;color:#1e1b4b;line-height:1.2;margin-bottom:8px;}
+.glass .h-sub{font-family:'Inter',sans-serif;font-size:14px;color:#4338ca;line-height:1.6;}
+.glass .h-rule{display:flex;align-items:center;gap:12px;margin:16px auto;max-width:340px;}
+.glass .h-line{flex:1;height:0.5px;background:rgba(99,102,241,0.2);}
+.glass .h-gem{width:5px;height:5px;border-radius:50%;background:rgba(99,102,241,0.3);}
+.glass .theme-switch{display:block;text-align:center;font-family:'Inter',sans-serif;font-size:10px;color:rgba(99,102,241,0.45);cursor:pointer;margin-top:8px;background:none;border:none;}
+.glass .theme-switch:hover{color:rgba(99,102,241,0.7);}
+
+.glass .sec-title{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.15em;color:rgba(99,102,241,0.6);text-transform:uppercase;margin-bottom:12px;text-align:center;}
+.glass .topics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:8px;margin-bottom:1.5rem;}
+.glass .topic-btn{padding:14px 12px;border-radius:14px;border:0.5px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.4);cursor:pointer;text-align:left;transition:all 0.2s;backdrop-filter:blur(8px);}
+.glass .topic-btn:hover{background:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.9);}
+.glass .topic-btn.selected{border:1px solid rgba(99,102,241,0.5);background:rgba(255,255,255,0.65);}
+.glass .t-icon{font-size:14px;margin-bottom:4px;display:block;color:#6366f1;}
+.glass .t-name{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:#1e1b4b;display:block;}
+.glass .t-desc{font-size:11px;color:#4338ca;margin-top:2px;display:block;font-family:'Inter',sans-serif;}
+
+.glass .diff-row{display:flex;gap:8px;margin-bottom:1.5rem;}
+.glass .diff-btn{flex:1;padding:10px 6px;border-radius:12px;border:0.5px solid rgba(255,255,255,0.6);background:rgba(255,255,255,0.4);cursor:pointer;text-align:center;transition:all 0.2s;backdrop-filter:blur(6px);}
+.glass .diff-btn:hover{background:rgba(255,255,255,0.6);}
+.glass .diff-btn.sel-easy{border:1px solid rgba(16,185,129,0.5);background:rgba(209,250,229,0.6);}
+.glass .diff-btn.sel-medium{border:1px solid rgba(99,102,241,0.5);background:rgba(224,231,255,0.7);}
+.glass .diff-btn.sel-hard{border:1px solid rgba(239,68,68,0.4);background:rgba(254,226,226,0.6);}
+.glass .d-name{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;display:block;margin-bottom:2px;color:#1e1b4b;}
+.glass .d-sub{font-size:11px;color:rgba(67,56,202,0.6);display:block;font-family:'Inter',sans-serif;}
+
+.glass .gen-btn{width:100%;padding:14px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;border-radius:14px;border:0.5px solid rgba(255,255,255,0.8);background:rgba(255,255,255,0.5);color:#4338ca;cursor:pointer;transition:all 0.2s;margin-bottom:1.5rem;backdrop-filter:blur(8px);}
+.glass .gen-btn:hover{background:rgba(255,255,255,0.75);}
+.glass .gen-btn:disabled{opacity:0.35;cursor:not-allowed;}
+.glass .notice{text-align:center;padding:10px;font-size:13px;border-radius:10px;margin-bottom:1.5rem;display:none;font-family:'Inter',sans-serif;}
+.glass .notice.warn{color:#4338ca;background:rgba(224,231,255,0.6);border:0.5px solid rgba(99,102,241,0.2);}
+
+.glass .scroll-wrap{display:none;margin-bottom:2rem;}
+.glass .scroll-wrap.visible{display:block;}
+.glass .scroll-cap{display:none;}
+.glass .scroll-rod{display:none;}
+.glass .scroll-body{background:rgba(255,255,255,0.5);border:0.5px solid rgba(255,255,255,0.8);border-radius:20px;padding:1.75rem 2rem;box-shadow:0 4px 24px rgba(99,102,241,0.08);backdrop-filter:blur(12px);}
+.glass .s-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.glass .s-eline{flex:1;height:0.5px;background:rgba(99,102,241,0.15);}
+.glass .s-egem{width:4px;height:4px;border-radius:50%;background:rgba(99,102,241,0.3);}
+.glass .s-elabel{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.2em;color:rgba(99,102,241,0.5);text-transform:uppercase;font-weight:500;}
+.glass .s-badges{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;}
+.glass .sbadge{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;padding:3px 12px;border-radius:20px;border:0.5px solid;}
+.glass .b-topic{border-color:rgba(99,102,241,0.2);color:#6366f1;background:rgba(224,231,255,0.5);}
+.glass .b-easy{border-color:rgba(16,185,129,0.3);color:#059669;background:rgba(209,250,229,0.5);}
+.glass .b-medium{border-color:rgba(99,102,241,0.3);color:#4338ca;background:rgba(224,231,255,0.5);}
+.glass .b-hard{border-color:rgba(239,68,68,0.3);color:#dc2626;background:rgba(254,226,226,0.5);}
+.glass .s-goal{font-family:'Inter',sans-serif;font-size:17px;color:#1e1b4b;line-height:1.75;font-weight:400;margin-bottom:1.5rem;}
+.glass .s-seal{display:none;}
+.glass .scroll-cap-bot{display:none;}
+.glass .s-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.glass .s-actions button{padding:8px 16px;font-family:'Inter',sans-serif;font-size:12px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.8);background:rgba(255,255,255,0.5);color:#4338ca;cursor:pointer;}
+.glass .s-actions button:hover{background:rgba(255,255,255,0.8);}
+.glass .act-save{color:#059669!important;border-color:rgba(16,185,129,0.3)!important;background:rgba(209,250,229,0.4)!important;}
+
+.glass .divider{display:flex;align-items:center;gap:12px;margin:1.5rem 0;}
+.glass .div-line{flex:1;height:0.5px;background:rgba(99,102,241,0.1);}
+.glass .div-gem{width:4px;height:4px;border-radius:50%;background:rgba(99,102,241,0.2);}
+
+.glass .tabs{display:flex;gap:6px;margin-bottom:1.25rem;flex-wrap:wrap;}
+.glass .tab{padding:7px 16px;font-family:'Inter',sans-serif;font-size:11px;border-radius:20px;border:0.5px solid transparent;background:transparent;color:rgba(67,56,202,0.5);cursor:pointer;}
+.glass .tab.active{border-color:rgba(255,255,255,0.8);background:rgba(255,255,255,0.5);color:#1e1b4b;font-weight:500;}
+.glass .panel{display:none;}
+.glass .panel.active{display:block;}
+
+.glass .hcontrols{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.glass .hcount{font-family:'Inter',sans-serif;font-size:11px;color:rgba(67,56,202,0.5);}
+.glass .clear-btn{font-family:'Inter',sans-serif;font-size:11px;color:rgba(67,56,202,0.4);background:none;border:none;cursor:pointer;}
+.glass .clear-btn:hover{color:#dc2626;}
+.glass .hitem{border:0.5px solid rgba(255,255,255,0.7);border-radius:14px;background:rgba(255,255,255,0.4);padding:14px 16px;margin-bottom:8px;backdrop-filter:blur(8px);}
+.glass .htop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.glass .hbadges{display:flex;gap:6px;flex-wrap:wrap;}
+.glass .hdate{font-family:'Inter',sans-serif;font-size:10px;color:rgba(67,56,202,0.4);white-space:nowrap;}
+.glass .htext{font-family:'Inter',sans-serif;font-size:14px;color:#1e1b4b;line-height:1.6;}
+.glass .hactions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.glass .hactions button{padding:5px 12px;font-family:'Inter',sans-serif;font-size:11px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.4);color:rgba(67,56,202,0.6);cursor:pointer;}
+.glass .hactions button:hover{background:rgba(255,255,255,0.7);color:#1e1b4b;}
+.glass .del-btn{color:rgba(220,38,38,0.6)!important;}
+.glass .del-btn:hover{color:#dc2626!important;}
+.glass .empty{font-family:'Inter',sans-serif;font-size:13px;color:rgba(67,56,202,0.4);text-align:center;padding:2rem 0;border:0.5px dashed rgba(99,102,241,0.2);border-radius:14px;}
+
+.glass .suggest-form{background:rgba(255,255,255,0.45);border:0.5px solid rgba(255,255,255,0.7);border-radius:16px;padding:1.5rem;backdrop-filter:blur(8px);}
+.glass .sug-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.12em;color:rgba(99,102,241,0.6);text-transform:uppercase;margin-bottom:8px;display:block;}
+.glass .sug-select{width:100%;font-family:'Inter',sans-serif;font-size:13px;padding:9px 12px;border-radius:10px;border:0.5px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.6);color:#1e1b4b;margin-bottom:12px;}
+.glass .sug-select:focus{outline:none;border-color:rgba(99,102,241,0.4);}
+.glass .sug-textarea{width:100%;font-family:'Inter',sans-serif;font-size:14px;padding:12px 14px;border-radius:10px;border:0.5px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.6);color:#1e1b4b;line-height:1.6;resize:vertical;min-height:90px;margin-bottom:12px;}
+.glass .sug-textarea::placeholder{color:rgba(67,56,202,0.3);}
+.glass .sug-textarea:focus{outline:none;border-color:rgba(99,102,241,0.4);}
+.glass .sug-note{font-family:'Inter',sans-serif;font-size:12px;color:rgba(67,56,202,0.5);margin-bottom:14px;line-height:1.6;}
+.glass .sug-btn{padding:9px 20px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;border-radius:20px;border:0.5px solid rgba(255,255,255,0.8);background:rgba(255,255,255,0.55);color:#4338ca;cursor:pointer;}
+.glass .sug-btn:hover{background:rgba(255,255,255,0.8);}
+.glass .copy-box{background:rgba(255,255,255,0.5);border:0.5px solid rgba(255,255,255,0.7);border-radius:12px;padding:14px;font-family:'Inter',sans-serif;font-size:13px;color:#1e1b4b;line-height:1.7;white-space:pre-wrap;margin:12px 0;}
+.glass .copy-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.glass .copy-actions button{padding:7px 16px;font-family:'Inter',sans-serif;font-size:12px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.8);background:rgba(255,255,255,0.5);color:#4338ca;cursor:pointer;}
+.glass .copy-actions button:hover{background:rgba(255,255,255,0.8);}
+.glass .copy-confirm{font-size:12px;color:#059669;display:none;font-family:'Inter',sans-serif;}
+
+.glass .modal-vp{min-height:360px;display:none;align-items:center;justify-content:center;margin-bottom:1.5rem;background:rgba(100,100,200,0.15);border-radius:20px;backdrop-filter:blur(4px);}
+.glass .modal-vp.open{display:flex;}
+.glass .modal{background:rgba(255,255,255,0.7);border:0.5px solid rgba(255,255,255,0.9);border-radius:20px;padding:1.5rem;width:100%;max-width:420px;backdrop-filter:blur(16px);}
+.glass .modal-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:#1e1b4b;margin-bottom:1.25rem;}
+.glass .share-tabs{display:flex;gap:6px;margin-bottom:1.25rem;}
+.glass .share-tab{flex:1;padding:7px;font-family:'Inter',sans-serif;font-size:11px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.7);background:transparent;color:rgba(67,56,202,0.5);cursor:pointer;text-align:center;}
+.glass .share-tab.active{background:rgba(255,255,255,0.7);color:#1e1b4b;font-weight:500;}
+.glass .tc-content{background:rgba(255,255,255,0.5);border-radius:12px;border:0.5px solid rgba(255,255,255,0.7);padding:14px;font-family:'Inter',sans-serif;font-size:13px;color:#1e1b4b;line-height:1.7;margin-bottom:12px;white-space:pre-wrap;}
+.glass .vc-card{background:rgba(255,255,255,0.55);border:0.5px solid rgba(255,255,255,0.8);border-radius:16px;padding:18px 20px;margin-bottom:12px;}
+.glass .vc-eyebrow{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.15em;color:#6366f1;text-transform:uppercase;margin-bottom:8px;}
+.glass .vc-goal{font-family:'Inter',sans-serif;font-size:15px;color:#1e1b4b;line-height:1.7;margin-bottom:10px;}
+.glass .vc-footer{display:flex;justify-content:space-between;}
+.glass .vc-date{font-size:11px;color:rgba(67,56,202,0.4);font-family:'Inter',sans-serif;}
+.glass .vc-brand{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.1em;color:rgba(99,102,241,0.3);}
+.glass .modal-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.glass .modal-actions button{padding:7px 14px;font-family:'Inter',sans-serif;font-size:11px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.5);color:#4338ca;cursor:pointer;}
+.glass .modal-actions button:hover{background:rgba(255,255,255,0.8);}
+
+/* ============================================================
+   THEME: BOOK CLUB
+   ============================================================ */
+body.book{background:#f7f4ef;}
+.book #goalApp{background:#f7f4ef;color:#2c2416;}
+.book .app-inner{max-width:680px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+
+.book .header{text-align:center;padding:2rem 1rem 1.5rem;}
+.book .h-rune{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:0.2em;color:#c5b89a;margin-bottom:12px;text-transform:uppercase;}
+.book .h-title{font-family:'Lora',serif;font-size:26px;font-weight:500;color:#2c2416;line-height:1.2;margin-bottom:8px;}
+.book .h-sub{font-family:'Lora',serif;font-size:15px;color:#7c6f5a;font-style:italic;line-height:1.6;}
+.book .h-rule{display:flex;align-items:center;gap:12px;margin:16px auto;max-width:340px;}
+.book .h-line{flex:1;height:0.5px;background:#ddd5c4;}
+.book .h-gem{width:5px;height:5px;border-radius:50%;background:#c5b89a;}
+.book .theme-switch{display:block;text-align:center;font-family:'Inter',sans-serif;font-size:10px;color:#c5b89a;cursor:pointer;margin-top:8px;background:none;border:none;}
+.book .theme-switch:hover{color:#b5977a;}
+
+.book .sec-title{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.18em;color:#b5977a;text-transform:uppercase;margin-bottom:12px;text-align:center;}
+.book .topics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:8px;margin-bottom:1.5rem;}
+.book .topic-btn{padding:12px 10px;border-radius:4px;border:0.5px solid #e0d8cc;background:#fffdf9;cursor:pointer;text-align:left;transition:all 0.2s;}
+.book .topic-btn:hover{border-color:#c5b89a;background:#f7f0e8;}
+.book .topic-btn.selected{border:1px solid #b5977a;background:#f7f0e8;}
+.book .t-icon{font-size:14px;margin-bottom:4px;display:block;color:#b5977a;}
+.book .t-name{font-family:'Lora',serif;font-size:12px;color:#2c2416;display:block;}
+.book .t-desc{font-size:11px;color:#9a8870;margin-top:2px;display:block;font-style:italic;font-family:'Lora',serif;}
+
+.book .diff-row{display:flex;gap:8px;margin-bottom:1.5rem;}
+.book .diff-btn{flex:1;padding:10px 6px;border-radius:4px;border:0.5px solid #e0d8cc;background:#fffdf9;cursor:pointer;text-align:center;transition:all 0.2s;}
+.book .diff-btn:hover{border-color:#c5b89a;}
+.book .diff-btn.sel-easy{border:1px solid #7CAE8E;background:#EBF5EF;}
+.book .diff-btn.sel-medium{border:1px solid #b5977a;background:#F9F0E7;}
+.book .diff-btn.sel-hard{border:1px solid #B57A7A;background:#F9EDED;}
+.book .d-name{font-family:'Lora',serif;font-size:12px;display:block;margin-bottom:2px;color:#2c2416;}
+.book .d-sub{font-size:11px;color:#9a8870;display:block;font-style:italic;font-family:'Lora',serif;}
+
+.book .gen-btn{width:100%;padding:14px;font-family:'Lora',serif;font-size:14px;font-weight:400;border-radius:4px;border:0.5px solid #c5b89a;background:#fffdf9;color:#7c6f5a;cursor:pointer;transition:all 0.2s;margin-bottom:1.5rem;}
+.book .gen-btn:hover{border-color:#b5977a;color:#2c2416;background:#f7f0e8;}
+.book .gen-btn:disabled{opacity:0.35;cursor:not-allowed;}
+.book .notice{text-align:center;padding:10px;font-size:13px;border-radius:4px;margin-bottom:1.5rem;display:none;font-family:'Lora',serif;font-style:italic;}
+.book .notice.warn{color:#b5977a;background:#fdf7f0;border:0.5px solid #e0d8cc;}
+
+.book .scroll-wrap{display:none;margin-bottom:2rem;}
+.book .scroll-wrap.visible{display:block;}
+.book .scroll-cap{display:none;}
+.book .scroll-rod{display:none;}
+.book .scroll-body{background:#fffdf9;border:0.5px solid #e0d8cc;border-radius:4px;padding:1.75rem 2rem;border-left:3px solid #b5977a;}
+.book .s-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.book .s-eline{flex:1;height:0.5px;background:#e0d8cc;}
+.book .s-egem{width:4px;height:4px;border-radius:50%;background:#c5b89a;}
+.book .s-elabel{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.18em;color:#b5977a;text-transform:uppercase;font-weight:500;}
+.book .s-badges{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;}
+.book .sbadge{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.08em;padding:3px 10px;border-radius:2px;border:0.5px solid;}
+.book .b-topic{border-color:#ddd5c4;color:#9a8870;}
+.book .b-easy{border-color:#A8D4B8;color:#4E8A68;}
+.book .b-medium{border-color:#D4B899;color:#8A6040;}
+.book .b-hard{border-color:#D4A0A0;color:#8A3E3E;}
+.book .s-goal{font-family:'Lora',serif;font-size:18px;color:#2c2416;line-height:1.85;margin-bottom:1.5rem;}
+.book .s-seal{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;}
+.book .seal{display:none;}
+.book .seal-dot{display:none;}
+.book .seal-line{flex:1;height:0.5px;background:#e0d8cc;}
+.book .scroll-cap-bot{display:none;}
+.book .s-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.book .s-actions button{padding:7px 14px;font-family:'Inter',sans-serif;font-size:11px;border-radius:4px;border:0.5px solid #e0d8cc;background:#fffdf9;color:#7c6f5a;cursor:pointer;}
+.book .s-actions button:hover{border-color:#c5b89a;color:#2c2416;background:#f7f0e8;}
+.book .act-save{color:#4E8A68!important;border-color:#A8D4B8!important;}
+.book .act-save:hover{background:#EBF5EF!important;}
+
+.book .divider{display:flex;align-items:center;gap:12px;margin:1.5rem 0;}
+.book .div-line{flex:1;height:0.5px;background:#e0d8cc;}
+.book .div-gem{width:4px;height:4px;border-radius:50%;background:#c5b89a;}
+
+.book .tabs{display:flex;gap:6px;margin-bottom:1.25rem;flex-wrap:wrap;}
+.book .tab{padding:7px 16px;font-family:'Lora',serif;font-size:12px;border-radius:2px;border:0.5px solid transparent;background:transparent;color:#9a8870;cursor:pointer;}
+.book .tab.active{border-color:#c5b89a;color:#2c2416;background:#fffdf9;}
+.book .panel{display:none;}
+.book .panel.active{display:block;}
+
+.book .hcontrols{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.book .hcount{font-family:'Inter',sans-serif;font-size:10px;color:#9a8870;font-weight:500;letter-spacing:0.05em;}
+.book .clear-btn{font-family:'Inter',sans-serif;font-size:10px;color:#c5b89a;background:none;border:none;cursor:pointer;}
+.book .clear-btn:hover{color:#B57A7A;}
+.book .hitem{border:0.5px solid #e0d8cc;border-radius:3px;background:#fffdf9;padding:14px 16px;margin-bottom:8px;border-left:2px solid #d4c4ad;}
+.book .htop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.book .hbadges{display:flex;gap:6px;flex-wrap:wrap;}
+.book .hdate{font-family:'Inter',sans-serif;font-size:10px;color:#9a8870;white-space:nowrap;}
+.book .htext{font-family:'Lora',serif;font-size:14px;color:#2c2416;line-height:1.65;}
+.book .hactions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.book .hactions button{padding:5px 12px;font-family:'Inter',sans-serif;font-size:10px;border-radius:3px;border:0.5px solid #e0d8cc;background:#fffdf9;color:#7c6f5a;cursor:pointer;}
+.book .hactions button:hover{border-color:#c5b89a;color:#2c2416;}
+.book .del-btn{color:#B57A7A!important;}
+.book .del-btn:hover{color:#8A3E3E!important;}
+.book .empty{font-family:'Lora',serif;font-size:14px;color:#9a8870;font-style:italic;text-align:center;padding:2rem 0;border:0.5px dashed #d4c4ad;border-radius:3px;}
+
+.book .suggest-form{background:#fffdf9;border:0.5px solid #e0d8cc;border-radius:4px;padding:1.5rem;border-left:3px solid #d4c4ad;}
+.book .sug-label{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.12em;color:#b5977a;text-transform:uppercase;margin-bottom:8px;display:block;}
+.book .sug-select{width:100%;font-family:'Lora',serif;font-size:13px;padding:9px 12px;border-radius:4px;border:0.5px solid #e0d8cc;background:#f7f4ef;color:#2c2416;margin-bottom:12px;}
+.book .sug-select:focus{outline:none;border-color:#b5977a;}
+.book .sug-textarea{width:100%;font-family:'Lora',serif;font-size:14px;padding:12px 14px;border-radius:4px;border:0.5px solid #e0d8cc;background:#f7f4ef;color:#2c2416;line-height:1.65;resize:vertical;min-height:90px;margin-bottom:12px;}
+.book .sug-textarea::placeholder{color:#9a8870;font-style:italic;}
+.book .sug-textarea:focus{outline:none;border-color:#b5977a;}
+.book .sug-note{font-family:'Lora',serif;font-size:13px;color:#9a8870;font-style:italic;margin-bottom:14px;line-height:1.6;}
+.book .sug-btn{padding:9px 20px;font-family:'Lora',serif;font-size:13px;border-radius:3px;border:0.5px solid #c5b89a;background:#fffdf9;color:#7c6f5a;cursor:pointer;}
+.book .sug-btn:hover{border-color:#b5977a;color:#2c2416;background:#f7f0e8;}
+.book .copy-box{background:#f7f4ef;border:0.5px solid #e0d8cc;border-radius:4px;padding:14px;font-family:'Lora',serif;font-size:13px;color:#2c2416;line-height:1.7;white-space:pre-wrap;margin:12px 0;}
+.book .copy-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.book .copy-actions button{padding:7px 16px;font-family:'Inter',sans-serif;font-size:11px;border-radius:3px;border:0.5px solid #c5b89a;background:#fffdf9;color:#7c6f5a;cursor:pointer;}
+.book .copy-actions button:hover{border-color:#b5977a;color:#2c2416;}
+.book .copy-confirm{font-size:12px;color:#4E8A68;display:none;font-family:'Lora',serif;font-style:italic;}
+
+.book .modal-vp{min-height:360px;display:none;align-items:center;justify-content:center;margin-bottom:1.5rem;background:rgba(180,160,130,0.15);border-radius:6px;}
+.book .modal-vp.open{display:flex;}
+.book .modal{background:#fffdf9;border:0.5px solid #e0d8cc;border-radius:4px;padding:1.5rem;width:100%;max-width:420px;border-left:3px solid #b5977a;}
+.book .modal-title{font-family:'Lora',serif;font-size:15px;color:#2c2416;margin-bottom:1.25rem;}
+.book .share-tabs{display:flex;gap:6px;margin-bottom:1.25rem;}
+.book .share-tab{flex:1;padding:7px;font-family:'Inter',sans-serif;font-size:11px;border-radius:3px;border:0.5px solid #e0d8cc;background:transparent;color:#9a8870;cursor:pointer;text-align:center;}
+.book .share-tab.active{border-color:#b5977a;color:#2c2416;background:#f7f0e8;}
+.book .tc-content{background:#f7f4ef;border-radius:3px;border:0.5px solid #e0d8cc;padding:14px;font-family:'Lora',serif;font-size:13px;color:#2c2416;line-height:1.7;margin-bottom:12px;white-space:pre-wrap;}
+.book .vc-card{background:#f7f4ef;border:0.5px solid #e0d8cc;border-radius:4px;padding:18px 20px;margin-bottom:12px;border-left:3px solid #b5977a;}
+.book .vc-eyebrow{font-family:'Inter',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.15em;color:#b5977a;text-transform:uppercase;margin-bottom:8px;}
+.book .vc-goal{font-family:'Lora',serif;font-size:15px;color:#2c2416;line-height:1.75;margin-bottom:10px;}
+.book .vc-footer{display:flex;justify-content:space-between;}
+.book .vc-date{font-size:11px;color:#9a8870;font-family:'Inter',sans-serif;}
+.book .vc-brand{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.12em;color:#c5b89a;}
+.book .modal-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.book .modal-actions button{padding:7px 14px;font-family:'Inter',sans-serif;font-size:11px;border-radius:3px;border:0.5px solid #e0d8cc;background:#fffdf9;color:#7c6f5a;cursor:pointer;}
+.book .modal-actions button:hover{border-color:#c5b89a;color:#2c2416;}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     THEME PICKER
+     ============================================================ -->
+<div id="themePicker">
+  <p class="tp-rune">&#10022; &nbsp; &#10022; &nbsp; &#10022;</p>
+  <p class="tp-title">The Book of Intentions</p>
+  <p class="tp-sub">Choose the world you wish to inhabit</p>
+  <div class="tp-cards">
+
+    <div class="tc-fellowship" onclick="chooseTheme('fellowship')">
+      <div class="tc-inner">
+        <p class="tc-num">Theme I</p>
+        <p class="tc-name">The Fellowship of the Ring</p>
+        <p class="tc-desc">Ancient parchment scrolls, runic accents, candlelit earth tones. Every goal arrives as a quest.</p>
+        <div class="scroll-mini">
+          <div class="scroll-mini-cap"></div>
+          <div class="scroll-mini-text">Write three pages of your story without lifting the pen — let the words find their own path through you.</div>
+          <div class="scroll-mini-cap-bot"></div>
+        </div>
+        <button class="tc-btn">Enter this world ↗</button>
+      </div>
+    </div>
+
+    <div class="tc-glass" onclick="chooseTheme('glass')">
+      <div class="tc-inner">
+        <p class="tc-num">Theme II</p>
+        <p class="tc-name">Translucent Surface</p>
+        <p class="tc-desc">Frosted glass panels over soft colour washes. Blurred depth, gentle borders, airy containment.</p>
+        <div class="glass-mini">
+          <div class="glass-mini-tag">Mindfulness · Easy</div>
+          <div class="glass-mini-text">Sit in stillness for ten minutes today and observe what surfaces without trying to change it.</div>
+        </div>
+        <button class="tc-btn">Enter this world ↗</button>
+      </div>
+    </div>
+
+    <div class="tc-book" onclick="chooseTheme('book')">
+      <div class="tc-inner">
+        <p class="tc-num">Theme III</p>
+        <p class="tc-name">Meditative &amp; Book Club</p>
+        <p class="tc-desc">Warm cream, serif type, a left-rule accent. Like an open notebook in a quiet reading room.</p>
+        <div class="book-mini">
+          <div class="book-mini-ch">Chapter · Health &amp; Fitness · Hard</div>
+          <div class="book-mini-text">Commit to waking at 5 AM every day this week — not for productivity, but to reclaim the hour before the world asks anything of you.</div>
+        </div>
+        <button class="tc-btn">Enter this world ↗</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     GOAL APP (shared HTML, themed by body class)
+     ============================================================ -->
+<div id="goalApp">
+  <div class="app-inner">
+
+    <div class="header">
+      <div class="h-rune" id="hRune"></div>
+      <div class="h-title" id="hTitle"></div>
+      <div class="h-sub" id="hSub"></div>
+      <div class="h-rule"><div class="h-line"></div><div class="h-gem"></div><div class="h-line"></div></div>
+      <button class="theme-switch" onclick="backToThemes()">↩ Change theme</button>
+    </div>
+
+    <p class="sec-title" id="secRealm"></p>
+    <div class="topics-grid" id="topicsGrid"></div>
+
+    <p class="sec-title" style="margin-top:1.5rem;" id="secTrial"></p>
+    <div class="diff-row">
+      <button class="diff-btn" id="diff-easy" onclick="selectDiff('easy')">
+        <span class="d-name" id="dEasy"></span><span class="d-sub" id="dEasySub"></span>
+      </button>
+      <button class="diff-btn" id="diff-medium" onclick="selectDiff('medium')">
+        <span class="d-name" id="dMedium"></span><span class="d-sub" id="dMediumSub"></span>
+      </button>
+      <button class="diff-btn" id="diff-hard" onclick="selectDiff('hard')">
+        <span class="d-name" id="dHard"></span><span class="d-sub" id="dHardSub"></span>
+      </button>
+    </div>
+
+    <div class="notice" id="notice"></div>
+    <button class="gen-btn" id="genBtn" onclick="generate()" disabled></button>
+
+    <div class="scroll-wrap" id="scrollWrap">
+      <div class="scroll-cap"><div class="scroll-rod"></div></div>
+      <div class="scroll-body">
+        <div class="s-eyebrow">
+          <div class="s-eline"></div><div class="s-egem"></div>
+          <span class="s-elabel" id="questLabel"></span>
+          <div class="s-egem"></div><div class="s-eline"></div>
+        </div>
+        <div class="s-badges" id="sBadges"></div>
+        <div class="s-goal" id="sGoal"></div>
+        <div class="s-seal"><div class="seal"><div class="seal-dot"></div></div><div class="seal-line"></div></div>
+        <div class="s-actions">
+          <button class="act-save" onclick="saveGoal()" id="btnSave"></button>
+          <button onclick="generate()" id="btnNew"></button>
+          <button onclick="openShare()" id="btnShare"></button>
+          <button onclick="planJourney()" id="btnPlan"></button>
+        </div>
+      </div>
+      <div class="scroll-cap-bot"><div class="scroll-rod"></div></div>
+    </div>
+
+    <div class="modal-vp" id="modalVp">
+      <div class="modal">
+        <p class="modal-title" id="shareTitle"></p>
+        <div class="share-tabs">
+          <button class="share-tab active" id="stab-text" onclick="switchShareTab('text')" id="stabText"></button>
+          <button class="share-tab" id="stab-visual" onclick="switchShareTab('visual')" id="stabVisual"></button>
+        </div>
+        <div id="shareText">
+          <div class="tc-content" id="tcContent"></div>
+          <div class="modal-actions">
+            <button onclick="copyShareText()" id="btnCopyText"></button>
+            <button onclick="closeShare()" id="btnCloseShare1"></button>
+          </div>
+        </div>
+        <div id="shareVisual" style="display:none;">
+          <div class="vc-card">
+            <div class="vc-eyebrow" id="vcEyebrow"></div>
+            <div class="vc-goal" id="vcGoal"></div>
+            <div class="vc-footer"><span class="vc-date" id="vcDate"></span><span class="vc-brand" id="vcBrand"></span></div>
+          </div>
+          <div class="modal-actions">
+            <button onclick="copyVisual()" id="btnCopyVisual"></button>
+            <button onclick="closeShare()" id="btnCloseShare2"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"><div class="div-line"></div><div class="div-gem"></div><div class="div-line"></div></div>
+
+    <div class="tabs">
+      <button class="tab active" id="tab-saved" onclick="switchTab('saved')"></button>
+      <button class="tab" id="tab-history" onclick="switchTab('history')"></button>
+      <button class="tab" id="tab-suggest" onclick="switchTab('suggest')"></button>
+    </div>
+
+    <div class="panel active" id="panel-saved">
+      <div class="hcontrols">
+        <span class="hcount" id="savedCount"></span>
+        <button class="clear-btn" onclick="clearSaved()">Clear All</button>
+      </div>
+      <div id="savedList"></div>
+    </div>
+
+    <div class="panel" id="panel-history">
+      <div class="hcontrols">
+        <span class="hcount" id="histCount"></span>
+        <button class="clear-btn" onclick="clearHistory()">Clear All</button>
+      </div>
+      <div id="histList"></div>
+    </div>
+
+    <div class="panel" id="panel-suggest">
+      <div class="suggest-form" id="suggestIdle">
+        <span class="sug-label" id="sugRealmLabel"></span>
+        <select class="sug-select" id="sugRealm"></select>
+        <span class="sug-label" id="sugQuestLabel"></span>
+        <textarea class="sug-textarea" id="sugText" placeholder="Write a goal that begins with a verb and can be completed within a week..."></textarea>
+        <p class="sug-note" id="sugNote"></p>
+        <button class="sug-btn" onclick="prepareSuggestion()" id="btnPrepareSug"></button>
+      </div>
+      <div style="display:none;" id="suggestReady">
+        <p style="margin-bottom:10px;font-size:11px;opacity:0.6;" id="sugReadyLabel"></p>
+        <div class="copy-box" id="copyBox"></div>
+        <div class="copy-actions">
+          <button onclick="copySuggestion()" id="btnCopySug"></button>
+          <button onclick="openRaven()" id="btnMail"></button>
+          <button onclick="resetSuggest()" id="btnReset"></button>
+          <span class="copy-confirm" id="copyConfirm"></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────
+const APPROVED_URL = "PLACEHOLDER_APPROVED_URL";
+const KEEPER_EMAIL = "PLACEHOLDER_KEEPER_EMAIL";
+
+// ── THEME COPY ───────────────────────────────────────────────
+const THEMES = {
+  fellowship: {
+    bodyClass: "fellowship",
+    hRune: "✦ &nbsp; ✦ &nbsp; ✦",
+    hTitle: "The Book of Intentions",
+    hSub: "What realm calls to you this day?<br>One quest shall be inscribed upon the scroll.",
+    secRealm: "Choose your realm",
+    secTrial: "Choose your trial",
+    dEasy:"Hobbit", dEasySub:"Gentle, attainable",
+    dMedium:"Ranger", dMediumSub:"A true endeavour",
+    dHard:"Ring-bearer", dHardSub:"Bold & costly",
+    diffLabels:{easy:"Hobbit",medium:"Ranger",hard:"Ring-bearer"},
+    genBtn:"✦ &nbsp; Receive Your Quest &nbsp; ✦",
+    questLabel:"Your quest for this day",
+    btnSave:"Bind to Tome", btnNew:"New Quest", btnShare:"Share Scroll", btnPlan:"Plan the Journey ↗",
+    shareTitle:"✦ &nbsp; Share This Scroll",
+    stabText:"Plain Text", stabVisual:"Scroll Card",
+    btnCopyText:"Copy Text", btnCopyVisual:"Copy as Text",
+    btnCloseShare:"Close",
+    tabSaved:"The Tome", tabHistory:"Chronicles", tabSuggest:"Suggest a Quest",
+    sugRealmLabel:"Realm",
+    sugQuestLabel:"Your quest",
+    sugNote:"Your suggestion will be reviewed by a keeper of the scrolls before it joins the approved tomes. Copy the text below and send it by raven (email).",
+    btnPrepareSug:"Prepare Suggestion",
+    sugReadyLabel:"Copy this and send to the keeper",
+    btnCopySug:"Copy to Clipboard", btnMail:"Open in Mail ↗", btnReset:"Start Over",
+    copyConfirmText:"Copied to clipboard.",
+    vcBrand:"The Book of Intentions",
+    emptySaved:"Your bound quests shall rest here, within the tome.",
+    emptyHistory:"All scrolls you summon shall be recorded in the chronicles.",
+    savedCountSuffix:" bound quests",
+    histCountSuffix:" quests chronicled",
+    btnBindHistory:"Bind to Tome",
+    btnPlanHistory:"Plan Journey ↗",
+    btnRelease:"Release",
+    noGoalsMsg:"No quests found for this realm and trial. More scrolls are being inscribed.",
+  },
+  glass: {
+    bodyClass: "glass",
+    hRune: "· · ·",
+    hTitle: "Intentions",
+    hSub: "Choose a space. One intention will find you.",
+    secRealm: "Choose a space",
+    secTrial: "Choose your depth",
+    dEasy:"Easy", dEasySub:"Gentle, low friction",
+    dMedium:"Medium", dMediumSub:"A real stretch",
+    dHard:"Hard", dHardSub:"Bold, uncomfortable",
+    diffLabels:{easy:"Easy",medium:"Medium",hard:"Hard"},
+    genBtn:"Receive your intention",
+    questLabel:"Your intention for today",
+    btnSave:"Save", btnNew:"New intention", btnShare:"Share card", btnPlan:"Break into steps ↗",
+    shareTitle:"Share this intention",
+    stabText:"Plain Text", stabVisual:"Visual Card",
+    btnCopyText:"Copy Text", btnCopyVisual:"Copy as Text",
+    btnCloseShare:"Close",
+    tabSaved:"Saved", tabHistory:"History", tabSuggest:"Suggest",
+    sugRealmLabel:"Space",
+    sugQuestLabel:"Your intention",
+    sugNote:"Your suggestion will be reviewed before it joins the approved list. Copy the text and email it to us.",
+    btnPrepareSug:"Prepare suggestion",
+    sugReadyLabel:"Copy this and send to the moderator",
+    btnCopySug:"Copy", btnMail:"Open Mail ↗", btnReset:"Start over",
+    copyConfirmText:"Copied.",
+    vcBrand:"intentions",
+    emptySaved:"Your saved intentions will rest here",
+    emptyHistory:"Every intention you generate will be recorded here",
+    savedCountSuffix:" saved",
+    histCountSuffix:" generated",
+    btnBindHistory:"Save",
+    btnPlanHistory:"Break into steps ↗",
+    btnRelease:"Remove",
+    noGoalsMsg:"No intentions found for this space and depth. More are coming.",
+  },
+  book: {
+    bodyClass: "book",
+    hRune: "· · ·",
+    hTitle: "A Book of Intentions",
+    hSub: "What calls to you today?<br>One intention will be written.",
+    secRealm: "Choose a chapter",
+    secTrial: "Choose your commitment",
+    dEasy:"Light", dEasySub:"Gentle, one sitting",
+    dMedium:"Steady", dMediumSub:"A few days of effort",
+    dHard:"Deep", dHardSub:"Full week, full self",
+    diffLabels:{easy:"Light",medium:"Steady",hard:"Deep"},
+    genBtn:"Open to a page",
+    questLabel:"Your intention for this week",
+    btnSave:"Add to reading list", btnNew:"Another page", btnShare:"Share", btnPlan:"Plan daily steps ↗",
+    shareTitle:"Share this intention",
+    stabText:"Plain Text", stabVisual:"Card",
+    btnCopyText:"Copy", btnCopyVisual:"Copy as text",
+    btnCloseShare:"Close",
+    tabSaved:"Reading List", tabHistory:"All Entries", tabSuggest:"Suggest",
+    sugRealmLabel:"Chapter",
+    sugQuestLabel:"Your intention",
+    sugNote:"Your suggestion will be reviewed by an editor before it joins the approved list. Copy the note below and send it to us.",
+    btnPrepareSug:"Prepare note",
+    sugReadyLabel:"Copy and send to the editor",
+    btnCopySug:"Copy", btnMail:"Open Mail ↗", btnReset:"Start over",
+    copyConfirmText:"Copied.",
+    vcBrand:"A Book of Intentions",
+    emptySaved:"Your reading list is empty. Add intentions you want to return to.",
+    emptyHistory:"Every intention you open will be recorded here.",
+    savedCountSuffix:" in reading list",
+    histCountSuffix:" entries",
+    btnBindHistory:"Add to reading list",
+    btnPlanHistory:"Plan steps ↗",
+    btnRelease:"Remove",
+    noGoalsMsg:"No intentions found for this chapter and commitment. More are being written.",
+  }
+};
+
+// ── STATE ────────────────────────────────────────────────────
+let currentTheme = null;
+let topics = [], goalsDB = {};
+let selTopic = null, selDiff = null, curGoal = null;
+let saved = [], history = [];
+
+// ── FALLBACK DATA ────────────────────────────────────────────
+const FALLBACK_TOPICS = [
+  {id:"career",name_fellowship:"The Forge",name_glass:"Career & Productivity",name_book:"Work & Purpose",icon:"◈",desc_fellowship:"Work, focus, craft",desc_glass:"Focus, growth, craft",desc_book:"Vocation, calling"},
+  {id:"health",name_fellowship:"The Body's Path",name_glass:"Health & Fitness",name_book:"Body & Vitality",icon:"◎",desc_fellowship:"Strength, vitality",desc_glass:"Body, energy, habits",desc_book:"Strength, rest, care"},
+  {id:"relationships",name_fellowship:"Fellowship",name_glass:"Relationships",name_book:"People & Love",icon:"◉",desc_fellowship:"Bonds, kinship, love",desc_glass:"Connection, kindness",desc_book:"Bonds, presence"},
+  {id:"creativity",name_fellowship:"The Artisan",name_glass:"Creativity",name_book:"Making & Art",icon:"◇",desc_fellowship:"Making, imagining",desc_glass:"Art, play, expression",desc_book:"Creation, expression"},
+  {id:"mindfulness",name_fellowship:"The Still Wood",name_glass:"Mindfulness",name_book:"Inner Life",icon:"○",desc_fellowship:"Peace, presence",desc_glass:"Calm, clarity",desc_book:"Stillness, reflection"},
+  {id:"finance",name_fellowship:"The Treasury",name_glass:"Finance & Money",name_book:"Resources",icon:"◆",desc_fellowship:"Wealth, stewardship",desc_glass:"Wealth, security",desc_book:"Stewardship, sufficiency"},
+];
+const FALLBACK_GOALS = {
+  career:{easy:["Write down every task weighing on your mind and pick just one to finish today.","Spend 30 minutes clearing your inbox down to only what needs a reply.","Block one hour this week with no meetings and use it only for deep work."],medium:["Draft the proposal or document you have been postponing for more than a week.","Have the direct conversation with a colleague you have been avoiding.","Map out your next 30 days and identify where your time is being lost."],hard:["Dedicate five focused hours this week to the single project that matters most to your long-term path.","Reach out to three people in your field you admire and start a real conversation.","Audit every recurring commitment you have and eliminate at least one that no longer serves you."]},
+  health:{easy:["Drink eight glasses of water today without exception.","Take a 20-minute walk outside before the day ends.","Sleep before midnight tonight and rise without hitting snooze."],medium:["Complete four workouts this week, each at least 30 minutes long.","Cook every meal you eat for the next five days from whole ingredients.","Cut out one food or drink that you know is harming you, for the entire week."],hard:["Train every morning this week before 7 AM, without negotiation.","Run or walk a total of 30 kilometres across this week.","Go one full week without alcohol, refined sugar, and processed food simultaneously."]},
+  relationships:{easy:["Send a message to someone you have not spoken to in over a month.","Call a family member you love and simply listen to them for 20 minutes.","Write a note of genuine appreciation to someone who has helped you recently."],medium:["Plan and follow through on a meaningful evening with someone important to you.","Have an honest conversation about something you have been keeping to yourself.","Apologise sincerely to someone you have wronged, without justification."],hard:["Initiate the difficult conversation in a relationship that has been quietly suffering.","Spend an entire day fully present with the people you love — no phone, no distraction.","Commit to one act of service for someone who cannot repay you, this week."]},
+  creativity:{easy:["Spend 30 minutes making something with no purpose other than the joy of making.","Write three pages in longhand about anything at all, without editing.","Sketch or doodle for 20 minutes before you open any screen today."],medium:["Complete one creative piece — a chapter, a painting, a song — start to finish this week.","Set aside two hours each day for creative work and protect them like appointments.","Share something you have made with at least one other person, however unfinished it feels."],hard:["Commit to one hour of creative practice every single morning this week before anything else.","Finish and publish or share a complete creative work by the end of this week.","Start the project you have been imagining for months and produce something tangible by Sunday."]},
+  mindfulness:{easy:["Sit in silence for ten minutes today with no phone, no music, no input.","Before bed, write three things that were genuinely good about today.","Eat one meal today slowly, without a screen, noticing every bite."],medium:["Meditate for 20 minutes each morning this week, before looking at your phone.","Keep a journal entry every night this week reflecting on what you felt, not just what you did.","Spend one full afternoon this week in nature with no agenda and no device."],hard:["Begin each day this week in silence for 30 minutes before speaking to anyone.","Observe a full digital sabbath — one day this week with no screens at all.","Write down every anxious thought the moment it arises each day this week, then consciously let it go."]},
+  finance:{easy:["Write down every purchase you made in the last seven days and total them honestly.","Cancel one subscription you have not used in the last month.","Transfer a small amount — even symbolic — into your savings account today."],medium:["Build a complete budget for next month and identify where you will cut 10% of spending.","Research and open a savings or investment account you have been putting off.","Negotiate one bill, subscription, or rate that you have been paying without questioning."],hard:["Track every single penny you spend this week and sit with what it reveals about your values.","Set a concrete financial goal with a deadline and build a week-by-week plan to reach it.","Have the honest money conversation with your partner, family, or yourself that you have been avoiding."]}
+};
+
+// ── THEME SELECTION ──────────────────────────────────────────
+function chooseTheme(t) {
+  currentTheme = t;
+  const T = THEMES[t];
+  document.body.className = T.bodyClass;
+  document.getElementById("themePicker").style.display = "none";
+  document.getElementById("goalApp").style.display = "block";
+
+  // Apply copy
+  document.getElementById("hRune").innerHTML = T.hRune;
+  document.getElementById("hTitle").textContent = T.hTitle;
+  document.getElementById("hSub").innerHTML = T.hSub;
+  document.getElementById("secRealm").textContent = T.secRealm;
+  document.getElementById("secTrial").textContent = T.secTrial;
+  document.getElementById("dEasy").textContent = T.dEasy;
+  document.getElementById("dEasySub").textContent = T.dEasySub;
+  document.getElementById("dMedium").textContent = T.dMedium;
+  document.getElementById("dMediumSub").textContent = T.dMediumSub;
+  document.getElementById("dHard").textContent = T.dHard;
+  document.getElementById("dHardSub").textContent = T.dHardSub;
+  document.getElementById("genBtn").innerHTML = T.genBtn;
+  document.getElementById("questLabel").textContent = T.questLabel;
+  document.getElementById("btnSave").textContent = T.btnSave;
+  document.getElementById("btnNew").textContent = T.btnNew;
+  document.getElementById("btnShare").textContent = T.btnShare;
+  document.getElementById("btnPlan").textContent = T.btnPlan;
+  document.getElementById("shareTitle").innerHTML = T.shareTitle;
+  document.getElementById("stab-text").textContent = T.stabText;
+  document.getElementById("stab-visual").textContent = T.stabVisual;
+  document.getElementById("btnCopyText").textContent = T.btnCopyText;
+  document.getElementById("btnCopyVisual").textContent = T.btnCopyVisual;
+  document.getElementById("btnCloseShare1").textContent = T.btnCloseShare;
+  document.getElementById("btnCloseShare2").textContent = T.btnCloseShare;
+  document.getElementById("tab-saved").textContent = T.tabSaved;
+  document.getElementById("tab-history").textContent = T.tabHistory;
+  document.getElementById("tab-suggest").textContent = T.tabSuggest;
+  document.getElementById("sugRealmLabel").textContent = T.sugRealmLabel;
+  document.getElementById("sugQuestLabel").textContent = T.sugQuestLabel;
+  document.getElementById("sugNote").textContent = T.sugNote;
+  document.getElementById("btnPrepareSug").textContent = T.btnPrepareSug;
+  document.getElementById("sugReadyLabel").textContent = T.sugReadyLabel;
+  document.getElementById("btnCopySug").textContent = T.btnCopySug;
+  document.getElementById("btnMail").textContent = T.btnMail;
+  document.getElementById("btnReset").textContent = T.btnReset;
+  document.getElementById("vcBrand").textContent = T.vcBrand;
+
+  loadGoals().then(() => {
+    buildTopicGrid();
+    buildSuggestSelect();
+  });
+  loadLocal();
+}
+
+function backToThemes() {
+  selTopic = null; selDiff = null; curGoal = null;
+  document.getElementById("scrollWrap").classList.remove("visible");
+  document.getElementById("modalVp").classList.remove("open");
+  document.querySelectorAll(".diff-btn").forEach(b => b.className = "diff-btn");
+  document.getElementById("genBtn").disabled = true;
+  document.body.className = "";
+  document.getElementById("goalApp").style.display = "none";
+  document.getElementById("themePicker").style.display = "flex";
+  switchTab("saved");
+}
+
+// ── DATA LOADING ─────────────────────────────────────────────
+async function loadGoals() {
+  if (APPROVED_URL === "PLACEHOLDER_APPROVED_URL") { useFallback(); return; }
+  try {
+    const r = await fetch(APPROVED_URL + "?cb=" + Date.now());
+    if (!r.ok) throw new Error();
+    const data = await r.json();
+    topics = data.realms || [];
+    goalsDB = data.goals || {};
+  } catch(e) {
+    useFallback();
+    showNotice("Could not reach the repository. Using built-in goals.", "warn");
+  }
+}
+
+function useFallback() {
+  const T = THEMES[currentTheme];
+  topics = FALLBACK_TOPICS.map(t => ({
+    id: t.id,
+    name: t["name_"+currentTheme] || t.name_fellowship,
+    icon: t.icon,
+    desc: t["desc_"+currentTheme] || t.desc_fellowship,
+  }));
+  goalsDB = FALLBACK_GOALS;
+}
+
+// ── TOPIC GRID ───────────────────────────────────────────────
+function buildTopicGrid() {
+  const g = document.getElementById("topicsGrid");
+  g.innerHTML = "";
+  topics.forEach(t => {
+    const b = document.createElement("button");
+    b.className = "topic-btn"; b.id = "t-" + t.id;
+    b.innerHTML = `<span class="t-icon">${t.icon}</span><span class="t-name">${t.name}</span><span class="t-desc">${t.desc}</span>`;
+    b.onclick = () => selectTopic(t);
+    g.appendChild(b);
+  });
+}
+
+function buildSuggestSelect() {
+  const s = document.getElementById("sugRealm");
+  s.innerHTML = topics.map(t => `<option value="${t.id}">${t.name}</option>`).join("");
+}
+
+// ── INTERACTIONS ─────────────────────────────────────────────
+function showNotice(msg, type) {
+  const n = document.getElementById("notice");
+  n.textContent = msg;
+  n.className = "notice" + (type ? " " + type : "");
+  n.style.display = msg ? "block" : "none";
+}
+
+function selectTopic(t) {
+  document.querySelectorAll(".topic-btn").forEach(b => b.classList.remove("selected"));
+  document.getElementById("t-" + t.id).classList.add("selected");
+  selTopic = t; checkReady();
+}
+
+function selectDiff(d) {
+  selDiff = d;
+  ["easy","medium","hard"].forEach(x => {
+    document.getElementById("diff-"+x).className = "diff-btn" + (x === d ? " sel-"+x : "");
+  });
+  checkReady();
+}
+
+function checkReady() {
+  document.getElementById("genBtn").disabled = !(selTopic && selDiff);
+}
+
+function generate() {
+  if (!selTopic || !selDiff) return;
+  showNotice("","");
+  const pool = goalsDB[selTopic.id]?.[selDiff];
+  if (!pool || pool.length === 0) {
+    showNotice(THEMES[currentTheme].noGoalsMsg, "warn");
+    return;
+  }
+  const text = pool[Math.floor(Math.random() * pool.length)];
+  const today = new Date().toLocaleDateString("en-GB");
+  const T = THEMES[currentTheme];
+  curGoal = {
+    topic: selTopic.name,
+    topicId: selTopic.id,
+    difficulty: selDiff,
+    diffLabel: T.diffLabels[selDiff],
+    text, date: today, ts: Date.now(),
+    theme: currentTheme
+  };
+  renderScroll(curGoal);
+  addToHistory(curGoal);
+  document.getElementById("scrollWrap").classList.add("visible");
+  document.getElementById("modalVp").classList.remove("open");
+}
+
+function badgeHTML(g) {
+  return `<span class="sbadge b-topic">${g.topic}</span><span class="sbadge b-${g.difficulty}">${g.diffLabel}</span>`;
+}
+
+function renderScroll(g) {
+  document.getElementById("sBadges").innerHTML = badgeHTML(g);
+  document.getElementById("sGoal").textContent = g.text;
+}
+
+function planJourney() {
+  const text = document.getElementById("sGoal").innerText;
+  if(window.sendPrompt) window.sendPrompt("Help me break this goal into small daily steps: " + text);
+}
+
+// ── STORAGE ───────────────────────────────────────────────────
+async function addToHistory(g) {
+  history.unshift(g);
+  if (history.length > 200) history = history.slice(0, 200);
+  try { await localStorage.setItem("intentions_history", JSON.stringify(history)); } catch(e){}
+  renderHistory();
+}
+
+async function saveGoal() {
+  if (!curGoal || saved.find(g => g.ts === curGoal.ts)) return;
+  saved.unshift({...curGoal});
+  try { localStorage.setItem("intentions_saved", JSON.stringify(saved)); } catch(e){}
+  renderSaved(); switchTab("saved");
+}
+
+function loadLocal() {
+  try { const r = localStorage.getItem("intentions_saved"); if(r) saved = JSON.parse(r); } catch(e){}
+  try { const r = localStorage.getItem("intentions_history"); if(r) history = JSON.parse(r); } catch(e){}
+  renderSaved(); renderHistory();
+}
+
+async function clearSaved() {
+  saved = [];
+  try { localStorage.removeItem("intentions_saved"); } catch(e){}
+  renderSaved();
+}
+
+async function clearHistory() {
+  history = [];
+  try { localStorage.removeItem("intentions_history"); } catch(e){}
+  renderHistory();
+}
+
+async function deleteSaved(ts) {
+  saved = saved.filter(g => g.ts !== ts);
+  try { localStorage.setItem("intentions_saved", JSON.stringify(saved)); } catch(e){}
+  renderSaved();
+}
+
+async function deleteHistory(ts) {
+  history = history.filter(g => g.ts !== ts);
+  try { localStorage.setItem("intentions_history", JSON.stringify(history)); } catch(e){}
+  renderHistory();
+}
+
+async function bindFromHistory(ts) {
+  const g = history.find(x => x.ts === ts);
+  if (!g || saved.find(x => x.ts === ts)) return;
+  saved.unshift({...g});
+  try { localStorage.setItem("intentions_saved", JSON.stringify(saved)); } catch(e){}
+  renderSaved(); switchTab("saved");
+}
+
+// ── RENDER LISTS ─────────────────────────────────────────────
+function itemHTML(g, type) {
+  const T = THEMES[currentTheme];
+  const del = type === "saved" ? `deleteSaved(${g.ts})` : `deleteHistory(${g.ts})`;
+  const bind = type === "history" ? `<button onclick="bindFromHistory(${g.ts})">${T.btnBindHistory}</button>` : "";
+  return `<div class="hitem">
+    <div class="htop"><div class="hbadges">${badgeHTML(g)}</div><span class="hdate">${g.date}</span></div>
+    <div class="htext">${g.text}</div>
+    <div class="hactions">
+      <button onclick="if(window.sendPrompt)window.sendPrompt('Help me plan daily steps for: ${g.text.replace(/'/g,"\\'").replace(/"/g,"&quot;")}')">${T.btnPlanHistory}</button>
+      ${bind}
+      <button class="del-btn" onclick="${del}">${T.btnRelease}</button>
+    </div>
+  </div>`;
+}
+
+function renderSaved() {
+  const T = THEMES[currentTheme];
+  if (!T) return;
+  document.getElementById("savedCount").textContent = saved.length + T.savedCountSuffix;
+  document.getElementById("savedList").innerHTML = saved.length
+    ? saved.map(g => itemHTML(g, "saved")).join("")
+    : `<div class="empty">${T.emptySaved}</div>`;
+}
+
+function renderHistory() {
+  const T = THEMES[currentTheme];
+  if (!T) return;
+  document.getElementById("histCount").textContent = history.length + T.histCountSuffix;
+  document.getElementById("histList").innerHTML = history.length
+    ? history.map(g => itemHTML(g, "history")).join("")
+    : `<div class="empty">${T.emptyHistory}</div>`;
+}
+
+function switchTab(t) {
+  ["saved","history","suggest"].forEach(x => {
+    document.getElementById("tab-"+x).classList.toggle("active", x === t);
+    document.getElementById("panel-"+x).classList.toggle("active", x === t);
+  });
+}
+
+// ── SUGGESTIONS ──────────────────────────────────────────────
+function prepareSuggestion() {
+  const realm = document.getElementById("sugRealm").value;
+  const text = document.getElementById("sugText").value.trim();
+  if (!text) { alert("Please write an intention first."); return; }
+  const realmName = topics.find(t => t.id === realm)?.name || realm;
+  const formatted = `INTENTION SUGGESTION\n\nTheme: ${THEMES[currentTheme].hTitle}\nSpace: ${realmName}\nIntention: ${text}\nSubmitted: ${new Date().toLocaleDateString("en-GB")}`;
+  document.getElementById("copyBox").textContent = formatted;
+  document.getElementById("suggestIdle").style.display = "none";
+  document.getElementById("suggestReady").style.display = "block";
+}
+
+function copySuggestion() {
+  navigator.clipboard.writeText(document.getElementById("copyBox").textContent).catch(()=>{});
+  const c = document.getElementById("copyConfirm");
+  c.textContent = THEMES[currentTheme].copyConfirmText;
+  c.style.display = "inline";
+  setTimeout(() => c.style.display = "none", 2500);
+}
+
+function openRaven() {
+  const body = encodeURIComponent(document.getElementById("copyBox").textContent);
+  const email = KEEPER_EMAIL === "PLACEHOLDER_KEEPER_EMAIL" ? "" : KEEPER_EMAIL;
+  window.open(`mailto:${email}?subject=Intention%20Suggestion&body=${body}`);
+}
+
+function resetSuggest() {
+  document.getElementById("sugText").value = "";
+  document.getElementById("suggestIdle").style.display = "block";
+  document.getElementById("suggestReady").style.display = "none";
+  document.getElementById("copyConfirm").style.display = "none";
+}
+
+// ── SHARE ─────────────────────────────────────────────────────
+function openShare() {
+  if (!curGoal) return;
+  const T = THEMES[currentTheme];
+  document.getElementById("tcContent").textContent = `${curGoal.diffLabel.toUpperCase()} — ${curGoal.topic}\n\n${curGoal.text}\n\n— ${T.hTitle}`;
+  document.getElementById("vcEyebrow").textContent = `${curGoal.diffLabel} · ${curGoal.topic}`;
+  document.getElementById("vcGoal").textContent = curGoal.text;
+  document.getElementById("vcDate").textContent = curGoal.date;
+  document.getElementById("modalVp").classList.add("open");
+  switchShareTab("text");
+}
+
+function closeShare() { document.getElementById("modalVp").classList.remove("open"); }
+
+function switchShareTab(t) {
+  document.getElementById("stab-text").classList.toggle("active", t === "text");
+  document.getElementById("stab-visual").classList.toggle("active", t === "visual");
+  document.getElementById("shareText").style.display = t === "text" ? "block" : "none";
+  document.getElementById("shareVisual").style.display = t === "visual" ? "block" : "none";
+}
+
+function copyShareText() {
+  navigator.clipboard.writeText(document.getElementById("tcContent").textContent).catch(()=>{});
+}
+
+function copyVisual() {
+  navigator.clipboard.writeText(`${curGoal.diffLabel.toUpperCase()} — ${curGoal.topic}\n\n${curGoal.text}`).catch(()=>{});
+}
+</script>
+</body>
+</html>
