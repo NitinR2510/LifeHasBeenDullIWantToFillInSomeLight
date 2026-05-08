@@ -1,0 +1,617 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  .wrap { padding: 1.5rem 0; }
+  .title { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 1.5rem; }
+  .sections { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+  .section-btn { padding: 10px 8px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); color: var(--color-text-secondary); font-size: 12px; cursor: pointer; transition: all 0.2s; text-align: center; }
+  .section-btn:hover { background: var(--color-background-secondary); }
+  .section-btn.active { border-color: #7F77DD; background: #EEEDFE; color: #3C3489; }
+  .section-btn .label { font-weight: 500; font-size: 13px; display: block; color: inherit; }
+  .controls { display: flex; gap: 12px; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .play-btn { padding: 10px 24px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-primary); font-size: 14px; font-weight: 500; cursor: pointer; }
+  .play-btn:hover { background: var(--color-background-secondary); }
+  .play-btn.playing { border-color: #7F77DD; color: #3C3489; background: #EEEDFE; }
+  .slider-group { display: flex; align-items: center; gap: 8px; }
+  .slider-group label { font-size: 12px; color: var(--color-text-secondary); white-space: nowrap; }
+  .slider-group input[type=range] { width: 80px; }
+  .slider-group span { font-size: 12px; font-weight: 500; color: var(--color-text-primary); min-width: 28px; }
+  .visualizer { width: 100%; height: 80px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); margin-bottom: 1.5rem; position: relative; overflow: hidden; }
+  .note-row { display: flex; gap: 6px; margin-bottom: 8px; align-items: center; }
+  .note-label { font-size: 11px; color: var(--color-text-secondary); width: 40px; text-align: right; flex-shrink: 0; }
+  .note-grid { display: flex; gap: 4px; flex: 1; }
+  .note-cell { width: 24px; height: 24px; border-radius: 4px; border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); cursor: pointer; transition: all 0.15s; flex-shrink: 0; }
+  .note-cell.on { background: #7F77DD; border-color: #534AB7; }
+  .note-cell.active { outline: 2px solid #AFA9EC; }
+  .note-cell.on.string { background: #1D9E75; border-color: #0F6E56; }
+  .piano-section { margin-bottom: 1rem; }
+  .piano-section .sec-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 6px; }
+  .hint { font-size: 12px; color: var(--color-text-tertiary); margin-top: 1rem; }
+  .chapter-tag { font-size: 10px; background: #EEEDFE; color: #534AB7; border-radius: 4px; padding: 2px 6px; display: inline-block; margin-bottom: 4px; }
+
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-sans);
+    background: #0F1117;
+    color: #F3F4F6;
+  }
+
+  .wrap {
+    padding: 1.5rem 0;
+    background:
+      radial-gradient(circle at top left, rgba(127,119,221,0.08), transparent 35%),
+      radial-gradient(circle at bottom right, rgba(29,158,117,0.06), transparent 40%),
+      #0F1117;
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #F8FAFC;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: #A1A1AA;
+    margin-bottom: 1.5rem;
+  }
+
+  .sections {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-btn {
+    padding: 10px 8px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid #2A2F3A;
+    background: #181C25;
+    color: #A1A1AA;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .section-btn:hover {
+    background: #202633;
+    border-color: #3A4252;
+  }
+
+  .section-btn.active {
+    border-color: #7F77DD;
+    background: rgba(127,119,221,0.14);
+    color: #E4E0FF;
+  }
+
+  .section-btn .label {
+    font-weight: 500;
+    font-size: 13px;
+    display: block;
+    color: inherit;
+  }
+
+  .controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .play-btn {
+    padding: 10px 24px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid #2A2F3A;
+    background: #181C25;
+    color: #F3F4F6;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .play-btn:hover {
+    background: #202633;
+  }
+
+  .play-btn.playing {
+    border-color: #7F77DD;
+    color: #F3F0FF;
+    background: rgba(127,119,221,0.14);
+  }
+
+  .slider-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .slider-group label {
+    font-size: 12px;
+    color: #A1A1AA;
+    white-space: nowrap;
+  }
+
+  .slider-group input[type=range] {
+    width: 80px;
+    accent-color: #7F77DD;
+  }
+
+  .slider-group span {
+    font-size: 12px;
+    font-weight: 500;
+    color: #F3F4F6;
+    min-width: 28px;
+  }
+
+  .visualizer {
+    width: 100%;
+    height: 80px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid #2A2F3A;
+    background: #141922;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .note-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 8px;
+    align-items: center;
+  }
+
+  .note-label {
+    font-size: 11px;
+    color: #71717A;
+    width: 40px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .note-grid {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .note-cell {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 1px solid #2A2F3A;
+    background: #181C25;
+    cursor: pointer;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+
+  .note-cell:hover {
+    background: #222938;
+  }
+
+  .note-cell.on {
+    background: #7F77DD;
+    border-color: #AFA9EC;
+  }
+
+  .note-cell.active {
+    outline: 2px solid #D6D2FF;
+  }
+
+  .note-cell.on.string {
+    background: #1D9E75;
+    border-color: #63D3B0;
+  }
+
+  .piano-section {
+    margin-bottom: 1rem;
+  }
+
+  .piano-section .sec-label {
+    font-size: 12px;
+    color: #A1A1AA;
+    margin-bottom: 6px;
+  }
+
+  .hint {
+    font-size: 12px;
+    color: #71717A;
+    margin-top: 1rem;
+  }
+
+  .chapter-tag {
+    font-size: 10px;
+    background: rgba(127,119,221,0.12);
+    color: #CFCBFF;
+    border-radius: 4px;
+    padding: 2px 6px;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+
+</style>
+
+
+
+<div class="wrap">
+  <h2 class="sr-only">The Little Seed — an interactive melody composer for strings and piano</h2>
+  <p class="title">The Little Seed — melody composer</p>
+  <p class="subtitle">Each chapter has its own phrase. Play them together or one at a time.</p>
+
+  <div class="sections">
+    <button class="section-btn active" onclick="selectSection(0)" id="sb0">
+      <span class="chapter-tag">I–II</span>
+      <span class="label">Sleeping & first light</span>
+    </button>
+    <button class="section-btn" onclick="selectSection(1)" id="sb1">
+      <span class="chapter-tag">III–IV</span>
+      <span class="label">Wind & keepers</span>
+    </button>
+    <button class="section-btn" onclick="selectSection(2)" id="sb2">
+      <span class="chapter-tag">V–VI</span>
+      <span class="label">New roots & horizon</span>
+    </button>
+  </div>
+
+  <div class="controls">
+    <button class="play-btn" id="playBtn" onclick="togglePlay()">▶ Play</button>
+    <div class="slider-group">
+      <label>Tempo</label>
+      <input type="range" min="40" max="100" value="58" step="1" id="tempoSlider" oninput="updateTempo(this.value)">
+      <span id="tempoVal">58</span>
+    </div>
+    <div class="slider-group">
+      <label>Reverb</label>
+      <input type="range" min="0" max="100" value="60" step="1" id="reverbSlider" oninput="updateReverb(this.value)">
+      <span id="reverbVal">60</span>
+    </div>
+    <div class="slider-group">
+      <label>Strings</label>
+      <input type="range" min="0" max="100" value="55" step="1" id="stringSlider" oninput="updateString(this.value)">
+      <span id="stringVal">55</span>
+    </div>
+  </div>
+
+  <div class="visualizer" id="visualizer">
+    <canvas id="vizCanvas" style="width:100%;height:100%;"></canvas>
+  </div>
+
+  <div id="gridArea"></div>
+
+  <p class="hint">Click any cell to toggle a note on or off. The melody is pre-composed but fully editable.</p>
+</div>
+
+<script>
+const ctx_audio = new (window.AudioContext || window.webkitAudioContext)();
+
+const NOTE_NAMES = ['C5','B4','A4','G4','F4','E4','D4','C4'];
+const FREQS = { C5:523.25, B4:493.88, A4:440, G4:392, F4:349.23, E4:329.63, D4:293.66, C4:261.63 };
+
+const SECTIONS = [
+  {
+    label: 'Sleeping & first light',
+    piano: [
+      [0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0],
+      [1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+    ],
+    strings: [
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+      [0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    ]
+  },
+  {
+    label: 'Wind & keepers',
+    piano: [
+      [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+      [0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+      [0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0],
+      [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0],
+      [0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    ],
+    strings: [
+      [1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+    ]
+  },
+  {
+    label: 'New roots & horizon',
+    piano: [
+      [1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+      [0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0],
+      [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
+      [1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0],
+      [0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0],
+      [0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+      [1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1],
+    ],
+    strings: [
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    ]
+  }
+];
+
+let currentSection = 0;
+let grids = SECTIONS.map(s => ({ piano: s.piano.map(r=>[...r]), strings: s.strings.map(r=>[...r]) }));
+let tempo = 58;
+let isPlaying = false;
+let currentStep = 0;
+let intervalId = null;
+let reverbGain = 0.6;
+let stringGain = 0.55;
+let reverbNode = null;
+let reverbGainNode = null;
+let pianoGainNode = null;
+let stringGainNode = null;
+let masterGain = null;
+let vizCtx = null;
+let vizBars = new Array(16).fill(0);
+
+function setupAudio() {
+  masterGain = ctx_audio.createGain();
+  masterGain.gain.value = 0.7;
+  masterGain.connect(ctx_audio.destination);
+
+  pianoGainNode = ctx_audio.createGain();
+  pianoGainNode.gain.value = 0.8;
+  pianoGainNode.connect(masterGain);
+
+  stringGainNode = ctx_audio.createGain();
+  stringGainNode.gain.value = stringGain;
+  stringGainNode.connect(masterGain);
+
+  const convolver = ctx_audio.createConvolver();
+  const len = ctx_audio.sampleRate * 2.5;
+  const buf = ctx_audio.createBuffer(2, len, ctx_audio.sampleRate);
+  for (let c = 0; c < 2; c++) {
+    const d = buf.getChannelData(c);
+    for (let i = 0; i < len; i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/len, 2.2);
+  }
+  convolver.buffer = buf;
+
+  reverbGainNode = ctx_audio.createGain();
+  reverbGainNode.gain.value = reverbGain;
+
+  const dryGain = ctx_audio.createGain();
+  dryGain.gain.value = 0.6;
+
+  pianoGainNode.connect(convolver);
+  stringGainNode.connect(convolver);
+  convolver.connect(reverbGainNode);
+  reverbGainNode.connect(masterGain);
+}
+
+setupAudio();
+
+const vizCanvas = document.getElementById('vizCanvas');
+const vizEl = document.getElementById('visualizer');
+
+function resizeCanvas() {
+  vizCanvas.width = vizEl.offsetWidth;
+  vizCanvas.height = vizEl.offsetHeight;
+  vizCtx = vizCanvas.getContext('2d');
+}
+resizeCanvas();
+
+function drawViz() {
+  if (!vizCtx) return;
+  const w = vizCanvas.width, h = vizCanvas.height;
+  vizCtx.clearRect(0, 0, w, h);
+  const bw = w / 16;
+  for (let i = 0; i < 16; i++) {
+    const val = vizBars[i];
+    if (val > 0) {
+      const bh = val * h * 0.8;
+      vizCtx.fillStyle = i === currentStep && isPlaying ? '#7F77DD' : '#AFA9EC';
+      vizCtx.globalAlpha = 0.5 + val * 0.5;
+      vizCtx.fillRect(i * bw + 2, h - bh, bw - 4, bh);
+      vizCtx.globalAlpha = 1;
+    }
+    if (i === currentStep && isPlaying) {
+      vizCtx.fillStyle = '#7F77DD';
+      vizCtx.globalAlpha = 0.15;
+      vizCtx.fillRect(i * bw, 0, bw, h);
+      vizCtx.globalAlpha = 1;
+    }
+  }
+  vizBars = vizBars.map((v,i) => i === currentStep ? v : v * 0.85);
+  requestAnimationFrame(drawViz);
+}
+drawViz();
+
+function playPianoNote(freq, when, dur) {
+  const osc = ctx_audio.createOscillator();
+  const gain = ctx_audio.createGain();
+  osc.type = 'sine';
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0, when);
+  gain.gain.linearRampToValueAtTime(0.4, when + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, when + dur * 0.9);
+  osc.connect(gain);
+  gain.connect(pianoGainNode);
+
+  const osc2 = ctx_audio.createOscillator();
+  const g2 = ctx_audio.createGain();
+  osc2.type = 'sine';
+  osc2.frequency.value = freq * 2;
+  g2.gain.setValueAtTime(0, when);
+  g2.gain.linearRampToValueAtTime(0.08, when + 0.01);
+  g2.gain.exponentialRampToValueAtTime(0.001, when + dur * 0.5);
+  osc2.connect(g2);
+  g2.connect(pianoGainNode);
+
+  osc.start(when); osc.stop(when + dur);
+  osc2.start(when); osc2.stop(when + dur);
+}
+
+function playStringNote(freq, when, dur) {
+  const count = 4;
+  for (let i = 0; i < count; i++) {
+    const osc = ctx_audio.createOscillator();
+    const gain = ctx_audio.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.value = freq * (1 + (i - count/2) * 0.003);
+    const lfo = ctx_audio.createOscillator();
+    const lfoG = ctx_audio.createGain();
+    lfo.frequency.value = 5.2 + i * 0.3;
+    lfoG.gain.value = 2;
+    lfo.connect(lfoG);
+    lfoG.connect(osc.frequency);
+    gain.gain.setValueAtTime(0, when);
+    gain.gain.linearRampToValueAtTime(0.12 / count, when + 0.3);
+    gain.gain.setValueAtTime(0.12 / count, when + dur - 0.4);
+    gain.gain.linearRampToValueAtTime(0, when + dur);
+    const filt = ctx_audio.createBiquadFilter();
+    filt.type = 'lowpass';
+    filt.frequency.value = 1200;
+    osc.connect(filt);
+    filt.connect(gain);
+    gain.connect(stringGainNode);
+    lfo.start(when); lfo.stop(when + dur);
+    osc.start(when); osc.stop(when + dur);
+  }
+}
+
+function stepInterval() {
+  const stepDur = 60 / tempo;
+  const now = ctx_audio.currentTime;
+  const g = grids[currentSection];
+
+  let anyNote = false;
+  for (let row = 0; row < 8; row++) {
+    if (g.piano[row][currentStep]) {
+      playPianoNote(FREQS[NOTE_NAMES[row]], now, stepDur * 1.6);
+      anyNote = true;
+    }
+    if (g.strings[row][currentStep]) {
+      playStringNote(FREQS[NOTE_NAMES[row]], now, stepDur * 2.5);
+      anyNote = true;
+    }
+  }
+  if (anyNote) vizBars[currentStep] = 0.7 + Math.random() * 0.3;
+
+  highlightCells(currentStep);
+  currentStep = (currentStep + 1) % 16;
+}
+
+function highlightCells(step) {
+  document.querySelectorAll('.note-cell').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll(`.note-cell[data-step="${step}"]`).forEach(c => c.classList.add('active'));
+}
+
+function togglePlay() {
+  if (ctx_audio.state === 'suspended') ctx_audio.resume();
+  isPlaying = !isPlaying;
+  const btn = document.getElementById('playBtn');
+  if (isPlaying) {
+    currentStep = 0;
+    const ms = (60 / tempo) * 1000;
+    intervalId = setInterval(stepInterval, ms);
+    btn.textContent = '■ Stop';
+    btn.classList.add('playing');
+  } else {
+    clearInterval(intervalId);
+    btn.textContent = '▶ Play';
+    btn.classList.remove('playing');
+    document.querySelectorAll('.note-cell').forEach(c => c.classList.remove('active'));
+  }
+}
+
+function updateTempo(v) {
+  tempo = parseInt(v);
+  document.getElementById('tempoVal').textContent = v;
+  if (isPlaying) {
+    clearInterval(intervalId);
+    const ms = (60 / tempo) * 1000;
+    intervalId = setInterval(stepInterval, ms);
+  }
+}
+
+function updateReverb(v) {
+  reverbGain = parseInt(v) / 100;
+  document.getElementById('reverbVal').textContent = v;
+  if (reverbGainNode) reverbGainNode.gain.value = reverbGain;
+}
+
+function updateString(v) {
+  stringGain = parseInt(v) / 100;
+  document.getElementById('stringVal').textContent = v;
+  if (stringGainNode) stringGainNode.gain.value = stringGain;
+}
+
+function selectSection(i) {
+  currentSection = i;
+  if (isPlaying) { clearInterval(intervalId); currentStep = 0; const ms = (60/tempo)*1000; intervalId = setInterval(stepInterval, ms); }
+  document.querySelectorAll('.section-btn').forEach((b,j) => b.classList.toggle('active', j===i));
+  renderGrid();
+}
+
+function toggleCell(layer, row, col) {
+  grids[currentSection][layer][row][col] ^= 1;
+  renderGrid();
+}
+
+function renderGrid() {
+  const g = grids[currentSection];
+  const area = document.getElementById('gridArea');
+  let html = '<div class="piano-section"><p class="sec-label">Piano</p>';
+  for (let row = 0; row < 8; row++) {
+    html += `<div class="note-row"><span class="note-label">${NOTE_NAMES[row]}</span><div class="note-grid">`;
+    for (let col = 0; col < 16; col++) {
+      const on = g.piano[row][col] ? 'on' : '';
+      html += `<div class="note-cell ${on}" data-step="${col}" onclick="toggleCell('piano',${row},${col})"></div>`;
+    }
+    html += '</div></div>';
+  }
+  html += '</div><div class="piano-section"><p class="sec-label">Strings</p>';
+  for (let row = 0; row < 8; row++) {
+    html += `<div class="note-row"><span class="note-label">${NOTE_NAMES[row]}</span><div class="note-grid">`;
+    for (let col = 0; col < 16; col++) {
+      const on = g.strings[row][col] ? 'on string' : '';
+      html += `<div class="note-cell ${on}" data-step="${col}" onclick="toggleCell('strings',${row},${col})"></div>`;
+    }
+    html += '</div></div>';
+  }
+  html += '</div>';
+  area.innerHTML = html;
+}
+
+renderGrid();
+</script>
