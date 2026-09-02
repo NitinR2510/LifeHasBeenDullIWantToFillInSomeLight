@@ -196,6 +196,17 @@ body.fellowship{background:#1a1208;}
 .fellowship .s-actions button{padding:7px 14px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.1em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.25);background:transparent;color:#b8a98a;cursor:pointer;}
 .fellowship .s-actions button:hover{border-color:#8a6e2a;color:#c9a84c;}
 .fellowship .act-save{color:#5DCAA5!important;border-color:rgba(93,202,165,0.35)!important;}
+.plan-wrap{display:none;margin-top:1rem;padding:1rem;border-radius:4px;}
+.plan-wrap.visible{display:block;}
+.plan-title{font-size:13px;margin-bottom:0.5rem;}
+.plan-goal{font-size:14px;line-height:1.55;margin-bottom:0.75rem;}
+.plan-list{padding-left:1.25rem;display:flex;flex-direction:column;gap:0.55rem;font-size:14px;line-height:1.55;}
+.plan-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem;}
+.plan-actions button{padding:7px 14px;cursor:pointer;}
+.fellowship .plan-wrap{background:#3a2c12;border:0.5px solid rgba(201,168,76,0.25);color:#d4c49e;}
+.fellowship .plan-title{font-family:'Cinzel',serif;letter-spacing:0.1em;color:#c9a84c;text-transform:uppercase;}
+.fellowship .plan-goal,.fellowship .plan-list{font-family:'Crimson Text',serif;}
+.fellowship .plan-actions button{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.08em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.3);background:transparent;color:#b8a98a;}
 .fellowship .scroll-cap-bot{height:18px;background:#3a2c12;border-radius:0 0 3px 3px;border:0.5px solid rgba(201,168,76,0.25);border-top:none;display:flex;align-items:center;justify-content:center;}
 
 .fellowship .divider{display:flex;align-items:center;gap:12px;margin:1.5rem 0;}
@@ -310,6 +321,10 @@ body.glass{background:linear-gradient(160deg,#dde8ff 0%,#ede4ff 50%,#fde0ec 100%
 .glass .s-actions button{padding:8px 16px;font-family:'Inter',sans-serif;font-size:12px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.8);background:rgba(255,255,255,0.5);color:#4338ca;cursor:pointer;}
 .glass .s-actions button:hover{background:rgba(255,255,255,0.8);}
 .glass .act-save{color:#059669!important;border-color:rgba(16,185,129,0.3)!important;background:rgba(209,250,229,0.4)!important;}
+.glass .plan-wrap{background:rgba(255,255,255,0.5);border:0.5px solid rgba(255,255,255,0.75);color:#1e1b4b;}
+.glass .plan-title,.glass .plan-goal,.glass .plan-list{font-family:'Inter',sans-serif;}
+.glass .plan-title{font-weight:500;color:#4338ca;}
+.glass .plan-actions button{font-family:'Inter',sans-serif;font-size:11px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.5);color:#4338ca;}
 
 .glass .divider{display:flex;align-items:center;gap:12px;margin:1.5rem 0;}
 .glass .div-line{flex:1;height:0.5px;background:rgba(99,102,241,0.1);}
@@ -426,6 +441,10 @@ body.book{background:#f7f4ef;}
 .book .s-actions button:hover{border-color:#c5b89a;color:#2c2416;background:#f7f0e8;}
 .book .act-save{color:#4E8A68!important;border-color:#A8D4B8!important;}
 .book .act-save:hover{background:#EBF5EF!important;}
+.book .plan-wrap{background:#fffdf9;border:0.5px solid #e0d8cc;border-left:3px solid #b5977a;color:#2c2416;}
+.book .plan-title,.book .plan-goal,.book .plan-list{font-family:'Lora',serif;}
+.book .plan-title{color:#7c6f5a;}
+.book .plan-actions button{font-family:'Inter',sans-serif;font-size:11px;border-radius:3px;border:0.5px solid #e0d8cc;background:#fffdf9;color:#7c6f5a;}
 
 .book .divider{display:flex;align-items:center;gap:12px;margin:1.5rem 0;}
 .book .div-line{flex:1;height:0.5px;background:#e0d8cc;}
@@ -649,6 +668,15 @@ body.book{background:#f7f4ef;}
           <button onclick="openShare()" id="btnShare"></button>
           <button onclick="planJourney()" id="btnPlan"></button>
         </div>
+        <section class="plan-wrap" id="planWrap" aria-live="polite" aria-labelledby="planTitle">
+          <h2 class="plan-title" id="planTitle">Your step-by-step plan</h2>
+          <p class="plan-goal" id="planGoal"></p>
+          <ol class="plan-list" id="planList"></ol>
+          <div class="plan-actions">
+            <button onclick="copyPlan()">Copy plan</button>
+            <button onclick="closePlan()">Close plan</button>
+          </div>
+        </section>
       </div>
       <div class="scroll-cap-bot"><div class="scroll-rod"></div></div>
     </div>
@@ -1050,6 +1078,7 @@ function backToThemes() {
   selTopic = null; selDiff = null; curGoal = null; selSugDiff = null;
   document.getElementById("scrollWrap").classList.remove("visible");
   document.getElementById("modalVp").classList.remove("open");
+  closePlan();
   document.querySelectorAll(".diff-btn").forEach(b => b.className = "diff-btn");
   document.getElementById("genBtn").disabled = true;
   document.body.className = "";
@@ -1159,6 +1188,7 @@ function generate() {
   addToHistory(curGoal);
   document.getElementById("scrollWrap").classList.add("visible");
   document.getElementById("modalVp").classList.remove("open");
+  closePlan();
 }
 
 function badgeHTML(g) {
@@ -1171,8 +1201,66 @@ function renderScroll(g) {
 }
 
 function planJourney() {
-  const text = document.getElementById("sGoal").innerText;
-  if (window.sendPrompt) window.sendPrompt("Help me break this goal into small daily steps: " + text);
+  if (curGoal) openPlan(curGoal);
+}
+
+function planSavedGoal(ts) {
+  const goal = saved.find(g => g.ts === ts) || history.find(g => g.ts === ts);
+  if (goal) openPlan(goal);
+}
+
+function getPlanSteps(goal) {
+  const finishLine = `Define “done” for this intention: ${goal.text}`;
+  const prepare = "Put the next session on your calendar and prepare everything you need before it starts.";
+  const checkIn = "After each session, note what you completed and choose the smallest next action.";
+  const plans = {
+    easy: [
+      finishLine,
+      prepare,
+      "Do one focused session today. Keep it small enough to finish, then mark the intention complete."
+    ],
+    medium: [
+      finishLine,
+      prepare,
+      "Complete the first focused session today; aim for progress rather than a perfect result.",
+      checkIn,
+      "Schedule a final session this week to finish the intention and reflect on what helped."
+    ],
+    hard: [
+      finishLine,
+      "Break the week into daily sessions and reserve them on your calendar before you begin.",
+      "Start with the smallest concrete action today, even if it only takes ten minutes.",
+      checkIn,
+      "Midweek, adjust the plan instead of abandoning it if a session was missed.",
+      "Use a final focused session to finish what remains and record the result."
+    ]
+  };
+  return plans[goal.difficulty] || plans.medium;
+}
+
+function openPlan(goal) {
+  const wrap = document.getElementById("planWrap");
+  const list = document.getElementById("planList");
+  document.getElementById("planGoal").textContent = goal.text;
+  list.replaceChildren(...getPlanSteps(goal).map(step => {
+    const item = document.createElement("li");
+    item.textContent = step;
+    return item;
+  }));
+  wrap.classList.add("visible");
+  wrap.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function closePlan() {
+  document.getElementById("planWrap").classList.remove("visible");
+}
+
+function copyPlan() {
+  const goal = document.getElementById("planGoal").textContent;
+  const steps = [...document.querySelectorAll("#planList li")]
+    .map((item, index) => `${index + 1}. ${item.textContent}`)
+    .join("\n");
+  navigator.clipboard.writeText(`${goal}\n\n${steps}`).catch(() => {});
 }
 
 // ============================================================
@@ -1242,7 +1330,7 @@ function itemHTML(g, type) {
     <div class="htop"><div class="hbadges">${badgeHTML(g)}</div><span class="hdate">${g.date}</span></div>
     <div class="htext">${g.text}</div>
     <div class="hactions">
-      <button onclick="if(window.sendPrompt)window.sendPrompt('Help me plan daily steps for: ${g.text.replace(/'/g,"\\'").replace(/"/g,"&quot;")}')">${T.btnPlanHistory}</button>
+      <button onclick="planSavedGoal(${g.ts})">${T.btnPlanHistory}</button>
       ${bind}
       <button class="del-btn" onclick="${del}">${T.btnRelease}</button>
     </div>
