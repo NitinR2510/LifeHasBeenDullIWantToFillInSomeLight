@@ -30,6 +30,7 @@ jobs:
         run: |
           mkdir -p dist
           cp index.html dist/index.html
+          cp admin.html dist/admin.html
           cp suggestions.json dist/suggestions.json
           cp goals.json dist/goals.json
           printf '' > dist/.nojekyll
