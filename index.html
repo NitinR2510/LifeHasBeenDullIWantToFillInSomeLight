@@ -23,61 +23,49 @@ html,body{min-height:100%;font-size:16px;}
 .tp-rune{font-family:'Cinzel',serif;font-size:11px;letter-spacing:0.3em;color:#5a4a2a;margin-bottom:1rem;}
 .tp-title{font-family:'Cinzel',serif;font-size:22px;font-weight:600;color:#c9a84c;margin-bottom:8px;text-align:center;}
 .tp-sub{font-family:'Crimson Text',serif;font-size:15px;color:#7a6a4a;font-style:italic;margin-bottom:2.5rem;text-align:center;}
-.tp-cards{display:flex;flex-direction:column;gap:1.25rem;width:100%;max-width:560px;}
+/* Side-by-side on tablet/desktop, stacks on narrow phones */
+.tp-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;width:100%;max-width:760px;}
+@media (max-width:640px){.tp-cards{grid-template-columns:1fr;max-width:420px;}}
+
+/* Shared compact-card layout: icon, name, one line, enter link. No preview block. */
+.tp-cards [class^="tc-"]{
+  border-radius:12px;cursor:pointer;padding:1.5rem 1.25rem;
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;
+  transition:transform 0.18s,border-color 0.18s,box-shadow 0.18s;
+}
+.tp-cards [class^="tc-"]:hover{transform:translateY(-3px);}
+.tc-icon{font-size:26px;line-height:1;margin-bottom:4px;}
+.tc-btn{margin-top:12px;display:inline-block;padding:6px 16px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;border-radius:20px;cursor:pointer;background:transparent;}
 
 /* Card 1 — Fellowship */
-.tc-fellowship{
-  border-radius:8px;overflow:hidden;cursor:pointer;
-  background:#1a1208;border:0.5px solid rgba(201,168,76,0.2);
-  transition:transform 0.18s,border-color 0.18s;
-}
-.tc-fellowship:hover{transform:translateY(-2px);border-color:rgba(201,168,76,0.5);}
-.tc-fellowship .tc-inner{padding:1.5rem;}
-.tc-fellowship .tc-num{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;color:#5a4a2a;text-transform:uppercase;margin-bottom:6px;}
-.tc-fellowship .tc-name{font-family:'Cinzel',serif;font-size:17px;color:#c9a84c;margin-bottom:6px;}
-.tc-fellowship .tc-desc{font-family:'Crimson Text',serif;font-size:14px;color:#7a6a4a;font-style:italic;line-height:1.6;margin-bottom:1rem;}
-.scroll-mini{background:#231a0a;border:0.5px solid rgba(201,168,76,0.2);border-radius:3px;padding:12px 16px;}
-.scroll-mini-cap{height:8px;background:#3a2c12;border-radius:2px 2px 0 0;margin:-12px -16px 10px;border-bottom:0.5px solid rgba(201,168,76,0.15);}
-.scroll-mini-text{font-family:'Crimson Text',serif;font-size:13px;color:#d4c49e;font-style:italic;line-height:1.7;}
-.scroll-mini-cap-bot{height:8px;background:#3a2c12;border-radius:0 0 2px 2px;margin:10px -16px -12px;border-top:0.5px solid rgba(201,168,76,0.15);}
-.tc-fellowship .tc-btn{margin-top:14px;display:inline-block;padding:7px 18px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;border-radius:2px;border:0.5px solid rgba(201,168,76,0.4);color:#8a6e2a;cursor:pointer;background:transparent;}
-.tc-fellowship .tc-btn:hover{border-color:#c9a84c;color:#c9a84c;}
+.tc-fellowship{background:#1a1208;border:0.5px solid rgba(201,168,76,0.2);}
+.tc-fellowship:hover{border-color:rgba(201,168,76,0.5);}
+.tc-fellowship .tc-icon{color:#c9a84c;}
+.tc-fellowship .tc-num{font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.25em;color:#5a4a2a;text-transform:uppercase;}
+.tc-fellowship .tc-name{font-family:'Cinzel',serif;font-size:16px;color:#c9a84c;}
+.tc-fellowship .tc-desc{font-family:'Crimson Text',serif;font-size:13px;color:#8a7a5a;font-style:italic;line-height:1.5;}
+.tc-fellowship .tc-btn{font-family:'Cinzel',serif;border-radius:2px;border:0.5px solid rgba(201,168,76,0.4);color:#8a6e2a;}
+.tc-fellowship:hover .tc-btn{border-color:#c9a84c;color:#c9a84c;}
 
 /* Card 2 — Glass */
-.tc-glass{
-  border-radius:16px;overflow:hidden;cursor:pointer;
-  background:linear-gradient(135deg,#e8f0fe,#f3e8ff,#fce4ec);
-  border:0.5px solid rgba(255,255,255,0.6);
-  transition:transform 0.18s,box-shadow 0.18s;
-  box-shadow:0 2px 16px rgba(99,102,241,0.06);
-}
-.tc-glass:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(99,102,241,0.12);}
-.tc-glass .tc-inner{padding:1.5rem;}
-.tc-glass .tc-num{font-size:9px;letter-spacing:0.2em;color:#6366f1;text-transform:uppercase;font-weight:500;font-family:'Inter',sans-serif;margin-bottom:6px;}
-.tc-glass .tc-name{font-family:'Inter',sans-serif;font-size:17px;font-weight:500;color:#1e1b4b;margin-bottom:6px;}
-.tc-glass .tc-desc{font-family:'Inter',sans-serif;font-size:13px;color:#4338ca;line-height:1.6;margin-bottom:1rem;}
-.glass-mini{background:rgba(255,255,255,0.5);border:0.5px solid rgba(255,255,255,0.8);border-radius:14px;padding:14px 16px;box-shadow:0 2px 12px rgba(99,102,241,0.07);}
-.glass-mini-tag{font-size:10px;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:rgba(99,102,241,0.65);margin-bottom:7px;font-family:'Inter',sans-serif;}
-.glass-mini-text{font-family:'Inter',sans-serif;font-size:13px;color:#1e1b4b;line-height:1.65;}
-.tc-glass .tc-btn{margin-top:14px;display:inline-block;padding:7px 18px;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;border-radius:20px;border:0.5px solid rgba(67,56,202,0.35);color:#4338ca;cursor:pointer;background:rgba(255,255,255,0.5);}
-.tc-glass .tc-btn:hover{background:rgba(255,255,255,0.8);}
+.tc-glass{background:linear-gradient(135deg,#e8f0fe,#f3e8ff,#fce4ec);border:0.5px solid rgba(255,255,255,0.6);box-shadow:0 2px 16px rgba(99,102,241,0.06);}
+.tc-glass:hover{box-shadow:0 6px 24px rgba(99,102,241,0.12);}
+.tc-glass .tc-icon{color:#6366f1;}
+.tc-glass .tc-num{font-size:9px;letter-spacing:0.2em;color:#6366f1;text-transform:uppercase;font-weight:500;font-family:'Inter',sans-serif;}
+.tc-glass .tc-name{font-family:'Inter',sans-serif;font-size:16px;font-weight:500;color:#1e1b4b;}
+.tc-glass .tc-desc{font-family:'Inter',sans-serif;font-size:12px;color:#4338ca;line-height:1.5;}
+.tc-glass .tc-btn{font-family:'Inter',sans-serif;font-weight:500;border-radius:20px;border:0.5px solid rgba(67,56,202,0.35);color:#4338ca;background:rgba(255,255,255,0.5);}
+.tc-glass:hover .tc-btn{background:rgba(255,255,255,0.8);}
 
 /* Card 3 — Book Club */
-.tc-book{
-  border-radius:6px;overflow:hidden;cursor:pointer;
-  background:#f7f4ef;border:0.5px solid #ddd5c4;
-  transition:transform 0.18s,box-shadow 0.18s;
-}
-.tc-book:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(100,80,50,0.1);}
-.tc-book .tc-inner{padding:1.5rem;}
-.tc-book .tc-num{font-size:9px;letter-spacing:0.2em;color:#b5977a;text-transform:uppercase;font-weight:500;font-family:'Inter',sans-serif;margin-bottom:6px;}
-.tc-book .tc-name{font-family:'Lora',serif;font-size:17px;color:#2c2416;margin-bottom:6px;}
-.tc-book .tc-desc{font-family:'Lora',serif;font-size:13px;color:#7c6f5a;font-style:italic;line-height:1.6;margin-bottom:1rem;}
-.book-mini{background:#fffdf9;border:0.5px solid #e0d8cc;border-radius:4px;padding:12px 16px;border-left:3px solid #b5977a;}
-.book-mini-ch{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#b5977a;margin-bottom:8px;font-family:'Inter',sans-serif;font-weight:500;}
-.book-mini-text{font-family:'Lora',serif;font-size:13px;color:#2c2416;line-height:1.75;}
-.tc-book .tc-btn{margin-top:14px;display:inline-block;padding:7px 18px;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;border-radius:4px;border:0.5px solid #c5b89a;color:#7c6f5a;cursor:pointer;background:#fffdf9;}
-.tc-book .tc-btn:hover{background:#f0ebe1;}
+.tc-book{background:#f7f4ef;border:0.5px solid #ddd5c4;}
+.tc-book:hover{box-shadow:0 4px 16px rgba(100,80,50,0.1);}
+.tc-book .tc-icon{color:#b5977a;}
+.tc-book .tc-num{font-size:9px;letter-spacing:0.2em;color:#b5977a;text-transform:uppercase;font-weight:500;font-family:'Inter',sans-serif;}
+.tc-book .tc-name{font-family:'Lora',serif;font-size:16px;color:#2c2416;}
+.tc-book .tc-desc{font-family:'Lora',serif;font-size:12px;color:#7c6f5a;font-style:italic;line-height:1.5;}
+.tc-book .tc-btn{font-family:'Inter',sans-serif;font-weight:500;border-radius:4px;border:0.5px solid #c5b89a;color:#7c6f5a;background:#fffdf9;}
+.tc-book:hover .tc-btn{background:#f0ebe1;}
 
 .rules-modal{
   border:none;
@@ -570,43 +558,27 @@ body.book{background:#f7f4ef;}
   <div class="tp-cards">
 
     <div class="tc-fellowship" onclick="openRules('fellowship')">
-      <div class="tc-inner">
-        <p class="tc-num">Theme I</p>
-        <p class="tc-name">The Fellowship of the Ring</p>
-        <p class="tc-desc">Ancient parchment scrolls, runic accents, candlelit earth tones. Every goal arrives as a quest.</p>
-        <div class="scroll-mini">
-          <div class="scroll-mini-cap"></div>
-          <div class="scroll-mini-text">Write three pages of your story without lifting the pen — let the words find their own path through you.</div>
-          <div class="scroll-mini-cap-bot"></div>
-        </div>
-        <button class="tc-btn">Enter this world ↗</button>
-      </div>
+      <p class="tc-num">Theme I</p>
+      <div class="tc-icon">📜</div>
+      <p class="tc-name">The Fellowship of the Ring</p>
+      <p class="tc-desc">Every goal arrives as a quest.</p>
+      <button class="tc-btn">Enter this world ↗</button>
     </div>
 
     <div class="tc-glass" onclick="openRules('glass')">
-      <div class="tc-inner">
-        <p class="tc-num">Theme II</p>
-        <p class="tc-name">Translucent Surface</p>
-        <p class="tc-desc">Frosted glass panels over soft colour washes. Blurred depth, gentle borders, airy containment.</p>
-        <div class="glass-mini">
-          <div class="glass-mini-tag">Mindfulness · Easy</div>
-          <div class="glass-mini-text">Sit in stillness for ten minutes today and observe what surfaces without trying to change it.</div>
-        </div>
-        <button class="tc-btn">Enter this world ↗</button>
-      </div>
+      <p class="tc-num">Theme II</p>
+      <div class="tc-icon">◈</div>
+      <p class="tc-name">Translucent Surface</p>
+      <p class="tc-desc">Soft glass, calm and airy.</p>
+      <button class="tc-btn">Enter this world ↗</button>
     </div>
 
     <div class="tc-book" onclick="openRules('book')">
-      <div class="tc-inner">
-        <p class="tc-num">Theme III</p>
-        <p class="tc-name">Meditative &amp; Book Club</p>
-        <p class="tc-desc">Warm cream, serif type, a left-rule accent. Like an open notebook in a quiet reading room.</p>
-        <div class="book-mini">
-          <div class="book-mini-ch">Chapter · Health &amp; Fitness · Hard</div>
-          <div class="book-mini-text">Commit to waking at 5 AM every day this week — not for productivity, but to reclaim the hour before the world asks anything of you.</div>
-        </div>
-        <button class="tc-btn">Enter this world ↗</button>
-      </div>
+      <p class="tc-num">Theme III</p>
+      <div class="tc-icon">📖</div>
+      <p class="tc-name">Meditative &amp; Book Club</p>
+      <p class="tc-desc">An open notebook, quietly kept.</p>
+      <button class="tc-btn">Enter this world ↗</button>
     </div>
 
   </div>
@@ -758,31 +730,22 @@ body.book{background:#f7f4ef;}
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 // ============================================================
-// GITHUB CONFIG — fill these in before deploying
+// SUPABASE CONFIG — fill these in before deploying
 // ============================================================
-const GH_OWNER        = "nitinr2510";
-const GH_REPO         = "LifeHasBeenDullIWantToFillInSomeLight";
-// Path inside the repo where suggestions.json lives, e.g. "data/suggestions.json"
-const GH_SUGGESTIONS_PATH = "suggestions.json";
-// Path inside the repo where goals.json lives, e.g. "data/goals.json"
-const GH_GOALS_PATH   = "goals.json";
-// Branch to read/write on
-const GH_BRANCH       = "main";
-// Personal Access Token with Contents: Read & Write scope on this repo ONLY
-// HOW TO CREATE: GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens
-// Permissions needed: Contents (Read and Write), on this single repository
-// ⚠️  This token is visible in your source — only use it on a private repo,
-//     OR create a dedicated bot account with access to this repo only.
-// Replaced by the GitHub Actions deploy workflow from secrets.MY_ACCESS_TOKEN.
-// WARNING: the injected token is visible in the final page source.
-const GH_TOKEN        = "__GH_TOKEN__";
+// Get these from your Supabase project: Settings → API
+// SUPABASE_URL looks like: https://xxxxxxxxxxxx.supabase.co
+// SUPABASE_ANON_KEY is the public "anon" key — safe to expose in client code,
+// because Row Level Security policies (see supabase_setup.sql) control what
+// it's allowed to read/write. NEVER put the "service_role" key in this file.
+const SUPABASE_URL      = "https://dwutvaktbxandgcklncu.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3dXR2YWt0YnhhbmRnY2tsbmN1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgzNzY3NzQsImV4cCI6MjEwMzk1Mjc3NH0.nl6vNkEQqO721miK3kWY5j6-GAbxA-Ps2jsQcUaVpnY";
 
-// Raw content base URL for reading (no token needed on public repos)
-const GH_RAW_BASE = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}`;
-// GitHub API base for writing
-const GH_API_BASE = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents`;
+const sb = (SUPABASE_URL && !SUPABASE_URL.startsWith("__"))
+  ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  : null;
 
 // ============================================================
 // THEME COPY
@@ -951,68 +914,52 @@ const FALLBACK_GOALS = {
 };
 
 // ============================================================
-// GITHUB API HELPERS
+// SUPABASE DATA HELPERS
 // ============================================================
 
 /**
- * Fetch goals.json from the repo via raw URL (no auth needed on public repos).
- * Falls back gracefully if the file is missing or malformed.
+ * Fetch approved topics + goals ("notepad #1") from Supabase.
+ * These are the only two tables the public site reads from directly.
  */
-async function fetchGoalsFromGitHub() {
-  const url = `${GH_RAW_BASE}/${GH_GOALS_PATH}?cb=${Date.now()}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return await res.json();
+async function fetchGoalsFromSupabase() {
+  if (!sb) throw new Error("Supabase not configured");
+
+  const { data: topicRows, error: topicErr } = await sb
+    .from("topics")
+    .select("*")
+    .order("sort_order", { ascending: true });
+  if (topicErr) throw topicErr;
+
+  const { data: goalRows, error: goalErr } = await sb
+    .from("goals")
+    .select("*");
+  if (goalErr) throw goalErr;
+
+  // Reshape goal rows into { topic_id: { easy:[...], medium:[...], hard:[...] } }
+  const goals = {};
+  goalRows.forEach(g => {
+    goals[g.topic_id] = goals[g.topic_id] || { easy: [], medium: [], hard: [] };
+    goals[g.topic_id][g.difficulty].push(g.text);
+  });
+
+  return { realms: topicRows, goals };
 }
 
 /**
- * Read suggestions.json from GitHub via the Contents API.
- * Returns { content: parsedObject, sha: "..." } so we can update in place.
- * The SHA is required by GitHub when you want to update an existing file —
- * think of it like a version stamp that prevents accidental overwrites.
+ * Insert a new suggestion into the "suggestions" table ("notepad #2").
+ * The public anon key can only INSERT here — it cannot read, update, or
+ * delete suggestions (see supabase_setup.sql RLS policies). Only the admin,
+ * signed in on admin.html, can review and approve/reject them.
  */
-async function readSuggestionsFile() {
-  const url = `${GH_API_BASE}/${GH_SUGGESTIONS_PATH}?ref=${GH_BRANCH}`;
-  const res = await fetch(url, {
-    headers: {
-      "Authorization": `Bearer ${GH_TOKEN}`,
-      "Accept": "application/vnd.github+json"
-    }
+async function insertSuggestion(entry) {
+  if (!sb) throw new Error("Supabase not configured");
+  const { error } = await sb.from("suggestions").insert({
+    theme:       entry.theme,
+    topic_id:    entry.topic_id,
+    difficulty:  entry.difficulty,
+    text:        entry.text
   });
-  if (!res.ok) throw new Error(`Read failed: HTTP ${res.status}`);
-  const data = await res.json();
-  // GitHub returns file content as Base64 — decode it to get the raw JSON string
-  const decoded = atob(data.content.replace(/\n/g, ""));
-  return { content: JSON.parse(decoded), sha: data.sha };
-}
-
-/**
- * Write an updated suggestions object back to GitHub.
- * Requires the SHA from readSuggestionsFile so GitHub knows we're
- * updating the latest version and not overwriting someone else's change.
- */
-async function writeSuggestionsFile(updatedContent, sha) {
-  const url = `${GH_API_BASE}/${GH_SUGGESTIONS_PATH}`;
-  // GitHub expects the new file content encoded as Base64
-  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(updatedContent, null, 2))));
-  const res = await fetch(url, {
-    method: "PUT",
-    headers: {
-      "Authorization": `Bearer ${GH_TOKEN}`,
-      "Accept": "application/vnd.github+json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      message: `Add suggestion: ${new Date().toISOString()}`,
-      content: encoded,
-      sha: sha,
-      branch: GH_BRANCH
-    })
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.message || `Write failed: HTTP ${res.status}`);
-  }
+  if (error) throw error;
 }
 
 // ============================================================
@@ -1112,14 +1059,12 @@ function backToThemes() {
 }
 
 // ============================================================
-// DATA LOADING — goals.json from GitHub
+// DATA LOADING — topics & goals from Supabase
 // ============================================================
 async function loadGoals() {
   try {
-    const data = await fetchGoalsFromGitHub();
-    // goals.json structure: { realms: [...], goals: {...} }
-    if (data.realms && data.goals) {
-      // Map realm names to the current theme
+    const data = await fetchGoalsFromSupabase();
+    if (data.realms && data.realms.length && data.goals) {
       topics  = data.realms.map(r => ({
         id:   r.id,
         icon: r.icon,
@@ -1128,12 +1073,12 @@ async function loadGoals() {
       }));
       goalsDB = data.goals;
     } else {
-      throw new Error("Unexpected goals.json shape");
+      throw new Error("No topics found in Supabase");
     }
   } catch (e) {
-    console.warn("goals.json fetch failed, using fallback:", e.message);
+    console.warn("Supabase fetch failed, using fallback:", e.message);
     useFallback();
-    showNotice("Using built-in goals (could not reach GitHub).", "warn");
+    showNotice("Using built-in goals (could not reach the database).", "warn");
   }
 }
 
@@ -1330,7 +1275,7 @@ function switchTab(t) {
 }
 
 // ============================================================
-// SUGGESTIONS — write directly to GitHub
+// SUGGESTIONS — insert into Supabase "suggestions" table
 // ============================================================
 
 function selectSugDiff(d) {
@@ -1357,19 +1302,11 @@ async function submitSuggestion() {
   if (!text)  { setSugStatus("Please write your intention first.", "err"); return; }
   if (!diff)  { setSugStatus("Please choose a difficulty level.", "err"); return; }
 
-  const realmLabel = topics.find(t => t.id === realmId)?.name || realmId;
-
-  // Build the new suggestion entry
   const newEntry = {
-    id:            `sug_${Date.now()}`,
-    submitted_at:  new Date().toISOString(),
-    theme:         currentTheme,
-    topic_id:      realmId,
-    topic_label:   realmLabel,
-    difficulty:    diff,
-    text:          text,
-    status:        "pending",
-    reviewer_notes: ""
+    theme:      currentTheme,
+    topic_id:   realmId,
+    difficulty: diff,
+    text:       text
   };
 
   const btn = document.getElementById("btnSubmitSug");
@@ -1377,15 +1314,7 @@ async function submitSuggestion() {
   setSugStatus(T.sugSending, "sending");
 
   try {
-    // 1. Read the current file to get its SHA and existing suggestions
-    const { content: current, sha } = await readSuggestionsFile();
-
-    // 2. Append our new entry
-    current.suggestions.push(newEntry);
-
-    // 3. Write the updated file back
-    await writeSuggestionsFile(current, sha);
-
+    await insertSuggestion(newEntry);
     setSugStatus(T.sugOk, "ok");
     document.getElementById("sugText").value = "";
     selSugDiff = null;
