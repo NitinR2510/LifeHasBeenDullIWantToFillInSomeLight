@@ -1,0 +1,184 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "Approved goals for the Book of Intentions app. Structure: realms[] defines topic metadata per theme; goals{} is keyed by topic_id > difficulty.",
+    "difficulties": ["easy", "medium", "hard"],
+    "themes": ["fellowship", "glass", "book"]
+  },
+
+  "realms": [
+    {
+      "id": "career",
+      "icon": "◈",
+      "name_fellowship": "The Forge",
+      "name_glass": "Career & Productivity",
+      "name_book": "Work & Purpose",
+      "desc_fellowship": "Work, focus, craft",
+      "desc_glass": "Focus, growth, craft",
+      "desc_book": "Vocation, calling"
+    },
+    {
+      "id": "health",
+      "icon": "◎",
+      "name_fellowship": "The Body's Path",
+      "name_glass": "Health & Fitness",
+      "name_book": "Body & Vitality",
+      "desc_fellowship": "Strength, vitality",
+      "desc_glass": "Body, energy, habits",
+      "desc_book": "Strength, rest, care"
+    },
+    {
+      "id": "relationships",
+      "icon": "◉",
+      "name_fellowship": "Fellowship",
+      "name_glass": "Relationships",
+      "name_book": "People & Love",
+      "desc_fellowship": "Bonds, kinship, love",
+      "desc_glass": "Connection, kindness",
+      "desc_book": "Bonds, presence"
+    },
+    {
+      "id": "creativity",
+      "icon": "◇",
+      "name_fellowship": "The Artisan",
+      "name_glass": "Creativity",
+      "name_book": "Making & Art",
+      "desc_fellowship": "Making, imagining",
+      "desc_glass": "Art, play, expression",
+      "desc_book": "Creation, expression"
+    },
+    {
+      "id": "mindfulness",
+      "icon": "○",
+      "name_fellowship": "The Still Wood",
+      "name_glass": "Mindfulness",
+      "name_book": "Inner Life",
+      "desc_fellowship": "Peace, presence",
+      "desc_glass": "Calm, clarity",
+      "desc_book": "Stillness, reflection"
+    },
+    {
+      "id": "finance",
+      "icon": "◆",
+      "name_fellowship": "The Treasury",
+      "name_glass": "Finance & Money",
+      "name_book": "Resources",
+      "desc_fellowship": "Wealth, stewardship",
+      "desc_glass": "Wealth, security",
+      "desc_book": "Stewardship, sufficiency"
+    }
+  ],
+
+  "goals": {
+
+    "career": {
+      "easy": [
+        "Write down every task weighing on your mind and pick just one to finish today.",
+        "Spend 30 minutes clearing your inbox down to only what needs a reply.",
+        "Block one hour this week with no meetings and use it only for deep work."
+      ],
+      "medium": [
+        "Draft the proposal or document you have been postponing for more than a week.",
+        "Have the direct conversation with a colleague you have been avoiding.",
+        "Map out your next 30 days and identify where your time is being lost."
+      ],
+      "hard": [
+        "Dedicate five focused hours this week to the single project that matters most to your long-term path.",
+        "Reach out to three people in your field you admire and start a real conversation.",
+        "Audit every recurring commitment you have and eliminate at least one that no longer serves you."
+      ]
+    },
+
+    "health": {
+      "easy": [
+        "Drink eight glasses of water today without exception.",
+        "Take a 20-minute walk outside before the day ends.",
+        "Sleep before midnight tonight and rise without hitting snooze."
+      ],
+      "medium": [
+        "Complete four workouts this week, each at least 30 minutes long.",
+        "Cook every meal you eat for the next five days from whole ingredients.",
+        "Cut out one food or drink that you know is harming you, for the entire week."
+      ],
+      "hard": [
+        "Train every morning this week before 7 AM, without negotiation.",
+        "Run or walk a total of 30 kilometres across this week.",
+        "Go one full week without alcohol, refined sugar, and processed food simultaneously."
+      ]
+    },
+
+    "relationships": {
+      "easy": [
+        "Send a message to someone you have not spoken to in over a month.",
+        "Call a family member you love and simply listen to them for 20 minutes.",
+        "Write a note of genuine appreciation to someone who has helped you recently."
+      ],
+      "medium": [
+        "Plan and follow through on a meaningful evening with someone important to you.",
+        "Have an honest conversation about something you have been keeping to yourself.",
+        "Apologise sincerely to someone you have wronged, without justification."
+      ],
+      "hard": [
+        "Initiate the difficult conversation in a relationship that has been quietly suffering.",
+        "Spend an entire day fully present with the people you love — no phone, no distraction.",
+        "Commit to one act of service for someone who cannot repay you, this week."
+      ]
+    },
+
+    "creativity": {
+      "easy": [
+        "Spend 30 minutes making something with no purpose other than the joy of making.",
+        "Write three pages in longhand about anything at all, without editing.",
+        "Sketch or doodle for 20 minutes before you open any screen today."
+      ],
+      "medium": [
+        "Complete one creative piece — a chapter, a painting, a song — start to finish this week.",
+        "Set aside two hours each day for creative work and protect them like appointments.",
+        "Share something you have made with at least one other person, however unfinished it feels."
+      ],
+      "hard": [
+        "Commit to one hour of creative practice every single morning this week before anything else.",
+        "Finish and publish or share a complete creative work by the end of this week.",
+        "Start the project you have been imagining for months and produce something tangible by Sunday."
+      ]
+    },
+
+    "mindfulness": {
+      "easy": [
+        "Sit in silence for ten minutes today with no phone, no music, no input.",
+        "Before bed, write three things that were genuinely good about today.",
+        "Eat one meal today slowly, without a screen, noticing every bite."
+      ],
+      "medium": [
+        "Meditate for 20 minutes each morning this week, before looking at your phone.",
+        "Keep a journal entry every night this week reflecting on what you felt, not just what you did.",
+        "Spend one full afternoon this week in nature with no agenda and no device."
+      ],
+      "hard": [
+        "Begin each day this week in silence for 30 minutes before speaking to anyone.",
+        "Observe a full digital sabbath — one day this week with no screens at all.",
+        "Write down every anxious thought the moment it arises each day this week, then consciously let it go."
+      ]
+    },
+
+    "finance": {
+      "easy": [
+        "Write down every purchase you made in the last seven days and total them honestly.",
+        "Cancel one subscription you have not used in the last month.",
+        "Transfer a small amount — even symbolic — into your savings account today."
+      ],
+      "medium": [
+        "Build a complete budget for next month and identify where you will cut 10% of spending.",
+        "Research and open a savings or investment account you have been putting off.",
+        "Negotiate one bill, subscription, or rate that you have been paying without questioning."
+      ],
+      "hard": [
+        "Track every single penny you spend this week and sit with what it reveals about your values.",
+        "Set a concrete financial goal with a deadline and build a week-by-week plan to reach it.",
+        "Have the honest money conversation with your partner, family, or yourself that you have been avoiding."
+      ]
+    }
+
+  }
+}
+c:\Users\Dell\Downloads\suggestions.json

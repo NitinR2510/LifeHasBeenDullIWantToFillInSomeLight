@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin — Suggestion Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:#0f0d09;color:#e8dcc1;min-height:100vh;padding:2rem 1rem 4rem;}
+.wrap{max-width:720px;margin:0 auto;}
+h1{font-size:20px;font-weight:600;color:#c9a84c;margin-bottom:1.5rem;}
+p.sub{color:#8a7a5a;font-size:13px;margin-bottom:2rem;}
+
+#loginBox{background:#1a1208;border:1px solid rgba(201,168,76,0.25);border-radius:8px;padding:1.5rem;max-width:360px;}
+#loginBox label{display:block;font-size:12px;color:#8a7a5a;margin-bottom:4px;}
+#loginBox input{width:100%;padding:9px 10px;margin-bottom:12px;border-radius:4px;border:0.5px solid rgba(201,168,76,0.3);background:#2a1f0e;color:#e8dcc1;}
+#loginBox button{width:100%;padding:10px;border-radius:4px;border:1px solid rgba(201,168,76,0.5);background:#3a2c12;color:#f5e8ca;cursor:pointer;font-weight:500;}
+#loginBox button:hover{border-color:#c9a84c;}
+#loginErr{color:#F09595;font-size:12px;margin-top:8px;display:none;}
+
+#adminPanel{display:none;}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;}
+.signout{font-size:12px;color:#8a7a5a;background:none;border:none;cursor:pointer;text-decoration:underline;}
+
+.sug-card{background:#1a1208;border:0.5px solid rgba(201,168,76,0.2);border-radius:8px;padding:1.25rem;margin-bottom:12px;}
+.sug-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;}
+.tag{font-size:10px;letter-spacing:0.05em;padding:3px 10px;border-radius:20px;border:0.5px solid rgba(201,168,76,0.3);color:#c9a84c;text-transform:uppercase;}
+.sug-text{font-size:15px;line-height:1.6;color:#f0e6c8;margin-bottom:10px;}
+.sug-date{font-size:11px;color:#6a5a3a;margin-bottom:12px;}
+.actions{display:flex;gap:8px;}
+.actions button{padding:7px 16px;border-radius:4px;border:0.5px solid rgba(201,168,76,0.3);background:transparent;color:#b8a98a;cursor:pointer;font-size:12px;}
+.approve{color:#5DCAA5!important;border-color:rgba(93,202,165,0.4)!important;}
+.approve:hover{background:rgba(93,202,165,0.08);}
+.reject{color:#F09595!important;border-color:rgba(240,149,149,0.4)!important;}
+.reject:hover{background:rgba(240,149,149,0.08);}
+.empty{text-align:center;color:#6a5a3a;padding:3rem 0;font-size:14px;}
+.err{color:#F09595;font-size:13px;margin-top:1rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Suggestion Review</h1>
+  <p class="sub">Pending suggestions submitted by visitors. Approve to add them to the live goal list, or reject them.</p>
+
+  <div id="loginBox">
+    <label for="email">Email</label>
+    <input type="email" id="email" autocomplete="username"/>
+    <label for="password">Password</label>
+    <input type="password" id="password" autocomplete="current-password"/>
+    <button onclick="login()">Sign in</button>
+    <p id="loginErr"></p>
+  </div>
+
+  <div id="adminPanel">
+    <div class="topbar">
+      <span id="whoami" style="font-size:12px;color:#8a7a5a;"></span>
+      <button class="signout" onclick="logout()">Sign out</button>
+    </div>
+    <div id="list"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// SUPABASE CONFIG — same project as index.html
+// ============================================================
+const SUPABASE_URL      = "https://dwutvaktbxandgcklncu.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3dXR2YWt0YnhhbmRnY2tsbmN1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgzNzY3NzQsImV4cCI6MjEwMzk1Mjc3NH0.nl6vNkEQqO721miK3kWY5j6-GAbxA-Ps2jsQcUaVpnY";
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let topicsById = {};
+
+async function login() {
+  const email    = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const errEl    = document.getElementById("loginErr");
+  errEl.style.display = "none";
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if (error) {
+    errEl.textContent = error.message;
+    errEl.style.display = "block";
+    return;
+  }
+  showPanel();
+}
+
+async function logout() {
+  await sb.auth.signOut();
+  document.getElementById("loginBox").style.display = "block";
+  document.getElementById("adminPanel").style.display = "none";
+}
+
+async function showPanel() {
+  const { data: { user } } = await sb.auth.getUser();
+  if (!user) return;
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("adminPanel").style.display = "block";
+  document.getElementById("whoami").textContent = "Signed in as " + user.email;
+  await loadTopics();
+  await loadPending();
+}
+
+async function loadTopics() {
+  const { data, error } = await sb.from("topics").select("id, name_fellowship");
+  if (error) { console.error(error); return; }
+  topicsById = {};
+  data.forEach(t => topicsById[t.id] = t.name_fellowship);
+}
+
+async function loadPending() {
+  const list = document.getElementById("list");
+  const { data, error } = await sb
+    .from("suggestions")
+    .select("*")
+    .eq("status", "pending")
+    .order("submitted_at", { ascending: true });
+
+  if (error) {
+    list.innerHTML = `<p class="err">Could not load suggestions: ${error.message}</p>`;
+    return;
+  }
+  if (!data.length) {
+    list.innerHTML = `<div class="empty">No pending suggestions right now.</div>`;
+    return;
+  }
+  list.innerHTML = data.map(s => `
+    <div class="sug-card" id="sug-${s.id}">
+      <div class="sug-meta">
+        <span class="tag">${topicsById[s.topic_id] || s.topic_id}</span>
+        <span class="tag">${s.difficulty}</span>
+        <span class="tag">${s.theme}</span>
+      </div>
+      <div class="sug-text">${escapeHtml(s.text)}</div>
+      <div class="sug-date">Submitted ${new Date(s.submitted_at).toLocaleString()}</div>
+      <div class="actions">
+        <button class="approve" onclick="approve('${s.id}','${s.topic_id}','${s.difficulty}')">Approve</button>
+        <button class="reject" onclick="reject('${s.id}')">Reject</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function escapeHtml(str) {
+  const d = document.createElement("div");
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+async function approve(id, topicId, difficulty) {
+  const card = document.getElementById("sug-" + id);
+  const { data: sugRows, error: fetchErr } = await sb.from("suggestions").select("text").eq("id", id).single();
+  if (fetchErr) { alert(fetchErr.message); return; }
+
+  const { error: insertErr } = await sb.from("goals").insert({
+    topic_id: topicId, difficulty, text: sugRows.text
+  });
+  if (insertErr) { alert(insertErr.message); return; }
+
+  const { error: updateErr } = await sb.from("suggestions").update({ status: "approved" }).eq("id", id);
+  if (updateErr) { alert(updateErr.message); return; }
+
+  card.remove();
+  checkEmpty();
+}
+
+async function reject(id) {
+  const card = document.getElementById("sug-" + id);
+  const { error } = await sb.from("suggestions").update({ status: "rejected" }).eq("id", id);
+  if (error) { alert(error.message); return; }
+  card.remove();
+  checkEmpty();
+}
+
+function checkEmpty() {
+  const list = document.getElementById("list");
+  if (!list.children.length) list.innerHTML = `<div class="empty">No pending suggestions right now.</div>`;
+}
+
+// Resume session on reload
+sb.auth.getSession().then(({ data: { session } }) => {
+  if (session) showPanel();
+});
+</script>
+</body>
+</html>
