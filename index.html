@@ -1206,7 +1206,14 @@ function planJourney() {
 
 function planSavedGoal(ts) {
   const goal = saved.find(g => g.ts === ts) || history.find(g => g.ts === ts);
-  if (goal) openPlan(goal);
+  if (!goal) return;
+
+  // Saved and history items can be planned before a new goal has been generated
+  // in this session, so restore their card before revealing the nested plan.
+  curGoal = goal;
+  renderScroll(goal);
+  document.getElementById("scrollWrap").classList.add("visible");
+  openPlan(goal);
 }
 
 function getPlanSteps(goal) {
