@@ -5,6 +5,7 @@
 - **Content storage**: goals that visitors see now live in a Supabase database table (`goals`), not hardcoded in the HTML/JS.
 - **Suggestions**: visitors can submit a suggestion, which lands in a separate `suggestions` table with `status = pending`. It does **not** show up on the site.
 - **Admin review**: `admin.html` is a separate, password-protected page where you sign in, see pending suggestions, and Approve (moves it into `goals`, visible to everyone) or Reject.
+- **Tailored plans**: the “Plan” action sends the selected goal to a Supabase Edge Function, which uses the OpenAI API to create actionable steps. Plans are not stored or hardcoded in the site.
 - The old approach — writing straight to a GitHub file using a personal access token embedded in the page source — is gone. That token was visible to anyone who viewed the page source, which is a real security problem for a public GitHub Pages site.
 
 ## 1. Create a Supabase project
@@ -38,6 +39,26 @@ and replace the two placeholder strings with your actual values.
 ## 6. Deploy
 - Commit and push `index.html`, `admin.html`, and (optionally, for your own reference) `supabase_setup.sql` and this file to your GitHub Pages repo.
 - `admin.html` isn't linked from the public site anywhere — you just visit it directly at `https://yoursite.github.io/admin.html` when you want to review suggestions. Its login screen is the only thing protecting it, so keep your admin password private.
+
+## 7. Deploy the plan generator
+The client calls an Edge Function named `generate-goal-plan`. Its source is in `supabase/functions/generate-goal-plan/index.ts`; the OpenAI key stays on Supabase and is never exposed in `index.html`.
+
+1. Install and sign in to the [Supabase CLI](https://supabase.com/docs/guides/cli).
+2. Link this folder to your project, then set the server-only OpenAI secret:
+   ```bash
+   supabase link --project-ref YOUR_PROJECT_REF
+   supabase secrets set OPENAI_API_KEY=your_openai_api_key
+   ```
+3. Deploy the function with JWT verification enabled:
+   ```bash
+   supabase functions deploy generate-goal-plan
+   ```
+4. In the OpenAI dashboard, set an appropriate project budget and usage limits. The function uses `gpt-5-mini` by default; override it without a code change by setting `OPENAI_MODEL`:
+   ```bash
+   supabase secrets set OPENAI_MODEL=gpt-5-mini
+   ```
+
+The public site sends only the selected goal, topic, difficulty, and theme. The function validates those values, returns 3–7 plain-text steps, and does not persist them. If the function or OpenAI is unavailable, visitors see a retry message instead of a generic, hardcoded plan.
 
 ## Reviewing suggestions going forward
 1. Visit `admin.html`, sign in.

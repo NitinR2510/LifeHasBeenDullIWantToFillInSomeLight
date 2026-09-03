@@ -201,11 +201,14 @@ body.fellowship{background:#1a1208;}
 .plan-title{font-size:13px;margin-bottom:0.5rem;}
 .plan-goal{font-size:14px;line-height:1.55;margin-bottom:0.75rem;}
 .plan-list{padding-left:1.25rem;display:flex;flex-direction:column;gap:0.55rem;font-size:14px;line-height:1.55;}
+.plan-status{font-size:13px;line-height:1.55;margin:0.75rem 0;}
+.plan-status[hidden]{display:none;}
 .plan-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem;}
 .plan-actions button{padding:7px 14px;cursor:pointer;}
 .fellowship .plan-wrap{background:#3a2c12;border:0.5px solid rgba(201,168,76,0.25);color:#d4c49e;}
 .fellowship .plan-title{font-family:'Cinzel',serif;letter-spacing:0.1em;color:#c9a84c;text-transform:uppercase;}
 .fellowship .plan-goal,.fellowship .plan-list{font-family:'Crimson Text',serif;}
+.fellowship .plan-status{font-family:'Crimson Text',serif;color:#b8a98a;font-style:italic;}
 .fellowship .plan-actions button{font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.08em;border-radius:2px;border:0.5px solid rgba(201,168,76,0.3);background:transparent;color:#b8a98a;}
 .fellowship .scroll-cap-bot{height:18px;background:#3a2c12;border-radius:0 0 3px 3px;border:0.5px solid rgba(201,168,76,0.25);border-top:none;display:flex;align-items:center;justify-content:center;}
 
@@ -324,6 +327,7 @@ body.glass{background:linear-gradient(160deg,#dde8ff 0%,#ede4ff 50%,#fde0ec 100%
 .glass .plan-wrap{background:rgba(255,255,255,0.5);border:0.5px solid rgba(255,255,255,0.75);color:#1e1b4b;}
 .glass .plan-title,.glass .plan-goal,.glass .plan-list{font-family:'Inter',sans-serif;}
 .glass .plan-title{font-weight:500;color:#4338ca;}
+.glass .plan-status{font-family:'Inter',sans-serif;color:#5b5b8a;}
 .glass .plan-actions button{font-family:'Inter',sans-serif;font-size:11px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.7);background:rgba(255,255,255,0.5);color:#4338ca;}
 
 .glass .divider{display:flex;align-items:center;gap:12px;margin:1.5rem 0;}
@@ -444,6 +448,7 @@ body.book{background:#f7f4ef;}
 .book .plan-wrap{background:#fffdf9;border:0.5px solid #e0d8cc;border-left:3px solid #b5977a;color:#2c2416;}
 .book .plan-title,.book .plan-goal,.book .plan-list{font-family:'Lora',serif;}
 .book .plan-title{color:#7c6f5a;}
+.book .plan-status{font-family:'Lora',serif;color:#7c6f5a;font-style:italic;}
 .book .plan-actions button{font-family:'Inter',sans-serif;font-size:11px;border-radius:3px;border:0.5px solid #e0d8cc;background:#fffdf9;color:#7c6f5a;}
 
 .book .divider{display:flex;align-items:center;gap:12px;margin:1.5rem 0;}
@@ -671,6 +676,7 @@ body.book{background:#f7f4ef;}
         <section class="plan-wrap" id="planWrap" aria-live="polite" aria-labelledby="planTitle">
           <h2 class="plan-title" id="planTitle">Your step-by-step plan</h2>
           <p class="plan-goal" id="planGoal"></p>
+          <p class="plan-status" id="planStatus" hidden></p>
           <ol class="plan-list" id="planList"></ol>
           <div class="plan-actions">
             <button onclick="copyPlan()">Copy plan</button>
@@ -890,6 +896,7 @@ let selSugDiff = null;
 let saved = [], history = [];
 let pendingTheme = null;
 let musicPlaying = false;
+let planRequestNumber = 0;
 
 const RULES = [
   "This app gives guidance, not pressure — choose goals that are realistic for you.",
@@ -1209,50 +1216,53 @@ function planSavedGoal(ts) {
   if (goal) openPlan(goal);
 }
 
-function getPlanSteps(goal) {
-  const finishLine = `Define “done” for this intention: ${goal.text}`;
-  const prepare = "Put the next session on your calendar and prepare everything you need before it starts.";
-  const checkIn = "After each session, note what you completed and choose the smallest next action.";
-  const plans = {
-    easy: [
-      finishLine,
-      prepare,
-      "Do one focused session today. Keep it small enough to finish, then mark the intention complete."
-    ],
-    medium: [
-      finishLine,
-      prepare,
-      "Complete the first focused session today; aim for progress rather than a perfect result.",
-      checkIn,
-      "Schedule a final session this week to finish the intention and reflect on what helped."
-    ],
-    hard: [
-      finishLine,
-      "Break the week into daily sessions and reserve them on your calendar before you begin.",
-      "Start with the smallest concrete action today, even if it only takes ten minutes.",
-      checkIn,
-      "Midweek, adjust the plan instead of abandoning it if a session was missed.",
-      "Use a final focused session to finish what remains and record the result."
-    ]
-  };
-  return plans[goal.difficulty] || plans.medium;
+function setPlanStatus(message) {
+  const status = document.getElementById("planStatus");
+  status.textContent = message;
+  status.hidden = !message;
 }
 
-function openPlan(goal) {
+async function openPlan(goal) {
+  const requestNumber = ++planRequestNumber;
   const wrap = document.getElementById("planWrap");
   const list = document.getElementById("planList");
   document.getElementById("planGoal").textContent = goal.text;
-  list.replaceChildren(...getPlanSteps(goal).map(step => {
-    const item = document.createElement("li");
-    item.textContent = step;
-    return item;
-  }));
+  list.replaceChildren();
+  setPlanStatus("Creating a tailored plan…");
   wrap.classList.add("visible");
   wrap.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  try {
+    if (!sb) throw new Error("Supabase is not configured");
+    const { data, error } = await sb.functions.invoke("generate-goal-plan", {
+      body: {
+        goal: goal.text,
+        topic: goal.topic,
+        difficulty: goal.difficulty,
+        theme: goal.theme
+      }
+    });
+    if (error) throw error;
+    if (!Array.isArray(data?.steps) || data.steps.length === 0) {
+      throw new Error("The plan service returned no steps");
+    }
+    if (requestNumber !== planRequestNumber) return;
+    list.replaceChildren(...data.steps.map(step => {
+      const item = document.createElement("li");
+      item.textContent = step;
+      return item;
+    }));
+    setPlanStatus("");
+  } catch (error) {
+    console.error("Could not generate plan:", error);
+    if (requestNumber !== planRequestNumber) return;
+    setPlanStatus("We could not create a plan right now. Please try again.");
+  }
 }
 
 function closePlan() {
+  planRequestNumber++;
   document.getElementById("planWrap").classList.remove("visible");
+  setPlanStatus("");
 }
 
 function copyPlan() {
